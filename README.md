@@ -14,6 +14,8 @@ sudo apt-get install openjdk-7-jdk eclipse
 Here are instructions provided by FIRST to using Eclipse for FRC.
 [FRC Eclipse Plugin](http://firstforge.wpi.edu/sf/docman/do/downloadDocument/projects.wpilib/docman.root.c_and_java_documentation/doc1303/1)
 
+If you need Oracle's official JDK 7, it can be found [here](http://www.oracle.com/technetwork/java/javase/downloads/java-se-jdk-7-download-432154.html).
+
 Once you have Eclipse set up, point it to our team number, but otherwise there is no need to create a new project.
 The project you will be working on is right here!
 
