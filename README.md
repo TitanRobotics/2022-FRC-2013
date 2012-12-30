@@ -23,13 +23,21 @@ Code sharing will be handled by _git_ through _github_, which you see here.
 
 ### Windows
 
-This is actually the hardest to install, but not horrible.
+You have Two Options!
 
-Start out by installing the latest version of [Git for Windows](http://code.google.com/p/msysgit/downloads/detail?name=Git-1.8.0-preview20121022.exe&can=2&q=full+installer+official+git).
+One is to try out [Github for Windows](http://windows.github.com/). I haven't used it myself, but you can try it!
+Don't forget to install __Git Flow__ too!
+
+Otherwise, start out by installing the latest version of [Git for Windows](http://code.google.com/p/msysgit/downloads/detail?name=Git-1.8.0-preview20121022.exe&can=2&q=full+installer+official+git).
+This is a bit harder to set up, but I have it running on my machine and it works like a charm.
 When the installation starts, you want to choose all the default options, please make no modifications.
 So, you should use Git Bash only, Checkout Windows-Style Commit Unix-Style line endings, etc.
 
-Now to install Git Flow:
+####Now to install Git Flow!
+
+Specific install instructions for GitHub for Windows can be found [here](https://github.com/nvie/gitflow/wiki/Windows).
+
+Otherwise, try the instructions below:
 
 Download and install `getopt.exe` from the [util-linux package](http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm) into `C:\Program Files\Git\bin`. (Only `getopt.exe`, the others util-linux files are not used). Also install `libintl3.dll` from the Dependencies package, into the same directory. 
 
@@ -78,7 +86,20 @@ sudo apt-get install git git-flow
 
 Continue to the Git Usage Instructions.
 
-## Git Usage Instructions
+## Git Usage Instructions (Git for Windows)
+
+__If you use GitHub for Windows, you will not need to follow most of these instructions, but you MUST use git flow
+features if you want to make changes, so see if you can get it working!__
+
+### Identify Yourself!
+
+Start by running the following commands with your GitHub username and email:
+```
+git config --global user.name "User name"
+git config --global user.email user@example.com
+```
+
+Note: This email will be visible to everybody else working on GitHub.
 
 ### Checking Out a Repo
 
