@@ -23,8 +23,29 @@ Code sharing will be handled by _git_ through _github_, which you see here.
 
 ### Windows
 
+This is actually the hardest to install, but not horrible.
+
+Start out by installing [Git for Windows](
+
 ### Mac OS X
 
+Start out by downloading and installing [Homebrew](http://mxcl.github.com/homebrew/), a Mac-specific package manager.
+
+Then, run the following command:
+
+```
+brew install git git-flow
+```
+
+Continue to the Git Usage Instructions.
+
 ### Linux (Ubuntu and Derivatives)
+
+It's easy! Just run:
+```
+sudo apt-get install git git-flow
+```
+
+Continue to the Git Usage Instructions.
 
 
