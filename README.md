@@ -165,6 +165,12 @@ Lets use Issue 100 as an example:
 git flow feature start 100-new-drivebase-subsystem
 ```
 
+To put the feature on GitHub:
+```
+git flow feature publish 100-new-drivebase-subsystem
+```
+
+
 To check which feature you are on, run one of these two commands:
 ```
 git branch
