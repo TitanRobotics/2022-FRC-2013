@@ -1,3 +1,19 @@
+## Introduction
+
+Well, build season is finally here, so it is time to get fired up!
+Once season starts, it will be a firestorm: the lab will be open every day during Intersession and every night
+for the next 5 weeks from 7 to 10. Anytime you are available, stop by! There is always something to work on.
+
+This year, we will be switching to Java from C++ and from SVN to Git, so if you know any Java programmers, tell them to
+stop by when they can. The more programmers, the merrier!
+
+Remember: The only people touching this code directly are sophomores and juniors. It is your time to shine!
+Keep your eyes on the Wiki for updates and documentation.
+
+Final Comment: Remember to comment your code!
+
+Here's to a good season. Good Luck!
+
 ## Installation Steps
 
 You should use Eclipse to do the actual code editing, compiling, and deploying to the Robot.
