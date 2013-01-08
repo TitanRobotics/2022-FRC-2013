@@ -212,3 +212,4 @@ egordon@imsa.edu
 ## The following people have successfully completed their tutorial issue!
 Ethan Gordon
 Emma Sloan
+Nick Magerko
