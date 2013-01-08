@@ -213,3 +213,4 @@ egordon@imsa.edu
 Ethan Gordon
 Emma Sloan
 Nick Magerko
+Dennis Rich
