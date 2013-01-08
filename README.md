@@ -201,6 +201,11 @@ When you finish your feature __and__ tested to make sure that it works, find it 
 the button on the top of the screen. From there, while you can merge it into the master branch yourself, I will ask that
 you let either Vimig, Andrew, or Ethan review it first.
 
+### A Side Note on GitHub for Windows...
+
+If you would like to try using GitHub for Windows, please follow the information on [GitHub's site](https://github.com/nvie/gitflow/wiki/Windows).
+Note that you might have to do so quick searching through the file system to get it set up!
+
 ## That's It! Any Questions?
 egordon@imsa.edu
 
