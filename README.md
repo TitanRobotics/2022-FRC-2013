@@ -57,7 +57,8 @@ Specific install instructions for GitHub for Windows can be found [here](https:/
 
 Otherwise, try the instructions below:
 
-Download and install `getopt.exe` from the [util-linux package](http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm) into `C:\Program Files\Git\bin`. (Only `getopt.exe`, the others util-linux files are not used). Also install `libintl3.dll` from the Dependencies package, into the same directory. 
+Download and install `getopt.exe` from the [util-linux package](http://gnuwin32.sourceforge.net/packages/util-linux-ng.htm) binaries and `libintl3.dll` from the dependencies package into `C:\Program Files (x86)\Git\bin`. 
+(Only `getopt.exe` and `libintl3.dll`, the others util-linux files are not used).
 
 In the Git Bash Program, clone the git-flow sources from GitHub:
 ```
