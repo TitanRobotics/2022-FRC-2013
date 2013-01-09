@@ -208,4 +208,3 @@ egordon@imsa.edu
 Ethan Gordon
 Emma Sloan
 Nick Magerko
-PRosa
