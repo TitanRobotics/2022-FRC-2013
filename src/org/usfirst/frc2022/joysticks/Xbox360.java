@@ -182,23 +182,20 @@ public class Xbox360 extends Joystick{
 
 	/**
 	 * Get the angle of the left joystick.
-	 * It is counterlockise, 0 is down.
+	 * It is counter-clockwise, 0 is down.
 	 * 
 	 * @param	reflectCircle	Choose whether to reflect over the Y axis.
 	 * @return 		The angle of the left joystick.
 	 */
 	double GetLeftAngle(boolean reflectCircle) {
 		float yAxis = (float) (-1 * GetLeftY());
-		//type cast to float
 		float xAxis;
 
 		if (reflectCircle) {
 			xAxis = (float) GetLeftX();
-			//type cast to float
 		}
 		else {
 			xAxis = (float) (-1 * GetLeftX());
-			//type cast to float
 		}
 
 		double angle;
@@ -346,7 +343,7 @@ public class Xbox360 extends Joystick{
 	 * @return The magnitude of the left joystick.
 	 */
 	double GetLeftMagnitude() {
-		return (Limit(Math.sqrt(Math.pow(GetLeftX(), 2) + Math.pow(GetLeftY(), 2))));
+		return (Limit(Math.sqrt(Math.pow(GetLeftX(), (double)(2)) + Math.pow(GetLeftY(), (double)(2)))));
 	}
 
 	/**
@@ -357,7 +354,7 @@ public class Xbox360 extends Joystick{
 	 * @return The magnitude of the right joystick.
 	 */
 	double GetRightMagnitude() {
-		return (Limit(Math.sqrt(Math.pow(GetRightX(), 2) + Math.pow(GetRightY(), 2))));
+		return (Limit(Math.sqrt(Math.pow(GetRightX(), (double)(2)) + Math.pow(GetRightY(), (double)(2)))));
 	}
 
 	////////////////Get Raw Button Methods to be used by Command/Subsystem Interface
