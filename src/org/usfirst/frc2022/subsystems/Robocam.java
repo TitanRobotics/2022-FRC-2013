@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Image processor using NIVision to find "shining" rectangles once an image is 
  * filtered with low light. The CriteriaCollection contains the "rules" used to 
- * analyze the maximum width of the received triangles. 
+ * analyze the maximum width of the received rectangles. 
  * 
  * Modified from original post on http://www.chiefdelphi.com/forums/showthread.php?t=109657
  * 
@@ -55,16 +55,17 @@ public class Robocam {
 	 */
 	public void analyze(){
 		try{
-			ColorImage image = camera.getImage(); //newRGBImage(string filename) for loading an image
-			BinaryImage thresholdImage = image.thresholdRGB(25, 255, 0, 45, 0, 47);   // keep red objects
+			ColorImage image = camera.getImage(); 										//newRGBImage(string filename) for loading an image
+			BinaryImage thresholdImage = image.thresholdRGB(0, 45, 25, 255, 0, 47);   	// keep green reflection
 			BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
-			BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          // fill in occluded rectangles
-			BinaryImage filteredImage = convexHullImage.particleFilter(collection);           // find filled in rectangles
+			BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          	// fill in occluded rectangles
+			BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles
 			
 			ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
-			for (int i = 0; i < reports.length; i++) {                                // print results
+			for (int i = 0; i < reports.length; i++) {                                	// print results
                 ParticleAnalysisReport r = reports[i];
-                System.out.println("Particle: " + i + ":  Center of mass x: " + r.center_mass_x);
+                System.out.println("Particle " + i + ":  Center of mass: (" + r.center_mass_x + "), (" + r.center_mass_y + ")");
+                System.out.println("Particle " + i + ":  Height, width: " + r.imageHeight + ", " + r.imageWidth);
             }
 			
 			System.out.println(filteredImage.getNumberParticles() + "  " + Timer.getFPGATimestamp());
