@@ -1,8 +1,9 @@
-package org.usfirst.frc2022.joysticks;
+package org.usfirst.frc2022.Joysticks;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
+import com.sun.squawk.util.MathUtils;
 import java.lang.Math;
 
 /**
@@ -10,7 +11,7 @@ import java.lang.Math;
  * accesses all of the buttons and throttles on this controller.
  * 
  * This class relies on the Joystick class to interface with the Drivers Station, 
- * receiving input from the controller, and the Java "Math" class in place of the 
+ * receiving input from the controller, and the Java "MathUtils" class in place of the 
  * legacy "CustomMath" library.
  * 
  * @param port	The joystick's port
@@ -198,7 +199,7 @@ public class Xbox360 extends Joystick{
 			xAxis = (float) (-1 * GetLeftX());
 		}
 
-		double angle;
+		double angle = 0;
 
 		if (xAxis == 0 && yAxis == 0)
 		{
@@ -229,19 +230,19 @@ public class Xbox360 extends Joystick{
 		}
 		else if (yAxis > 0 && xAxis > 0)
 		{
-			angle = Math.atan(yAxis/xAxis) + (3*Math.PI/2);
+			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
 		}
 		else if (yAxis > 0 && xAxis < 0)
 		{
-			angle = (Math.PI/2) + Math.atan(yAxis/xAxis);
+			angle = (Math.PI/2) + MathUtils.atan(yAxis/xAxis);
 		}
 		else if (yAxis < 0 && xAxis > 0)
 		{	
-			angle = Math.atan(yAxis/xAxis) + (3*Math.PI/2);
+			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
 		}
 		else if(yAxis < 0 && xAxis < 0)
 		{
-			angle = Math.atan(yAxis/xAxis) + (Math.PI / 2);
+			angle = MathUtils.atan(yAxis/xAxis) + (Math.PI / 2);
 		}
 
 		if(angle >= (2*Math.PI))
@@ -277,7 +278,7 @@ public class Xbox360 extends Joystick{
 			xAxis = (float) (-1 * GetRightX());
 		}
 
-		double angle;
+		double angle = 0;
 
 		if (xAxis == 0 && yAxis == 0)
 		{
@@ -307,19 +308,19 @@ public class Xbox360 extends Joystick{
 		}
 		else if (yAxis > 0 && xAxis > 0)
 		{
-			angle = Math.atan(yAxis/xAxis) + (3*Math.PI/2);
+			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
 		}
 		else if (yAxis > 0 && xAxis < 0)
 		{
-			angle = (Math.PI/2) + Math.atan(yAxis/xAxis);
+			angle = (Math.PI/2) + MathUtils.atan(yAxis/xAxis);
 		}
 		else if (yAxis < 0 && xAxis > 0)
 		{	
-			angle = Math.atan(yAxis/xAxis) + (3*Math.PI/2);
+			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
 		}
 		else if(yAxis < 0 && xAxis < 0)
 		{
-			angle = Math.atan(yAxis/xAxis) + (Math.PI / 2);
+			angle = MathUtils.atan(yAxis/xAxis) + (Math.PI / 2);
 		}
 
 		if(angle >= (2*Math.PI))
@@ -343,7 +344,7 @@ public class Xbox360 extends Joystick{
 	 * @return The magnitude of the left joystick.
 	 */
 	double GetLeftMagnitude() {
-		return (Limit(Math.sqrt(Math.pow(GetLeftX(), (double)(2)) + Math.pow(GetLeftY(), (double)(2)))));
+		return (Limit(Math.sqrt(MathUtils.pow(GetLeftX(), (double)(2)) + MathUtils.pow(GetLeftY(), (double)(2)))));
 	}
 
 	/**
@@ -354,7 +355,7 @@ public class Xbox360 extends Joystick{
 	 * @return The magnitude of the right joystick.
 	 */
 	double GetRightMagnitude() {
-		return (Limit(Math.sqrt(Math.pow(GetRightX(), (double)(2)) + Math.pow(GetRightY(), (double)(2)))));
+		return (Limit(Math.sqrt(MathUtils.pow(GetRightX(), (double)(2)) + MathUtils.pow(GetRightY(), (double)(2)))));
 	}
 
 	////////////////Get Raw Button Methods to be used by Command/Subsystem Interface
