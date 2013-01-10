@@ -1,6 +1,7 @@
 package org.usfirst.frc2022.sensors;
 
 import edu.wpi.first.wpilibj.AnalogChannel;
+import edu.wpi.first.wpilibj.PIDSource;
 
 import com.sun.squawk.util.MathUtils;
 import java.lang.Math;
@@ -11,7 +12,7 @@ import java.lang.Math;
 * 
 * @param channel - The PWM channel on the default module where the sensor is connected (minimum)
 */
-public class CherryAN8 {
+public class CherryAN8 implements PIDSource{
 	
 	private AnalogChannel sensor;			//Sensor object used to interact with the hardware of the CRIO
 	private double offset;
@@ -229,5 +230,15 @@ public class CherryAN8 {
 	 */
 	public double getSensorVoltage(){
 		return this.sensor.getVoltage();
+	}
+	
+	/**
+	 * Function to implement PIDSource, giving the result sensor angle to the 
+	 * PIDController.
+	 * 
+	 * @return getSensorAngle()
+	 */
+	public double pidGet(){
+		return this.getSensorAngle();
 	}
 }
