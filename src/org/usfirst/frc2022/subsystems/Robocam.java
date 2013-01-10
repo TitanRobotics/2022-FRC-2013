@@ -53,7 +53,9 @@ public class Robocam {
 	 * @return
 	 * 
 	 */
-	public void analyze(){
+	public ParticleAnalysisReport[] analyze(){
+		ParticleAnalysisReport[] finalReport;
+		
 		try{
 			ColorImage image = camera.getImage(); 										//newRGBImage(string filename) for loading an image
 			BinaryImage thresholdImage = image.thresholdRGB(0, 45, 25, 255, 0, 47);   	// keep green reflection
@@ -62,30 +64,37 @@ public class Robocam {
 			BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles
 			
 			ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
+			finalReport = reports;
+			SmartDashboard.putInt("Number of artifacts found: ", reports.length);		//Tell Drivers Station artifacts found
 			for (int i = 0; i < reports.length; i++) {                                	// print results
                 ParticleAnalysisReport r = reports[i];
-                System.out.println("Particle " + i + ":  Center of mass: (" + r.center_mass_x + "), (" + r.center_mass_y + ")");
-                System.out.println("Particle " + i + ":  Height, width: " + r.imageHeight + ", " + r.imageWidth);
-            }
-			
-			System.out.println(filteredImage.getNumberParticles() + "  " + Timer.getFPGATimestamp());
-            SmartDashboard.putInt("Number of Particles: ",filteredImage.getNumberParticles());
+                
+                SmartDashboard.putInt("Artifact ", i);
+                SmartDashboard.putInt("Center (x): ", r.center_mass_x);
+                SmartDashboard.putInt("Center (y): ", r.center_mass_y);
+                SmartDashboard.putInt("Height: ", r.imageHeight);
+                SmartDashboard.putInt("Width: ", r.imageWidth);
+            }            
             
             /* MUST USE FREE FUNCTION: all images are currently allocated in C structures */
             filteredImage.free();
             convexHullImage.free();
             bigObjectsImage.free();
             thresholdImage.free();
-            image.free();			
+            image.free();
 		} //end analyze()
 		
 		catch (AxisCameraException e){
+			finalReport = null;
 			e.printStackTrace();			
 		}
 		
 		catch (NIVisionException ex) {
+			finalReport = null;
             ex.printStackTrace();
         }
+		
+		return finalReport;
 	}
 
 }
