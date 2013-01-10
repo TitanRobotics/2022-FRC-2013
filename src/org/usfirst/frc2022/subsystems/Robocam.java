@@ -1,5 +1,6 @@
 package org.usfirst.frc2022.subsystems;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
@@ -23,7 +24,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @param ip - String of the camera's IP address
  *
  */
-public class Robocam {
+public class Robocam extends Subsystem{
 	
 	private AxisCamera camera; 				//camera instance
 	private CriteriaCollection collection;	//criteria for analyzing image
@@ -96,5 +97,12 @@ public class Robocam {
 		
 		return finalReport;
 	}
+	
+	/**
+	 * Default command for the Robocam subsystem
+	 */
+	protected void initDefaultCommand() {
+			
+		}
 
 }
