@@ -228,21 +228,9 @@ public class Xbox360 extends Joystick{
 				angle = ((Math.PI)/2);
 			}
 		}
-		else if (yAxis > 0 && xAxis > 0)
+		else
 		{
-			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
-		}
-		else if (yAxis > 0 && xAxis < 0)
-		{
-			angle = (Math.PI/2) + MathUtils.atan(yAxis/xAxis);
-		}
-		else if (yAxis < 0 && xAxis > 0)
-		{	
-			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
-		}
-		else if(yAxis < 0 && xAxis < 0)
-		{
-			angle = MathUtils.atan(yAxis/xAxis) + (Math.PI / 2);
+			angle = MathUtils.atan2(yAxis,xAxis);
 		}
 
 		if(angle >= (2*Math.PI))
@@ -306,21 +294,9 @@ public class Xbox360 extends Joystick{
 				angle = ((Math.PI)/2);
 			}
 		}
-		else if (yAxis > 0 && xAxis > 0)
+		else
 		{
-			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
-		}
-		else if (yAxis > 0 && xAxis < 0)
-		{
-			angle = (Math.PI/2) + MathUtils.atan(yAxis/xAxis);
-		}
-		else if (yAxis < 0 && xAxis > 0)
-		{	
-			angle = MathUtils.atan(yAxis/xAxis) + (3*Math.PI/2);
-		}
-		else if(yAxis < 0 && xAxis < 0)
-		{
-			angle = MathUtils.atan(yAxis/xAxis) + (Math.PI / 2);
+			angle = MathUtils.atan2(yAxis,xAxis);
 		}
 
 		if(angle >= (2*Math.PI))
