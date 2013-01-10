@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package org.usfirst.frc2022.prosa;
+
 
 public class Map {
 	public static void main(String[] args) {
@@ -23,7 +24,6 @@ public class Map {
 
 
 
-	@Override
 	public String toString() {
 		String string = "";
 		for (int row = 0; row < rows; row++) {
