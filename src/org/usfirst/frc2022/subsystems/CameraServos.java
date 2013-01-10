@@ -2,6 +2,7 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Servo;
+import org.usfirst.frc2022.RobotMap;
 
 /**
  * This subsystem is for use with the camera on Clifford. It uses two
@@ -13,6 +14,16 @@ public class CameraServos extends Subsystem {
 	
 	private Servo pitchServo;
 	private Servo rotateServo;
+	
+	/**
+	 * Creates a new CameraServos subsystem that assumes the default
+	 * digital servos module using channels in the RobotMap
+	 * 
+	 */
+	public CameraServos(){
+		pitchServo = new Servo(RobotMap.pitchServo);
+		rotateServo = new Servo(RobotMap.rotateServo);		
+	}
 	
 	/**
 	 * Creates a new CameraServos subsystem that assumes the default
