@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Jaguar;
  * Generic
  * 
  */
-public class PWM_Generic extends Subsystem{
+public class PWM_Generic extends Subsystem implements Drive_Generic{
 	
 	//LiveWindow liveWindow; 	//livewindow
 	Jaguar[] jags; 			//Array of a variable size that holds the jaguars
@@ -108,7 +108,7 @@ public class PWM_Generic extends Subsystem{
 	 * @param size
 	 * @return whether or not the number passed through is even
 	 */
-	private boolean checkEven(int size){
+	public boolean checkEven(int size){
 		if((size % 2)==1){return false;} else {return true;}
 	} //end private boolean checkEven(int size)
 	
@@ -120,7 +120,7 @@ public class PWM_Generic extends Subsystem{
 	 * @param min
 	 * @return
 	 */
-	private double clamp(double num, double max, double min){
+	public double clamp(double num, double max, double min){
 		if(num < min){return min;}else if(num > max){return max;}else{return num;}
 	}//end private double clamp(double num, double max, double min)
 	
@@ -130,7 +130,7 @@ public class PWM_Generic extends Subsystem{
 	 * @param jags
 	 * @return
 	 */
-	private void seperateJags(Jaguar[] jags){
+	public void seperateJags(Jaguar[] jags){
 		jagsLeft = new Jaguar[jags.length/2];
 		jagsRight = new Jaguar[jags.length/2];
 		for(int i=0,j=0,k=0; i< jags.length; i++){
@@ -150,7 +150,7 @@ public class PWM_Generic extends Subsystem{
 	 * @param
 	 * @return
 	 */
-	private void flipJags(){
+	public void flipJags(){
 		int length = jagsLeft.length/2;
 		Jaguar[] tempJags = new Jaguar[length];
 		
