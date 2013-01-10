@@ -188,7 +188,7 @@ public class Xbox360 extends Joystick{
 	 * @param	reflectCircle	Choose whether to reflect over the Y axis.
 	 * @return 		The angle of the left joystick.
 	 */
-	double GetLeftAngle(boolean reflectCircle) {
+	public double GetLeftAngle(boolean reflectCircle) {
 		float yAxis = (float) (-1 * GetLeftY());
 		float xAxis;
 
@@ -253,7 +253,7 @@ public class Xbox360 extends Joystick{
 	 * @param reflectCircle Choose whether to reflect over the Y axis.
 	 * @return The angle of the right joystick.
 	 */
-	double GetRightAngle(boolean reflectCircle) {
+	public double GetRightAngle(boolean reflectCircle) {
 		float yAxis = (float) (-1 * GetRightY());
 		float xAxis;
 
@@ -319,7 +319,7 @@ public class Xbox360 extends Joystick{
 	 * @param
 	 * @return The magnitude of the left joystick.
 	 */
-	double GetLeftMagnitude() {
+	public double GetLeftMagnitude() {
 		return (Limit(Math.sqrt(MathUtils.pow(GetLeftX(), (double)(2)) + MathUtils.pow(GetLeftY(), (double)(2)))));
 	}
 
@@ -330,7 +330,7 @@ public class Xbox360 extends Joystick{
 	 * @param
 	 * @return The magnitude of the right joystick.
 	 */
-	double GetRightMagnitude() {
+	public double GetRightMagnitude() {
 		return (Limit(Math.sqrt(MathUtils.pow(GetRightX(), (double)(2)) + MathUtils.pow(GetRightY(), (double)(2)))));
 	}
 
@@ -462,7 +462,7 @@ public class Xbox360 extends Joystick{
 	 * @param axis The axis to get the value of. Range 1-6.
 	 * @return The value of the axis from -1 to 1.
 	 */
-	float GetRawAxis(int axis) {
+	public float GetRawAxis(int axis) {
 		return (float) (super.getRawAxis(axis));
 	}
 
@@ -472,7 +472,7 @@ public class Xbox360 extends Joystick{
 	 * @param num The value to normalize.
 	 * @return The normalized value.
 	 */
-	double Limit(double num) {
+	public double Limit(double num) {
 		if (num > 1) {
 			num = 1;
 		} else if (num < -1) {
