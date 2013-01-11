@@ -5,5 +5,9 @@
 *.jar
 *.war
 *.ear
+<<<<<<< HEAD
 
 /build
+=======
+/build/
+>>>>>>> 1d26827518149f299e8c3fca284a360b61a8f298
