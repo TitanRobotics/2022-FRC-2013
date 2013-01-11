@@ -19,7 +19,7 @@ public class RobotMap {
     // public static final int rangefinderPort = 1;
     // public static final int rangefinderModule = 1;
 	
-        public static final LiveWindow liveWindow = new LiveWindow();
+        //public static final LiveWindow liveWindow = new LiveWindow();
 	public static final int rotateServo = 5;
 	public static final int pitchServo = 6;
 }

@@ -29,7 +29,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
             if(checkEven(jags.length)){
 		this.jags = jags;
                 seperateJags(this.jags);
-                assignLiveWindow();
+                //assignLiveWindow();
             } else {System.out.println("Odd number of Jaguars");}	
 	}
 	
@@ -167,14 +167,14 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 		
 		jagsRight = jagsLeft;
 		jagsLeft = tempJags;
-                assignLiveWindow();
+                //assignLiveWindow();
 	}
 	
-        public void assignLiveWindow(){
+        /*public void assignLiveWindow(){
             for(int i=0; i<jagsLeft.length; i++){
                 RobotMap.liveWindow.addActuator("Generic PWM", "Left Jaguar #" + i + 1, jagsLeft[i]);
                 RobotMap.liveWindow.addActuator("Generic PWM", "Right Jaguar #" + i + 1, jagsRight[i]);
             }
-        }
+        }*/
         
 }
