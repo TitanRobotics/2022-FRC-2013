@@ -1,31 +1,31 @@
 package org.usfirst.frc2022.commands;
 
+import org.usfirst.frc2022.OI;
+import org.usfirst.frc2022.Joysticks.Xbox360;
+
 public class Servo45 extends CommandBase {
 
-	public Servo45(){
-		requires(camServos);
-	}
-	protected void initialize() {
-		
-	}
+    public Servo45() {
+        requires(camServos);
+    }
 
-	protected void execute() {
-		camServos.setPitchAngle(45.0);
-		camServos.setRotateAngle(45.0);
-		camServos.updateSD();
-		System.out.println("\n\n PRINT........... \n\n");
-	}
+    protected void initialize() {
+    }
 
-	protected boolean isFinished() {
-		return false;
-	}
+    protected void execute() {
+        camServos.updateSD();
+        Xbox360 xbox = oi.getXboxController();
+        camServos.setPitchAngle(90*(xbox.GetRightY()/2+.5));
+        camServos.setRotateAngle(90*(xbox.GetRightX()/2+.5));
+    }
 
-	protected void end() {
+    protected boolean isFinished() {
+        return false;
+    }
 
-	}
+    protected void end() {
+    }
 
-	protected void interrupted() {
-
-	}
-
+    protected void interrupted() {
+    }
 }

@@ -1,5 +1,7 @@
 package org.usfirst.frc2022;
 
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -11,12 +13,11 @@ public class RobotMap {
     // following variables to use with your drivetrain subsystem.
     // public static final int leftMotor = 1;
     // public static final int rightMotor = 2;
-    
+
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
     // public static final int rangefinderPort = 1;
     // public static final int rangefinderModule = 1;
-	
-	public static final int rotateServo = 5;
-	public static final int pitchServo = 6;
+    public static final int rotateServo = 5;
+    public static final int pitchServo = 6;
 }

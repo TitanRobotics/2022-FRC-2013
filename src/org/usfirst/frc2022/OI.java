@@ -15,5 +15,14 @@ public class OI {
 		xButton = xbawks.GetXButton();
 		xButton.whileHeld(new TargetTrackerCommand());
 	}
+        
+        /**
+         * Returns the private xbox controller object 
+         * 
+         * @return xbawks
+         */
+        public Xbox360 getXboxController(){
+            return xbawks;
+        }
 }
 
