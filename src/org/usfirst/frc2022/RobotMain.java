@@ -11,8 +11,9 @@ package org.usfirst.frc2022;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.usfirst.frc2022.commands.CommandBase;
-import org.usfirst.frc2022.commands.ExampleCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,7 +32,7 @@ public class RobotMain extends IterativeRobot {
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+        //autonomousCommand = new ExampleCommand();
 
         // Initialize all subsystems
         CommandBase.init();

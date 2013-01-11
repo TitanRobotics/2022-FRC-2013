@@ -1,6 +1,7 @@
 package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.commands.Servo45;
@@ -70,6 +71,7 @@ public class CameraServos extends Subsystem {
 			angle = 0.0;
 		}
 		pitchServo.setAngle(angle);
+		System.out.print(angle);
 	}
 	
 	/**
@@ -86,6 +88,7 @@ public class CameraServos extends Subsystem {
 			angle = 0.0;
 		}
 		rotateServo.setAngle(angle);
+		System.out.print(angle);
 	}
 	
 	/**
@@ -106,6 +109,11 @@ public class CameraServos extends Subsystem {
 	 */
 	public double getRotateAngle(){
 		return rotateServo.getAngle();
+	}
+	
+	public void updateSD(){
+		SmartDashboard.putDouble("Camera rotation", this.getRotateAngle());
+		SmartDashboard.putDouble("Camera pitch", this.getPitchAngle());
 	}
 	
 	/**

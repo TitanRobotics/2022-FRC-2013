@@ -10,10 +10,14 @@ public class TargetTrackerCommand extends CommandBase {
 	 * The portion of the image that the box can be in
 	 */
 	public final double middle = .2;
-
-	protected void initialize() {
+	
+	public TargetTrackerCommand(){
 		requires(cam);
 		requires(camServos);
+	}
+
+	protected void initialize() {
+		
 	}
 
 	protected void execute() {
