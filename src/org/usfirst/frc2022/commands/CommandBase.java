@@ -3,6 +3,7 @@ package org.usfirst.frc2022.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
+import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.ExampleSubsystem;
 import org.usfirst.frc2022.subsystems.Robocam;
@@ -18,14 +19,12 @@ import org.usfirst.frc2022.subsystems.PWM_Generic;
  */
 public abstract class CommandBase extends Command {
     
-        private static int[] portsJaguar = {1,2,3,4};
-    
 	public static OI oi;
 	// Create a single static instance of all of your subsystems
 	//public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static Robocam cam = new Robocam("10.20.22.11");
 	public static CameraServos camServos = new CameraServos();
-        public static PWM_Generic pwmGeneric = new PWM_Generic(portsJaguar);
+        public static PWM_Generic pwmGeneric = new PWM_Generic(RobotMap.portsJaguar);
 
 	public static void init() {
 		// This MUST be here. If the OI creates Commands (which it very likely
@@ -39,6 +38,7 @@ public abstract class CommandBase extends Command {
 		//SmartDashboard.putData(exampleSubsystem);
 		SmartDashboard.putData(cam);
 		SmartDashboard.putData(camServos);
+                SmartDashboard.putData(pwmGeneric);
 	}
 
 	public CommandBase(String name) {
