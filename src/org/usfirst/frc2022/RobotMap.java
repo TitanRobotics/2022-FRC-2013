@@ -20,6 +20,11 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
 	
         //public static final LiveWindow liveWindow = new LiveWindow();
+        private static int jagUpperLeft = 1;
+        private static int jagUpperRight = 4;
+        private static int jagLowerLeft = 3;
+        private static int jagLowerRight = 2;
+        public static int[] portsJaguar = {jagUpperLeft,jagUpperRight,jagLowerLeft,jagLowerRight};
 	public static final int rotateServo = 5;
 	public static final int pitchServo = 6;
 }

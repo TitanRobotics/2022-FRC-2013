@@ -14,7 +14,7 @@ public class Servo45 extends CommandBase {
 
     protected void execute() {
         camServos.updateSD();
-        Xbox360 xbox = oi.getXboxController();
+        Xbox360 xbox = oi.getXbawks();
         camServos.setPitchAngle(90*(xbox.GetRightY()/2+.5));
         camServos.setRotateAngle(90*(xbox.GetRightX()/2+.5));
     }

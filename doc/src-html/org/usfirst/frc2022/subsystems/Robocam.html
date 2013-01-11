@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package org.usfirst.frc2022.subsystems;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import edu.wpi.first.wpilibj.command.Subsystem;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import edu.wpi.first.wpilibj.Timer;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import edu.wpi.first.wpilibj.camera.AxisCamera;<a name="line.5"></a>
+<span class="sourceLineNo">006</span>import edu.wpi.first.wpilibj.camera.AxisCameraException;<a name="line.6"></a>
+<span class="sourceLineNo">007</span>import edu.wpi.first.wpilibj.image.BinaryImage;<a name="line.7"></a>
+<span class="sourceLineNo">008</span>import edu.wpi.first.wpilibj.image.ColorImage;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import edu.wpi.first.wpilibj.image.CriteriaCollection;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import edu.wpi.first.wpilibj.image.NIVisionException;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import edu.wpi.first.wpilibj.image.RGBImage;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;<a name="line.14"></a>
+<span class="sourceLineNo">015</span><a name="line.15"></a>
+<span class="sourceLineNo">016</span>/**<a name="line.16"></a>
+<span class="sourceLineNo">017</span> * Image processor using NIVision to find "shining" rectangles once an image is <a name="line.17"></a>
+<span class="sourceLineNo">018</span> * filtered with low light. The CriteriaCollection contains the "rules" used to <a name="line.18"></a>
+<span class="sourceLineNo">019</span> * analyze the maximum width of the received rectangles. <a name="line.19"></a>
+<span class="sourceLineNo">020</span> * <a name="line.20"></a>
+<span class="sourceLineNo">021</span> * Modified from original post on http://www.chiefdelphi.com/forums/showthread.php?t=109657<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * <a name="line.22"></a>
+<span class="sourceLineNo">023</span> * @author FRC Team #3381 (original), FRC Team #2022 (modified)<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * @param ip - String of the camera's IP address<a name="line.24"></a>
+<span class="sourceLineNo">025</span> *<a name="line.25"></a>
+<span class="sourceLineNo">026</span> */<a name="line.26"></a>
+<span class="sourceLineNo">027</span>public class Robocam extends Subsystem{<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        <a name="line.28"></a>
+<span class="sourceLineNo">029</span>        private AxisCamera camera;                              //camera instance<a name="line.29"></a>
+<span class="sourceLineNo">030</span>        private CriteriaCollection collection;  //criteria for analyzing image<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        <a name="line.31"></a>
+<span class="sourceLineNo">032</span>        /**<a name="line.32"></a>
+<span class="sourceLineNo">033</span>         * Creates a new Robocam instance with a minimum width of 30 px and a maximum<a name="line.33"></a>
+<span class="sourceLineNo">034</span>         * width of 400 px as well as a minimum height of 40 px and maximum height of<a name="line.34"></a>
+<span class="sourceLineNo">035</span>         * 400 px.<a name="line.35"></a>
+<span class="sourceLineNo">036</span>         * <a name="line.36"></a>
+<span class="sourceLineNo">037</span>         * @author FRC Team #3381 (original), FRC Team #2022 (modified)<a name="line.37"></a>
+<span class="sourceLineNo">038</span>         * @param ip - String of the camera's IP address<a name="line.38"></a>
+<span class="sourceLineNo">039</span>         * @return<a name="line.39"></a>
+<span class="sourceLineNo">040</span>         */<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        public Robocam(String ip){<a name="line.41"></a>
+<span class="sourceLineNo">042</span>                camera = AxisCamera.getInstance(ip);<a name="line.42"></a>
+<span class="sourceLineNo">043</span>                collection = new CriteriaCollection();<a name="line.43"></a>
+<span class="sourceLineNo">044</span>                collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);<a name="line.44"></a>
+<span class="sourceLineNo">045</span>                collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);<a name="line.45"></a>
+<span class="sourceLineNo">046</span>        }<a name="line.46"></a>
+<span class="sourceLineNo">047</span>        <a name="line.47"></a>
+<span class="sourceLineNo">048</span>        /**<a name="line.48"></a>
+<span class="sourceLineNo">049</span>         * Analyzes an image taken by a robot's camera, using BinaryImage objects to refine the <a name="line.49"></a>
+<span class="sourceLineNo">050</span>         * image, resulting in the center of each rectangle found, if any<a name="line.50"></a>
+<span class="sourceLineNo">051</span>         * <a name="line.51"></a>
+<span class="sourceLineNo">052</span>         * @author FRC Team #3381 (original), FRC Team #2022 (modified)<a name="line.52"></a>
+<span class="sourceLineNo">053</span>         * @param <a name="line.53"></a>
+<span class="sourceLineNo">054</span>         * @return<a name="line.54"></a>
+<span class="sourceLineNo">055</span>         * <a name="line.55"></a>
+<span class="sourceLineNo">056</span>         */<a name="line.56"></a>
+<span class="sourceLineNo">057</span>        public ParticleAnalysisReport[] analyze(){<a name="line.57"></a>
+<span class="sourceLineNo">058</span>                ParticleAnalysisReport[] finalReport;<a name="line.58"></a>
+<span class="sourceLineNo">059</span>                <a name="line.59"></a>
+<span class="sourceLineNo">060</span>                try{<a name="line.60"></a>
+<span class="sourceLineNo">061</span>                        ColorImage image = camera.getImage();                                                                           //newRGBImage(string filename) for loading an image<a name="line.61"></a>
+<span class="sourceLineNo">062</span>                        BinaryImage thresholdImage = image.thresholdRGB(0, 45, 25, 255, 0, 47);         // keep green reflection<a name="line.62"></a>
+<span class="sourceLineNo">063</span>                        BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts<a name="line.63"></a>
+<span class="sourceLineNo">064</span>                        BinaryImage convexHullImage = bigObjectsImage.convexHull(false);                // fill in occluded rectangles<a name="line.64"></a>
+<span class="sourceLineNo">065</span>                        BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles<a name="line.65"></a>
+<span class="sourceLineNo">066</span>                        <a name="line.66"></a>
+<span class="sourceLineNo">067</span>                        ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results<a name="line.67"></a>
+<span class="sourceLineNo">068</span>                        finalReport = reports;<a name="line.68"></a>
+<span class="sourceLineNo">069</span>                        SmartDashboard.putInt("Number of artifacts found: ", reports.length);           //Tell Drivers Station artifacts found<a name="line.69"></a>
+<span class="sourceLineNo">070</span>                        for (int i = 0; i &lt; reports.length; i++) {                                   // print results<a name="line.70"></a>
+<span class="sourceLineNo">071</span>                ParticleAnalysisReport r = reports[i];<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                <a name="line.72"></a>
+<span class="sourceLineNo">073</span>                SmartDashboard.putInt("Artifact ", i);<a name="line.73"></a>
+<span class="sourceLineNo">074</span>                SmartDashboard.putInt("Center (x): ", r.center_mass_x);<a name="line.74"></a>
+<span class="sourceLineNo">075</span>                SmartDashboard.putInt("Center (y): ", r.center_mass_y);<a name="line.75"></a>
+<span class="sourceLineNo">076</span>                SmartDashboard.putInt("Height: ", r.imageHeight);<a name="line.76"></a>
+<span class="sourceLineNo">077</span>                SmartDashboard.putInt("Width: ", r.imageWidth);<a name="line.77"></a>
+<span class="sourceLineNo">078</span>            }            <a name="line.78"></a>
+<span class="sourceLineNo">079</span>            <a name="line.79"></a>
+<span class="sourceLineNo">080</span>            /* MUST USE FREE FUNCTION: all images are currently allocated in C structures */<a name="line.80"></a>
+<span class="sourceLineNo">081</span>            filteredImage.free();<a name="line.81"></a>
+<span class="sourceLineNo">082</span>            convexHullImage.free();<a name="line.82"></a>
+<span class="sourceLineNo">083</span>            bigObjectsImage.free();<a name="line.83"></a>
+<span class="sourceLineNo">084</span>            thresholdImage.free();<a name="line.84"></a>
+<span class="sourceLineNo">085</span>            image.free();<a name="line.85"></a>
+<span class="sourceLineNo">086</span>                } //end analyze()<a name="line.86"></a>
+<span class="sourceLineNo">087</span>                <a name="line.87"></a>
+<span class="sourceLineNo">088</span>                catch (AxisCameraException e){<a name="line.88"></a>
+<span class="sourceLineNo">089</span>                        finalReport = null;<a name="line.89"></a>
+<span class="sourceLineNo">090</span>                        e.printStackTrace();                    <a name="line.90"></a>
+<span class="sourceLineNo">091</span>                }<a name="line.91"></a>
+<span class="sourceLineNo">092</span>                <a name="line.92"></a>
+<span class="sourceLineNo">093</span>                catch (NIVisionException ex) {<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                        finalReport = null;<a name="line.94"></a>
+<span class="sourceLineNo">095</span>            ex.printStackTrace();<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        }<a name="line.96"></a>
+<span class="sourceLineNo">097</span>                <a name="line.97"></a>
+<span class="sourceLineNo">098</span>                return finalReport;<a name="line.98"></a>
+<span class="sourceLineNo">099</span>        }<a name="line.99"></a>
+<span class="sourceLineNo">100</span>        <a name="line.100"></a>
+<span class="sourceLineNo">101</span>        /**<a name="line.101"></a>
+<span class="sourceLineNo">102</span>         * Default command for the Robocam subsystem<a name="line.102"></a>
+<span class="sourceLineNo">103</span>         */<a name="line.103"></a>
+<span class="sourceLineNo">104</span>        protected void initDefaultCommand() {<a name="line.104"></a>
+<span class="sourceLineNo">105</span>                        <a name="line.105"></a>
+<span class="sourceLineNo">106</span>                }<a name="line.106"></a>
+<span class="sourceLineNo">107</span><a name="line.107"></a>
+<span class="sourceLineNo">108</span>}<a name="line.108"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
