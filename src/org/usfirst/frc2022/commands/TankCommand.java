@@ -13,17 +13,19 @@ public class TankCommand extends CommandBase{
     Xbox360 xbox;
     public TankCommand(){
         //initializes command system, system has no dependencies
-        this.r;
+        requires(pwmDriveBase);
     }
     
     protected void initialize(){
-        stop(); //stops the motors when the robot starts up
+        pwmDriveBase.stop(); //stops the motors when the robot starts up
     }
     
     protected void execute(){
-        drive(); //the robot will move!
-        if (GetAButton())
-        then flipJags(); //flips if the flip button is pushed
+        xbox=oi.getXbawks();
+        pwmDriveBase.drive(xbox.GetLeftY(), xbox.GetRightY()); //the robot will move!
+        if (xbox.GetAValue()){
+        pwmDriveBase.flipJags(); //flips if the flip button is pushed
+        }
     }
 
     protected boolean isFinished() {
@@ -31,10 +33,10 @@ public class TankCommand extends CommandBase{
     }
 
     protected void end() {
-        stop(); //stop once the game ends
+        pwmDriveBase.stop(); //stop once the game ends
     }
 
     protected void interrupted() {
-        stop(); //stop if everything goes crazy
+        pwmDriveBase.stop(); //stop if everything goes crazy
     }
 }

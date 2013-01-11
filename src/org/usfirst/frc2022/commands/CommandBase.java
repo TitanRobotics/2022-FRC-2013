@@ -3,10 +3,12 @@ package org.usfirst.frc2022.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
+import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.ExampleSubsystem;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Robocam;
+import org.usfirst.frc2022.subsystems.PWM_Generic;
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -17,7 +19,7 @@ import org.usfirst.frc2022.subsystems.Robocam;
  * @author Author
  */
 public abstract class CommandBase extends Command {
-
+    
 	public static OI oi;
 	// Create a single static instance of all of your subsystems
 	//public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
@@ -31,11 +33,12 @@ public abstract class CommandBase extends Command {
 		// yet. Thus, their requires() statements may grab null pointers. Bad
 		// news. Don't move it.
 		oi = new OI();
-                pwmDriveBase= new PWM_Generic(jags)
+                pwmDriveBase= new PWM_Generic(RobotMap.portsJaguar);
 		// Show what command your subsystem is running on the SmartDashboard
 		//SmartDashboard.putData(exampleSubsystem);
 		SmartDashboard.putData(cam);
 		SmartDashboard.putData(camServos);
+                SmartDashboard.putData(pwmDriveBase);
 	}
 
 	public CommandBase(String name) {

@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc2022.RobotMap;
+import org.usfirst.frc2022.Utils;
+import org.usfirst.frc2022.commands.MecanumCommand;
 
 /** 
  * 
@@ -24,10 +26,31 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 * @param jags Array of jaguars used for controlling the drivebase
 	 * @return
 	 */
-	public PWM_Generic(Jaguar[] jags){ //Check if there are an even number of jaguars
+	public PWM_Generic(Jaguar[] newJags){ //Check if there are an even number of jaguars
 	
-            if(checkEven(jags.length)){
-		this.jags = jags;
+            if(checkEven(newJags.length)){
+		this.jags = newJags;
+                seperateJags(this.jags);
+                //assignLiveWindow();
+            } else {System.out.println("Odd number of Jaguars");}	
+	}
+        
+        /**
+	 * Constructor for the subsystem. Assigns jaguars if there are an
+	 * even amount of ports.
+	 * 
+	 * @param ports Array of ints storing the ports used by the Jaguars
+	 * @return
+	 */
+	public PWM_Generic(int[] ports){ //Check if there are an even number of jaguars
+            Jaguar[] newJags = new Jaguar[ports.length];
+            if(checkEven(ports.length)){
+		
+                for(int i=0; i<ports.length;i++){
+                    newJags[i] = new Jaguar(ports[i]);
+                }
+                
+                this.jags = newJags;
                 seperateJags(this.jags);
                 //assignLiveWindow();
             } else {System.out.println("Odd number of Jaguars");}	
@@ -40,7 +63,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 * @returns
 	 */
 	protected void initDefaultCommand() {
-		
+		setDefaultCommand(new MecanumCommand());
 	}
 	
 	/**
@@ -52,7 +75,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 */
 	public void setLeft(double speed){
 		for(int i=0; jagsLeft.length > i; i++){
-			jagsLeft[i].set(clamp(speed,1,-1));
+			jagsLeft[i].set(Utils.clamp(speed,1,-1));
 		}
 	}
 	
@@ -65,7 +88,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 */
 	public void setRight(double speed){
 		for(int i=0; jagsRight.length > i; i++){
-			jagsRight[i].set(clamp(speed,1,-1));
+			jagsRight[i].set(Utils.clamp(speed,1,-1));
 		}
 	}
 	
@@ -122,17 +145,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 		if((size % 2)==1){return false;} else {return true;}
 	} //end private boolean checkEven(int size)
 	
-	/**
-	 * Clamp a number to prevent setting speeds over the maximum or minimum
-	 * 
-	 * @param num
-	 * @param max
-	 * @param min
-	 * @return
-	 */
-	public double clamp(double num, double max, double min){
-		if(num < min){return min;}else if(num > max){return max;}else{return num;}
-	}//end private double clamp(double num, double max, double min)
+	
 	
 	/**
 	 * Separate the jaguars to left and right sides (odds left, evens right)
