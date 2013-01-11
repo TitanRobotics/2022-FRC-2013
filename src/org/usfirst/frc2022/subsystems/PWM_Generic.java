@@ -92,6 +92,13 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 		setRight(speedRight);
 		setLeft(speedLeft);
 	}
+        
+        public void driveMecanum(double speedLeftFront, double speedRightFront,double speedLeftBack, double speedRightBack){
+		jagsLeft[0].set(speedLeftFront);
+                jagsLeft[1].set(speedLeftBack);
+                jagsRight[0].set(speedRightFront);
+                jagsRight[1].set(speedRightBack);
+	}
 	
 	/**
 	 * Halt the motors
