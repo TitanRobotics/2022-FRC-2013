@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc2022.RobotMap;
+import org.usfirst.frc2022.commands.MecanumCommand;
 
 /** 
  * 
@@ -32,6 +33,27 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
                 //assignLiveWindow();
             } else {System.out.println("Odd number of Jaguars");}	
 	}
+        
+        /**
+	 * Constructor for the subsystem. Assigns jaguars if there are an
+	 * even amount of ports.
+	 * 
+	 * @param ports Array of ints storing the ports used by the Jaguars
+	 * @return
+	 */
+	public PWM_Generic(int[] ports){ //Check if there are an even number of jaguars
+            Jaguar[] jags = new Jaguar[ports.length];
+            if(checkEven(ports.length)){
+		
+                for(int i=0; i<ports.length;i++){
+                    jags[i] = new Jaguar(ports[i]);
+                }
+                
+                this.jags = jags;
+                seperateJags(this.jags);
+                //assignLiveWindow();
+            } else {System.out.println("Odd number of Jaguars");}	
+	}
 	
 	/**
 	 * This function initiates the default command.
@@ -40,7 +62,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 * @returns
 	 */
 	protected void initDefaultCommand() {
-		
+		setDefaultCommand(new MecanumCommand());
 	}
 	
 	/**
