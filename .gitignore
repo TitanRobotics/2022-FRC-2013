@@ -5,5 +5,5 @@
 *.jar
 *.war
 *.ear
-/build
+/build/
 /nbproject/private/
