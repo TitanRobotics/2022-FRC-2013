@@ -57,15 +57,6 @@ public interface Drive_Generic {
 	 */
 	boolean checkEven(int size);
 	
-	/**
-	 * Clamp a number to prevent setting speeds over the maximum or minimum
-	 * 
-	 * @param num
-	 * @param max
-	 * @param min
-	 * @return
-	 */
-	double clamp(double num, double max, double min);
 	
 	/**
 	 * Separate the jaguars to left and right sides (odds left, evens right)
