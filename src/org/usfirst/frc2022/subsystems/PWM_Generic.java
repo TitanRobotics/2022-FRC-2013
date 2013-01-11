@@ -3,7 +3,8 @@ package org.usfirst.frc2022.subsystems;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
-//import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import org.usfirst.frc2022.RobotMap;
 
 /** 
  * 
@@ -12,9 +13,8 @@ import edu.wpi.first.wpilibj.Jaguar;
  */
 public class PWM_Generic extends Subsystem implements Drive_Generic{
 	
-	//LiveWindow liveWindow; 	//livewindow
-	Jaguar[] jags; 			//Array of a variable size that holds the jaguars
-	Jaguar[] jagsLeft;	    //jaguars on the left side of the robot
+	Jaguar[] jags; 		//Array of a variable size that holds the jaguars
+	Jaguar[] jagsLeft;	//jaguars on the left side of the robot
 	Jaguar[] jagsRight; 	//jaguars on the right side of the robot
 	
 	/**
@@ -25,9 +25,12 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 * @return
 	 */
 	public PWM_Generic(Jaguar[] jags){ //Check if there are an even number of jaguars
-		if(checkEven(jags.length)){
-			this.jags = jags;
-		} else {System.out.println("");}	
+	
+            if(checkEven(jags.length)){
+		this.jags = jags;
+                seperateJags(this.jags);
+                //assignLiveWindow();
+            } else {System.out.println("Odd number of Jaguars");}	
 	}
 	
 	/**
@@ -88,6 +91,13 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	public void drive(double speedLeft, double speedRight){
 		setRight(speedRight);
 		setLeft(speedLeft);
+	}
+        
+        public void driveMecanum(double speedLeftFront, double speedRightFront,double speedLeftBack, double speedRightBack){
+		jagsLeft[0].set(speedLeftFront);
+                jagsLeft[1].set(speedLeftBack);
+                jagsRight[0].set(speedRightFront);
+                jagsRight[1].set(speedRightBack);
 	}
 	
 	/**
@@ -164,6 +174,14 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 		
 		jagsRight = jagsLeft;
 		jagsLeft = tempJags;
+                //assignLiveWindow();
 	}
 	
+        /*public void assignLiveWindow(){
+            for(int i=0; i<jagsLeft.length; i++){
+                RobotMap.liveWindow.addActuator("Generic PWM", "Left Jaguar #" + i + 1, jagsLeft[i]);
+                RobotMap.liveWindow.addActuator("Generic PWM", "Right Jaguar #" + i + 1, jagsRight[i]);
+            }
+        }*/
+        
 }
