@@ -1,4 +1,3 @@
-
 package org.usfirst.frc2022;
 
 import org.usfirst.frc2022.Joysticks.Xbox360;
@@ -21,4 +20,3 @@ public class OI {
     }
         
 }
-
