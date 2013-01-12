@@ -63,7 +63,8 @@ public class Robocam extends Subsystem {
             //newRGBImage(string filename) for loading an image
             //image.thresholdHSL(100, 120, saturationLow, saturationHigh, luminenceLow, luminenceHigh)
             //BinaryImage thresholdImage = image.thresholdRGB(0, 88, 25, 255, 0, 47);   	// keep green reflection
-            BinaryImage thresholdImage = image.thresholdHSL(43, 66, 100, 256, 0, 250);
+            //BinaryImage thresholdImage = image.thresholdHSL(43, 66, 100, 256, 0, 250); //targets edog
+            BinaryImage thresholdImage = image.thresholdHSL(157, 165, 99, 256, 80, 250); //targets the tape, using green light
             BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
             BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          	// fill in occluded rectangles
             BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles

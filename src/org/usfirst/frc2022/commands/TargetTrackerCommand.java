@@ -5,7 +5,8 @@ import org.usfirst.frc2022.Utils;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import org.usfirst.frc2022.subsystems.PWM_Generic;
+//PWH
 public class TargetTrackerCommand extends CommandBase {
 
     /*
@@ -16,6 +17,7 @@ public class TargetTrackerCommand extends CommandBase {
     public TargetTrackerCommand() {
         requires(cam);
         requires(camServos);
+        requires(pwmGeneric);
     }
 
     protected void initialize() {
@@ -23,6 +25,8 @@ public class TargetTrackerCommand extends CommandBase {
 
     protected void execute() {
         ParticleAnalysisReport[] report = cam.analyze();
+        Utils.MecanumDrive(pwmGeneric, 0, .1, 0);
+        
         if (report.length < 1) {
             SmartDashboard.putString("DEBUG","None found");
             return;
@@ -35,11 +39,15 @@ public class TargetTrackerCommand extends CommandBase {
         double pitch = Utils.sign(ypos) * 1;
 
         SmartDashboard.putString("DEBUG", "X = " + xpos + ", Y= " + ypos + "; r=" + rotate + ",p=" + pitch);
-        camServos.setRotateAngle(camServos.getRotateAngle() + rotate);
+        //double angle = oi.getXbawks().GetBValue()?90:270;
+        //Utils.MecanumDrive(pwmGeneric, angle, .1, 0);
+        //camServos.setRotateAngle(camServos.getRotateAngle() + rotate);
         camServos.setPitchAngle(camServos.getRotateAngle() + pitch);
+        
         camServos.updateSD();
     }
-
+    
+    
     protected boolean isFinished() {
         return false;
     }

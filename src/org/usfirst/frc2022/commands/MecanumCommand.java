@@ -79,7 +79,9 @@ public class MecanumCommand extends CommandBase{
 	if(controller.GetTriggers() < -.5) {
             magnitude *= 2;
         }
-	
+        //TODO test this!
+        Utils.MecanumDrive(pwmGeneric, direction, magnitude, rotation);
+	/*
         //define custom cosine and sine functions
 	double cosD = Math.cos((direction + 45.0) * Math.PI / 180.0);
 	double sinD = Math.cos((direction - 45.0) * Math.PI / 180.0);
@@ -92,7 +94,7 @@ public class MecanumCommand extends CommandBase{
 			
 	//Update Mecanum Subsystem
 	pwmGeneric.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);
-        
+        */
     }
 
     protected boolean isFinished() {
