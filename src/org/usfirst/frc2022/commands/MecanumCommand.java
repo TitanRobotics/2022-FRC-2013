@@ -79,7 +79,7 @@ public class MecanumCommand extends CommandBase{
 	if(controller.GetTriggers() < -.5) {
             magnitude *= 2;
         }
-        //TODO test this!
+        //TODO test this! looks good pwh
         Utils.MecanumDrive(pwmGeneric, direction, magnitude, rotation);
 	/*
         //define custom cosine and sine functions

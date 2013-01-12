@@ -129,6 +129,6 @@ public class CameraServos extends Subsystem {
      */
     protected void initDefaultCommand() {
         //setDefaultCommand(new Servo45());
-        setDefaultCommand(new Servo45());
+        setDefaultCommand(new TargetTrackerCommand());
     }
 }

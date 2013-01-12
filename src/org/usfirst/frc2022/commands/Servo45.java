@@ -5,18 +5,23 @@ import org.usfirst.frc2022.Joysticks.Xbox360;
 
 public class Servo45 extends CommandBase {
 
+    Xbox360 xbox;
+
     public Servo45() {
         requires(camServos);
+        //requires(pwmGeneric);
     }
 
     protected void initialize() {
+        xbox = oi.getXbawks();
     }
 
     protected void execute() {
         camServos.updateSD();
-        Xbox360 xbox = oi.getXbawks();
-        camServos.setPitchAngle(90*(xbox.GetRightY()/2+.5));
-        camServos.setRotateAngle(90*(xbox.GetRightX()/2+.5));
+
+        camServos.setPitchAngle(90 * (xbox.GetRightY() / 2 + .5));
+        camServos.setRotateAngle(90 * (xbox.GetRightX() / 2 + .5));
+        System.out.println("Servo45 Running");
     }
 
     protected boolean isFinished() {

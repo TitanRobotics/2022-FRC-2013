@@ -17,37 +17,39 @@ public class TargetTrackerCommand extends CommandBase {
     public TargetTrackerCommand() {
         requires(cam);
         requires(camServos);
-        requires(pwmGeneric);
+        //requires(pwmGeneric);
     }
 
     protected void initialize() {
     }
 
     protected void execute() {
+        System.out.println("Autoaim doing stuff!");
         ParticleAnalysisReport[] report = cam.analyze();
-        Utils.MecanumDrive(pwmGeneric, 0, .1, 0);
-        
+        //Utils.MecanumDrive(pwmGeneric, 0, .2, 0);
+
         if (report.length < 1) {
-            SmartDashboard.putString("DEBUG","None found");
+            SmartDashboard.putString("DEBUG", "Nothing greenish found");
             return;
         }
         ParticleAnalysisReport particle = report[0];
         double xpos = particle.center_mass_x_normalized;
-        double ypos = particle.center_mass_y_normalized;
+        //double ypos = particle.center_mass_y_normalized;
+        //burn!!!
+        //123/0
+        double multiplyer = 2;
+        double rotate = Utils.sign(xpos) * multiplyer;
+        //double pitch = Utils.sign(ypos) * multiplyer;
 
-        double rotate = Utils.sign(xpos) * 1;
-        double pitch = Utils.sign(ypos) * 1;
-
-        SmartDashboard.putString("DEBUG", "X = " + xpos + ", Y= " + ypos + "; r=" + rotate + ",p=" + pitch);
+        SmartDashboard.putString("DEBUG", "X = " + xpos + /*", Y= " + ypos +*/ "; r=" + rotate/* + ",p=" + pitch*/);
         //double angle = oi.getXbawks().GetBValue()?90:270;
         //Utils.MecanumDrive(pwmGeneric, angle, .1, 0);
-        //camServos.setRotateAngle(camServos.getRotateAngle() + rotate);
-        camServos.setPitchAngle(camServos.getRotateAngle() + pitch);
-        
+        camServos.setRotateAngle(camServos.getRotateAngle() + rotate);
+        //camServos.setPitchAngle(camServos.getRotateAngle() + pitch);
+
         camServos.updateSD();
     }
-    
-    
+
     protected boolean isFinished() {
         return false;
     }
