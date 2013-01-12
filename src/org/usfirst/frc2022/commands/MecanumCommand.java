@@ -22,14 +22,14 @@ public class MecanumCommand extends CommandBase{
     double speedRightBack;
     
     /**
-     * The constructor. It requires pwmGeneric from CommandBase.java
+     * The constructor. It requires pwmDriveBase from CommandBase.java
      * 
      * @author Titan Robotics (2022)
      * @param
      * @return
      */
     public MecanumCommand(){
-        requires(pwmGeneric);
+        requires(pwmDriveBase);
         
     }
     
@@ -91,7 +91,7 @@ public class MecanumCommand extends CommandBase{
 	speedRightBack = Utils.clamp((sinD * magnitude - rotation) * 2,1,-1);
 			
 	//Update Mecanum Subsystem
-	pwmGeneric.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);
+	pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);
         
     }
 
@@ -107,7 +107,7 @@ public class MecanumCommand extends CommandBase{
      * @return 
      */
     protected void end() {
-        pwmGeneric.stop();
+        pwmDriveBase.stop();
     }
 
     /**
@@ -118,7 +118,7 @@ public class MecanumCommand extends CommandBase{
      * @return 
      */
     protected void interrupted() {
-        pwmGeneric.stop();
+        pwmDriveBase.stop();
     }
 
     /*

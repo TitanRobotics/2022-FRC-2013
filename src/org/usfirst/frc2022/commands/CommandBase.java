@@ -6,6 +6,7 @@ import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.ExampleSubsystem;
+import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Robocam;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 
@@ -24,8 +25,7 @@ public abstract class CommandBase extends Command {
 	//public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static Robocam cam = new Robocam("10.20.22.11");
 	public static CameraServos camServos = new CameraServos();
-        public static PWM_Generic pwmGeneric = new PWM_Generic(RobotMap.portsJaguar);
-
+        public static PWM_Generic pwmDriveBase;
 	public static void init() {
 		// This MUST be here. If the OI creates Commands (which it very likely
 		// will), constructing it during the construction of CommandBase (from
@@ -33,12 +33,12 @@ public abstract class CommandBase extends Command {
 		// yet. Thus, their requires() statements may grab null pointers. Bad
 		// news. Don't move it.
 		oi = new OI();
-
+                pwmDriveBase= new PWM_Generic(RobotMap.portsJaguar);
 		// Show what command your subsystem is running on the SmartDashboard
 		//SmartDashboard.putData(exampleSubsystem);
 		SmartDashboard.putData(cam);
 		SmartDashboard.putData(camServos);
-                SmartDashboard.putData(pwmGeneric);
+                SmartDashboard.putData(pwmDriveBase);
 	}
 
 	public CommandBase(String name) {
