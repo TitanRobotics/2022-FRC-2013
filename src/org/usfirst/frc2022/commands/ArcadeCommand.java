@@ -8,8 +8,7 @@ import org.usfirst.frc2022.Utils;
 
 
 /**
- *
- * @author Michael
+ *The command for using an Arcade drive.
  */
 public class ArcadeCommand extends CommandBase{
 
