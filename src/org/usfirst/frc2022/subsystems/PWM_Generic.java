@@ -1,10 +1,8 @@
 package org.usfirst.frc2022.subsystems;
 
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Subsystem;
+
 import edu.wpi.first.wpilibj.Jaguar;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import org.usfirst.frc2022.RobotMap;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc2022.Utils;
 import org.usfirst.frc2022.commands.MecanumCommand;
 
@@ -88,7 +86,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 */
 	public void setRight(double speed){
 		for(int i=0; jagsRight.length > i; i++){
-			jagsRight[i].set(Utils.clamp(speed,1,-1));
+			jagsRight[i].set(Utils.clamp(-speed,1,-1));
 		}
 	}
 	

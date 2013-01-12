@@ -85,10 +85,10 @@ public class MecanumCommand extends CommandBase{
 	double sinD = Math.cos((direction - 45.0) * Math.PI / 180.0);
 
         //set speeds and clamp at 1 and -1
-	speedLeftFront = Utils.clamp((sinD * magnitude + rotation) * 2,1,-1);
+	speedLeftFront = Utils.clamp((sinD * magnitude - rotation) * 2,1,-1);
 	speedLeftBack = Utils.clamp((cosD * magnitude + rotation) * 2,1,-1);
 	speedRightFront = Utils.clamp((cosD * magnitude - rotation) * 2,1,-1);
-	speedRightBack = Utils.clamp((sinD * magnitude - rotation) * 2,1,-1);
+	speedRightBack = Utils.clamp((sinD * magnitude + rotation) * 2,1,-1);
 			
 	//Update Mecanum Subsystem
 	pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);

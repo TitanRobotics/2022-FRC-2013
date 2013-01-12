@@ -3,7 +3,6 @@
  * and open the template in the editor.
  */
 package org.usfirst.frc2022.commands;
-import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.Joysticks.Xbox360;
 /**
  *
@@ -22,7 +21,16 @@ public class TankCommand extends CommandBase{
     
     protected void execute(){
         xbox=oi.getXbawks();
-        pwmDriveBase.drive(xbox.GetLeftY(), xbox.GetRightY()); //the robot will move!
+        double leftSpeed, rightSpeed;
+        leftSpeed = xbox.GetLeftY();
+        rightSpeed = xbox.GetRightY();
+        if(Math.abs(leftSpeed)<0.2) {
+            leftSpeed = 0;
+        }
+        if(Math.abs(rightSpeed)<0.2) {
+            rightSpeed = 0;
+        }
+        pwmDriveBase.drive(leftSpeed, rightSpeed); //the robot will move!
         if (xbox.GetAValue()){
         pwmDriveBase.flipJags(); //flips if the flip button is pushed
         }
