@@ -23,7 +23,7 @@ public class ArcadeCommand extends CommandBase{
      * @return
      */
     public ArcadeCommand(){
-        requires(pwmGeneric);
+        requires(pwmDriveBase);
         
     }
     
@@ -53,7 +53,7 @@ public class ArcadeCommand extends CommandBase{
         double x = Utils.clamp(controller.GetLeftX(),1,-1);
         double y = Utils.clamp(controller.GetLeftY(),1,-1);
 	
-        pwmGeneric.drive((y+x), (y-x));
+        pwmDriveBase.drive((y+x), (y-x));
     }
 
     protected boolean isFinished() {
@@ -68,7 +68,7 @@ public class ArcadeCommand extends CommandBase{
      * @return 
      */
     protected void end() {
-        pwmGeneric.stop();
+        pwmDriveBase.stop();
     }
 
     /**
@@ -79,7 +79,7 @@ public class ArcadeCommand extends CommandBase{
      * @return 
      */
     protected void interrupted() {
-        pwmGeneric.stop();
+        pwmDriveBase.stop();
     }
 
 }

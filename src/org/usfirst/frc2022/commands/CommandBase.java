@@ -34,7 +34,8 @@ public abstract class CommandBase extends Command {
 		// news. Don't move it.
 		oi = new OI();
                 pwmDriveBase= new PWM_Generic(RobotMap.portsJaguar);
-		// Show what command your subsystem is running on the SmartDashboard
+		
+                // Show what command your subsystem is running on the SmartDashboard
 		//SmartDashboard.putData(exampleSubsystem);
 		SmartDashboard.putData(cam);
 		SmartDashboard.putData(camServos);
