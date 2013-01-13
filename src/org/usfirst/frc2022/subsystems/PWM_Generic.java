@@ -8,7 +8,10 @@ import org.usfirst.frc2022.commands.MecanumCommand;
 
 /** 
  * 
- * Generic
+ * Generic PWM subsystem used for the drivebase.
+ * 
+ * @author Titan Robotics (2022)
+ * @author Michael Hrcek
  * 
  */
 public class PWM_Generic extends Subsystem implements Drive_Generic{
@@ -18,8 +21,9 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	Jaguar[] jagsRight; 	//jaguars on the right side of the robot
 	
 	/**
-	 * Constructor for the subsystem. Assigns jaguars if there are an
-	 * even amount and there are the same number of ports.
+	 * Constructor for the subsystem. Check for an even number of jaguars.
+         * If there are an even number of jaguars, use them. Otherwise, tell
+         * the driver to add more jaguars.
 	 * 
 	 * @param jags Array of jaguars used for controlling the drivebase
 	 * @return
@@ -34,8 +38,9 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	}
         
         /**
-	 * Constructor for the subsystem. Assigns jaguars if there are an
-	 * even amount of ports.
+	 * Constructor for the subsystem. Check for an even number of ports.
+         * If there are an even number of ports, create new jaguars at those ports.
+         * Otherwise, tell the driver to assign an even number of ports to the robot.
 	 * 
 	 * @param ports Array of ints storing the ports used by the Jaguars
 	 * @return
@@ -91,19 +96,20 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	}
 	
 	/**
-	 * Move the robot. Only go forward and back.
+	 * Set the speed of all the motors. Only allows for
+         * forward and backward movement.
 	 * 
 	 * @param speed The speed of the motors
 	 * @returns
 	 */
 	public void drive(double speed){
 		setRight(speed);
-		setLeft(speed);
+		setLeft(-speed);
 	}
 	
 	/**
-	 * Move the robot. Each side can have a different
-	 * speed to allow for turning.
+	 * Set the speed of the motors. Each side can be
+         * set to a different speed. Useful for a tank drive.
 	 * 
 	 * @param speedLeft The speed of the left motors
 	 * @param speedRight The speed of the right motors
@@ -114,6 +120,16 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 		setLeft(speedLeft);
 	}
         
+        /**
+         * Designed for use in mecanum drives. Set the 
+         * speed for each motor. Must have exactly 4 motors.
+         * 
+         * @param speedLeftFront Speed of the front left wheel
+         * @param speedRightFront Speed of the front right wheel
+         * @param speedLeftBack Speed of the back left wheel
+         * @param speedRightBack Speed of the back right wheel
+         * @return 
+         */
         public void driveMecanum(double speedLeftFront, double speedRightFront,double speedLeftBack, double speedRightBack){
 		jagsLeft[0].set(speedLeftFront);
                 jagsLeft[1].set(speedLeftBack);
@@ -122,7 +138,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	}
 	
 	/**
-	 * Halt the motors
+	 * Force the motors to stop.
 	 * 
 	 * @param
 	 * @return
@@ -146,7 +162,9 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	
 	
 	/**
-	 * Separate the jaguars to left and right sides (odds left, evens right)
+	 * Separate the jaguars to left and right sides with odd numbered
+         * jaguars being assigned to the left and even jaguars assigned on
+         * the right.
 	 * 
 	 * @param jags
 	 * @return
@@ -166,28 +184,36 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	}
 	
 	/**
-	 * Flips the jaguars on each side; then switches the sides
+	 * Allows the front of the robot to become the back
+         * by switching the jaguars. Useful for tank drives.
 	 * 
 	 * @param
 	 * @return
 	 */
 	public void flipJags(){
-		int length = jagsLeft.length/2;
+            
+                int length = jagsLeft.length;
 		Jaguar[] tempJags = new Jaguar[length];
 		
-		tempJags=jagsLeft;
+		/*tempJags=jagsLeft;
 		for(int i=0; i < length; i++){ 
+                        System.out.println(length-1-i);
 			jagsLeft[i]=tempJags[length-1-i]; //Flip jaguars on left
 		}
+                tempJags=jagsRight;
 		for(int i=0; i < length; i++){
-			tempJags[i]=jagsRight[length-1-i]; //Flip jaguars on right
-		}
-		
+			jagsRight[i]=tempJags[length-1-i]; //Flip jaguars on right
+		}*/
+		tempJags=jagsRight;
 		jagsRight = jagsLeft;
 		jagsLeft = tempJags;
+                
+                //  Does not work
                 //assignLiveWindow();
 	}
 	
+        //This function does not work due to LiveWindow not
+        //working with Java.
         /*public void assignLiveWindow(){
             for(int i=0; i<jagsLeft.length; i++){
                 RobotMap.liveWindow.addActuator("Generic PWM", "Left Jaguar #" + i + 1, jagsLeft[i]);

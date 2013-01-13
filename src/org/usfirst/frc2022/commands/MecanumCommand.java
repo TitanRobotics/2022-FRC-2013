@@ -9,8 +9,12 @@ import org.usfirst.frc2022.Utils;
 
 
 /**
- *
- * @author Michael
+ * This is the command for use with a mecanum drivebase.
+ * It contains all controls and functions needed to 
+ * run a mecanum robot.
+ * 
+ * @author Titan Robotics (2022)
+ * @author Michael Hrcek
  */
 public class MecanumCommand extends CommandBase{
 
@@ -24,7 +28,6 @@ public class MecanumCommand extends CommandBase{
     /**
      * The constructor. It requires pwmDriveBase from CommandBase.java
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return
      */
@@ -35,9 +38,9 @@ public class MecanumCommand extends CommandBase{
     
     /**
      * This function is called when the command starts.
-     * It registers the controller and sets the speeds.
+     * It registers the controller and sets the speeds
+     * to zero.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
@@ -50,11 +53,9 @@ public class MecanumCommand extends CommandBase{
     }
 
     /**
-     * The primary loop for the mecanum drive. Gets controller input
-     * and does sends commands to PWM_Generic.java to move the bot.
-     * It also contains the mecanum algorithms.
+     * The primary loop for the mecanum command. Gets controller input
+     * and commands the generic PWM to move the bot.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
@@ -93,6 +94,9 @@ public class MecanumCommand extends CommandBase{
 	//Update Mecanum Subsystem
 	pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);
         
+        //Flip Drive if needed
+        if(controller.GetAValue()){pwmDriveBase.flipJags();}
+        
     }
 
     protected boolean isFinished() {
@@ -101,8 +105,8 @@ public class MecanumCommand extends CommandBase{
     
     /**
      * This function is called when the command ends.
+     * It stops the robot.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
@@ -112,8 +116,8 @@ public class MecanumCommand extends CommandBase{
 
     /**
      * This function is called when the command is interrupted.
+     * It stops the robot.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
