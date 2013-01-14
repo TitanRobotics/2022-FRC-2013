@@ -192,18 +192,21 @@ public class PWM_Generic extends Subsystem implements Drive_Generic{
 	 */
 	public void flipJags(){
             
-                int length = jagsLeft.length;
-		Jaguar[] tempJags = new Jaguar[length];
-		
-		/*tempJags=jagsLeft;
+                int length = jagsLeft.length/2;
+                Jaguar[] tempJags;
+                
 		for(int i=0; i < length; i++){ 
-                        System.out.println(length-1-i);
-			jagsLeft[i]=tempJags[length-1-i]; //Flip jaguars on left
+                        Jaguar temp = jagsLeft[i];
+			jagsLeft[i] = jagsLeft[length-1-i];
+                        jagsLeft[length-1-i] = temp;
 		}
-                tempJags=jagsRight;
-		for(int i=0; i < length; i++){
-			jagsRight[i]=tempJags[length-1-i]; //Flip jaguars on right
-		}*/
+                
+                for(int i=0; i < length; i++){ 
+                        Jaguar temp = jagsRight[i];
+			jagsRight[i] = jagsRight[length-1-i];
+                        jagsRight[length-1-i] = temp;
+		}
+                
 		tempJags=jagsRight;
 		jagsRight = jagsLeft;
 		jagsLeft = tempJags;

@@ -92,10 +92,9 @@ public class MecanumCommand extends CommandBase{
 	speedRightBack = Utils.clamp((sinD * magnitude + rotation) * 2,1,-1);
 			
 	//Update Mecanum Subsystem
-	pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);
+	if(controller.GetAValue()){pwmDriveBase.driveMecanum(speedRightBack, speedLeftBack, -speedRightFront, -speedLeftFront);} 
+        else {pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);}
         
-        //Flip Drive if needed
-        if(controller.GetAValue()){pwmDriveBase.flipJags();}
         
     }
 
