@@ -42,8 +42,8 @@ public class Robocam extends Subsystem {
     public Robocam(String ip) {
         camera = AxisCamera.getInstance(ip);
         collection = new CriteriaCollection();
-        collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 30, 400, false);
-        collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 40, 400, false);
+        collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 10, 400, false);
+        collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 10, 400, false);
     }
 
     /**
@@ -63,8 +63,8 @@ public class Robocam extends Subsystem {
             //newRGBImage(string filename) for loading an image
             //image.thresholdHSL(100, 120, saturationLow, saturationHigh, luminenceLow, luminenceHigh)
             //BinaryImage thresholdImage = image.thresholdRGB(0, 88, 25, 255, 0, 47);   	// keep green reflection
-            BinaryImage thresholdImage = image.thresholdHSL(43, 66, 100, 256, 0, 250);
-            BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 2);  // remove small artifacts
+            BinaryImage thresholdImage = image.thresholdHSL(85, 100, 250, 256, 138, 157);
+            BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 1);  // remove small artifacts
             BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          	// fill in occluded rectangles
             BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles
 
