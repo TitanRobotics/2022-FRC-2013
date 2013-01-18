@@ -8,11 +8,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TargetTrackerCommand extends CommandBase {
 
-    /*
-     * The portion of the image that the box can be in
-     */
-    public final double middle = .01;
-
     public TargetTrackerCommand() {
         requires(cam);
         requires(camServos);
@@ -24,7 +19,7 @@ public class TargetTrackerCommand extends CommandBase {
     protected void execute() {
         ParticleAnalysisReport[] report = cam.analyze();
         if (report.length < 1) {
-            SmartDashboard.putString("DEBUG","None found");
+            SmartDashboard.putString("DEBUG"," None found");
             return;
         }
         ParticleAnalysisReport particle = report[0];

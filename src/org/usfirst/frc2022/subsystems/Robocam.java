@@ -4,14 +4,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
-import edu.wpi.first.wpilibj.image.BinaryImage;
-import edu.wpi.first.wpilibj.image.ColorImage;
-import edu.wpi.first.wpilibj.image.CriteriaCollection;
+import edu.wpi.first.wpilibj.image.*;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
-import edu.wpi.first.wpilibj.image.NIVisionException;
-import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-import edu.wpi.first.wpilibj.image.RGBImage;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.image.NIVision.Rect;
 
 /**
  * Image processor using NIVision to find "shining" rectangles once an image is
@@ -29,79 +24,262 @@ public class Robocam extends Subsystem {
 
     private AxisCamera camera; 				//camera instance
     private CriteriaCollection collection;	//criteria for analyzing image
-
+    private final int X_IMAGE_RES = 640;          //X Image resolution in pixels, should be 160, 320 or 640
+    private final double VIEW_ANGLE = 43.5;       //Axis 206 camera
+    final int XMAXSIZE = 24;
+    final int XMINSIZE = 24;
+    final int YMAXSIZE = 24;
+    final int YMINSIZE = 48;
+    final double xMax[] = {1, 1, 1, 1, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, 1, 1, 1, 1};
+    final double xMin[] = {.4, .6, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, 0.6, 0};
+    final double yMax[] = {1, 1, 1, 1, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, 1, 1, 1, 1};
+    final double yMin[] = {.4, .6, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05,
+								.05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05,
+								.05, .05, .6, 0};
+    
+    final int RECTANGULARITY_LIMIT = 60;
+    final int ASPECT_RATIO_LIMIT = 75;
+    final int X_EDGE_LIMIT = 40;
+    final int Y_EDGE_LIMIT = 60;
+    
     /**
      * Creates a new Robocam instance with a minimum width of 30 px and a
      * maximum width of 400 px as well as a minimum height of 40 px and maximum
      * height of 400 px.
      *
-     * @author FRC Team #3381 (original), FRC Team #2022 (modified)
      * @param ip - String of the camera's IP address
      * @return
      */
     public Robocam(String ip) {
         camera = AxisCamera.getInstance(ip);
         collection = new CriteriaCollection();
-        collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_WIDTH, 10, 400, false);
-        collection.addCriteria(MeasurementType.IMAQ_MT_BOUNDING_RECT_HEIGHT, 10, 400, false);
+        collection.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
     }
+    
+    /**
+     * Struct-style class containing variables required for various computations
+     */
+    public class Scores {
+        double rectangularity;
+        double aspectRatioInner;
+        double aspectRatioOuter;
+        double xEdge;
+        double yEdge;
+    }
+    
+    /**
+     * Computes a score (0-100) estimating how rectangular the particle is by comparing the area of the particle
+     * to the area of the bounding box surrounding it. A perfect rectangle would cover the entire bounding box.
+     * 
+     * @param report The Particle Analysis Report for the particle to score
+     * @return The rectangularity score (0-100)
+     */
+    double scoreRectangularity(ParticleAnalysisReport report){
+            if(report.boundingRectWidth*report.boundingRectHeight !=0){
+                    return 100*report.particleArea/(report.boundingRectWidth*report.boundingRectHeight);
+            } else {
+                    return 0;
+            }	
+    }
+    
+    /**
+     * Computes the distance away from the target 
+     * 
+     * @param image
+     * @param report
+     * @param particleNumber
+     * @param outer
+     * @return
+     * @throws NIVisionException 
+     */
+    double computeDistance (BinaryImage image, ParticleAnalysisReport report, int particleNumber, boolean outer) throws NIVisionException {
+            double rectShort, height;
+            int targetHeight;
+
+            rectShort = NIVision.MeasureParticle(image.image, particleNumber, false, MeasurementType.IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE);
+            //using the smaller of the estimated rectangle short side and the bounding rectangle height results in better performance
+            //on skewed rectangles
+            height = Math.min(report.boundingRectHeight, rectShort);
+            targetHeight = outer ? 29 : 21;
+
+            return X_IMAGE_RES * targetHeight / (height * 12 * 2 * Math.tan(VIEW_ANGLE*Math.PI/(180*2)));
+    }
+    
+    /**
+     * Computes a score (0-100) comparing the aspect ratio to the ideal aspect ratio for the target. This method uses
+     * the equivalent rectangle sides to determine aspect ratio as it performs better as the target gets skewed by moving
+     * to the left or right. The equivalent rectangle is the rectangle with sides x and y where particle area= x*y
+     * and particle perimeter= 2x+2y
+     * 
+     * @param image The image containing the particle to score, needed to performa additional measurements
+     * @param report The Particle Analysis Report for the particle, used for the width, height, and particle number
+     * @param outer	Indicates whether the particle aspect ratio should be compared to the ratio for the inner target or the outer
+     * @return The aspect ratio score (0-100)
+     */
+    public double scoreAspectRatio(BinaryImage image, ParticleAnalysisReport report, int particleNumber, boolean outer) throws NIVisionException
+    {
+        double rectLong, rectShort, aspectRatio, idealAspectRatio;
+
+        rectLong = NIVision.MeasureParticle(image.image, particleNumber, false, MeasurementType.IMAQ_MT_EQUIVALENT_RECT_LONG_SIDE);
+        rectShort = NIVision.MeasureParticle(image.image, particleNumber, false, MeasurementType.IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE);
+        idealAspectRatio = outer ? (62/29) : (62/20);	//Dimensions of goal opening + 4 inches on all 4 sides for reflective tape
+	
+        //Divide width by height to measure aspect ratio
+        if(report.boundingRectWidth > report.boundingRectHeight){
+            //particle is wider than it is tall, divide long by short
+            aspectRatio = 100*(1-Math.abs((1-((rectLong/rectShort)/idealAspectRatio))));
+        } else {
+            //particle is taller than it is wide, divide short by long
+                aspectRatio = 100*(1-Math.abs((1-((rectShort/rectLong)/idealAspectRatio))));
+        }
+	return (Math.max(0, Math.min(aspectRatio, 100.0)));		//force to be in range 0-100
+    }
+    
+    /**
+     * Compares scores to defined limits and returns true if the particle appears to be a target
+     * 
+     * @param scores The structure containing the scores to compare
+     * @param outer True if the particle should be treated as an outer target, false to treat it as a center target
+     * 
+     * @return True if the particle meets all limits, false otherwise
+     */
+    boolean scoreCompare(Scores scores, boolean outer){
+            boolean isTarget = true;
+
+            isTarget &= scores.rectangularity > RECTANGULARITY_LIMIT;
+            if(outer){
+                    isTarget &= scores.aspectRatioOuter > ASPECT_RATIO_LIMIT;
+            } else {
+                    isTarget &= scores.aspectRatioInner > ASPECT_RATIO_LIMIT;
+            }
+            isTarget &= scores.xEdge > X_EDGE_LIMIT;
+            isTarget &= scores.yEdge > Y_EDGE_LIMIT;
+
+            return isTarget;
+    }
+    
+    
+    /**
+     * Computes a score based on the match between a template profile and the particle profile in the X direction. This method uses the
+     * the column averages and the profile defined at the top of the sample to look for the solid vertical edges with
+     * a hollow center.
+     * 
+     * @param image The image to use, should be the image before the convex hull is performed
+     * @param report The Particle Analysis Report for the particle
+     * 
+     * @return The X Edge Score (0-100)
+     */
+    public double scoreXEdge(BinaryImage image, ParticleAnalysisReport report) throws NIVisionException
+    {
+        double total = 0;
+        LinearAverages averages;
+        
+        Rect rect = new Rect(report.boundingRectTop, report.boundingRectLeft, report.boundingRectHeight, report.boundingRectWidth);
+        averages = NIVision.getLinearAverages(image.image, LinearAverages.LinearAveragesMode.IMAQ_COLUMN_AVERAGES, rect);
+        float columnAverages[] = averages.getColumnAverages();
+        for(int i=0; i < (columnAverages.length); i++){
+                if(xMin[(i*(XMINSIZE-1)/columnAverages.length)] < columnAverages[i] 
+                   && columnAverages[i] < xMax[i*(XMAXSIZE-1)/columnAverages.length]){
+                        total++;
+                }
+        }
+        total = 100*total/(columnAverages.length);
+        return total;
+    }
+    
+    /**
+	 * Computes a score based on the match between a template profile and the particle profile in the Y direction. This method uses the
+	 * the row averages and the profile defined at the top of the sample to look for the solid horizontal edges with
+	 * a hollow center
+	 * 
+	 * @param image The image to use, should be the image before the convex hull is performed
+	 * @param report The Particle Analysis Report for the particle
+	 * 
+	 * @return The Y Edge score (0-100)
+	 *
+    */
+    public double scoreYEdge(BinaryImage image, ParticleAnalysisReport report) throws NIVisionException
+    {
+        double total = 0;
+        LinearAverages averages;
+        
+        Rect rect = new Rect(report.boundingRectTop, report.boundingRectLeft, report.boundingRectHeight, report.boundingRectWidth);
+        averages = NIVision.getLinearAverages(image.image, LinearAverages.LinearAveragesMode.IMAQ_ROW_AVERAGES, rect);
+        float rowAverages[] = averages.getRowAverages();
+        for(int i=0; i < (rowAverages.length); i++){
+                if(yMin[(i*(YMINSIZE-1)/rowAverages.length)] < rowAverages[i] 
+                   && rowAverages[i] < yMax[i*(YMAXSIZE-1)/rowAverages.length]){
+                        total++;
+                }
+        }
+        total = 100*total/(rowAverages.length);
+        return total;
+    }
+        
 
     /**
      * Analyzes an image taken by a robot's camera, using BinaryImage objects to
      * refine the image, resulting in the center of each rectangle found, if any
      *
-     * @author FRC Team #3381 (original), FRC Team #2022 (modified)
      * @param
      * @return
      *
      */
     public ParticleAnalysisReport[] analyze() {
-        ParticleAnalysisReport[] finalReport;
+        ParticleAnalysisReport[] finalReport = null;
 
         try {
             ColorImage image = camera.getImage();
-            //newRGBImage(string filename) for loading an image
-            //image.thresholdHSL(100, 120, saturationLow, saturationHigh, luminenceLow, luminenceHigh)
-            //BinaryImage thresholdImage = image.thresholdRGB(0, 88, 25, 255, 0, 47);   	// keep green reflection
-            BinaryImage thresholdImage = image.thresholdHSL(85, 100, 250, 256, 138, 157);
-            BinaryImage bigObjectsImage = thresholdImage.removeSmallObjects(false, 1);  // remove small artifacts
-            BinaryImage convexHullImage = bigObjectsImage.convexHull(false);          	// fill in occluded rectangles
+            BinaryImage thresholdImage;
+            thresholdImage = image.thresholdHSV(120, 120, 44, 80, 98, 100);
+            BinaryImage convexHullImage = thresholdImage.convexHull(false);          	// fill in occluded rectangles
             BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles
 
-            ParticleAnalysisReport[] reports = filteredImage.getOrderedParticleAnalysisReports();  // get list of results
-            finalReport = reports;
-            SmartDashboard.putNumber("Number of artifacts found: ", reports.length);		//Tell Drivers Station artifacts found
-            for (int i = 0; i < reports.length; i++) {                                	// print results
-                ParticleAnalysisReport r = reports[i];
-
-                SmartDashboard.putNumber("Artifact :             ", i);
-                SmartDashboard.putNumber("Center (x) normalized: ", r.center_mass_x_normalized);
-                SmartDashboard.putNumber("Center (y) normalized: ", r.center_mass_y_normalized);
-                SmartDashboard.putNumber("Height:                ", r.imageHeight);
-                SmartDashboard.putNumber("Width:                 ", r.imageWidth);
-            }
+            Scores scores[] = new Scores[filteredImage.getNumberParticles()];
+            
+            for (int i = 0; i < scores.length; i++) {                                	// print results
+                ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
+                scores[i] = new Scores();
+                
+                scores[i].rectangularity = scoreRectangularity(report);
+                scores[i].aspectRatioOuter = scoreAspectRatio(filteredImage, report, i, true);
+                scores[i].aspectRatioInner = scoreAspectRatio(filteredImage, report, i, false);
+                    scores[i].xEdge = scoreXEdge(thresholdImage, report);
+                    scores[i].yEdge = scoreYEdge(thresholdImage, report);
+                    
+                    if (scoreCompare(scores[i], false)){
+                        System.out.println("particle: " + i + "is a High Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                        System.out.println("Distance: " + computeDistance(thresholdImage, report, i, false));
+                    }
+                    else if (scoreCompare(scores[i], true)){
+                        System.out.println("particle: " + i + "is a Middle Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+			System.out.println("Distance: " + computeDistance(thresholdImage, report, i, true));
+                    } 
+                    else {
+                        System.out.println("particle: " + i + "is not a goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    }
+			System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
+			System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);
+                    }
 
             /* MUST USE FREE FUNCTION: all images are currently allocated in C structures */
             filteredImage.free();
             convexHullImage.free();
-            bigObjectsImage.free();
             thresholdImage.free();
             image.free();
         } //end analyze()
         catch (AxisCameraException e) {
             finalReport = null;
             e.printStackTrace();
-        } catch (NIVisionException ex) {
+        } 
+        catch (NIVisionException ex) {
             finalReport = null;
             ex.printStackTrace();
         }
 
         return finalReport;
     }
-
-    /**
-     * Default command for the Robocam subsystem
-     */
+    
     protected void initDefaultCommand() {
     }
 }
