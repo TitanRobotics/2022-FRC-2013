@@ -27,4 +27,8 @@ public class RobotMap {
         public static int[] portsJaguar = {jagUpperLeft,jagUpperRight,jagLowerLeft,jagLowerRight};
 	public static final int rotateServo = 5;
 	public static final int pitchServo = 6;
+        public static final int rotate_motor = 7;
+        public static final int pitch_motor = 8;
+        public static final int cherry_rotate = 9;
+        public static final int cherry_pitch = 10;
 }

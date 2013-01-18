@@ -9,6 +9,7 @@ public class OI {
     // Process operator interface input here.
         private Xbox360 xbawks;
 	private JoystickButton xButton;
+        private JoystickButton aButton;
 	public OI(){
 		xbawks = new Xbox360(1);
 		xButton = xbawks.GetXButton();
