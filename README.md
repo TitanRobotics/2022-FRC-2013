@@ -198,7 +198,8 @@ __After you set up your feature, you can use 'git add', 'git commit', and 'git p
 the changes you made on GitHub.__
 
 Once you finish pushing your feature changes, you can go onto GitHub and review your changes and discuss them with others.
-When you finish your feature __and__ tested to make sure that it works, find it on GitHub and issue a _Pull Request_ from
+When you finish your feature __and__ tested to make sure that it works, find i
+t on GitHub and issue a _Pull Request_ from
 the button on the top of the screen. From there, while you can merge it into the master branch yourself, I will ask that
 you let either Vimig, Andrew, or Ethan review it first.
 
@@ -219,3 +220,5 @@ Malachi Loviska
 Andrew Kazenas
 Michael Hrcek
 Vimig Socrates
+Arthur Li
+Andrew Kuznetsov
