@@ -8,7 +8,12 @@ import org.usfirst.frc2022.Utils;
 
 
 /**
- *The command for using an Arcade drive.
+ *The command designed for use with an Arcade drive.
+ * All controls and functions needed to run it are
+ * here.
+ * 
+ * @author Titan Robotics (2022)
+ * @author Michael Hrcek
  */
 public class ArcadeCommand extends CommandBase{
 
@@ -16,9 +21,8 @@ public class ArcadeCommand extends CommandBase{
     Xbox360 controller;
     
     /**
-     * The constructor. It requires pwmGeneric from CommandBase.java
+     * The constructor. It requires a generic PWM.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return
      */
@@ -29,9 +33,9 @@ public class ArcadeCommand extends CommandBase{
     
     /**
      * This function is called when the command starts.
-     * It registers the controller and sets the speeds.
+     * It registers the controller and sets the speeds
+     * to zero.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
@@ -41,9 +45,8 @@ public class ArcadeCommand extends CommandBase{
 
     /**
      * The primary loop for the arcade drive. Gets controller input
-     * and does sends commands to PWM_Generic.java to move the bot.
+     * and commands the generic PWM to move the bot.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
@@ -70,7 +73,6 @@ public class ArcadeCommand extends CommandBase{
     /**
      * This function is called when the command ends.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
@@ -81,7 +83,6 @@ public class ArcadeCommand extends CommandBase{
     /**
      * This function is called when the command is interrupted.
      * 
-     * @author Titan Robotics (2022)
      * @param
      * @return 
      */
