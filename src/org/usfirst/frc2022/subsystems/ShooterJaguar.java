@@ -45,18 +45,28 @@ public class ShooterJaguar extends PIDSubsystem {
        * robot map. It also starts the Encoder
        */
     }
+  
     
-    
+ /*
+  * Activate Solenoid if the Jaguar is on
+  * 
+  */  
     public void activate(){
-      
+    
    if  (shooter_Jaguar.get()!= 0);{
         shooter_Solenoid.set(true);
     }
- 
+
 }
+    
+    /*
+     * Deactivate Solenoid if Jaguar is off.
+     * 
+     */
     public void deactivate(){
        shooter_Solenoid.set(false); 
     }
+   
     
     public void initDefaultCommand() {
         
