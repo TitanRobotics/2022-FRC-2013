@@ -31,4 +31,11 @@ public class RobotMap {
         public static final int pitch_motor = 8;
         public static final int cherry_rotate = 9;
         public static final int cherry_pitch = 10;
+        public static final int shooterJaguar = 11;
+        public static int[] shooterEndcoder = {13,16};
+        public static final int InjectorJaguar = 12;
+        public static int[] injectorEncoder = {14,15};
+        
+        
+        
 }
