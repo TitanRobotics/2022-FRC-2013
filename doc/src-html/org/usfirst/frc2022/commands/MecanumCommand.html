@@ -100,51 +100,50 @@
 <span class="sourceLineNo">092</span>        speedRightBack = Utils.clamp((sinD * magnitude + rotation) * 2,1,-1);<a name="line.92"></a>
 <span class="sourceLineNo">093</span>                        <a name="line.93"></a>
 <span class="sourceLineNo">094</span>        //Update Mecanum Subsystem<a name="line.94"></a>
-<span class="sourceLineNo">095</span>        pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);<a name="line.95"></a>
-<span class="sourceLineNo">096</span>        <a name="line.96"></a>
-<span class="sourceLineNo">097</span>        //Flip Drive if needed<a name="line.97"></a>
-<span class="sourceLineNo">098</span>        if(controller.GetAValue()){pwmDriveBase.flipJags();}<a name="line.98"></a>
-<span class="sourceLineNo">099</span>        <a name="line.99"></a>
-<span class="sourceLineNo">100</span>    }<a name="line.100"></a>
-<span class="sourceLineNo">101</span><a name="line.101"></a>
-<span class="sourceLineNo">102</span>    protected boolean isFinished() {<a name="line.102"></a>
-<span class="sourceLineNo">103</span>        return false;<a name="line.103"></a>
-<span class="sourceLineNo">104</span>    }<a name="line.104"></a>
-<span class="sourceLineNo">105</span>    <a name="line.105"></a>
-<span class="sourceLineNo">106</span>    /**<a name="line.106"></a>
-<span class="sourceLineNo">107</span>     * This function is called when the command ends.<a name="line.107"></a>
-<span class="sourceLineNo">108</span>     * It stops the robot.<a name="line.108"></a>
-<span class="sourceLineNo">109</span>     * <a name="line.109"></a>
-<span class="sourceLineNo">110</span>     * @param<a name="line.110"></a>
-<span class="sourceLineNo">111</span>     * @return <a name="line.111"></a>
-<span class="sourceLineNo">112</span>     */<a name="line.112"></a>
-<span class="sourceLineNo">113</span>    protected void end() {<a name="line.113"></a>
-<span class="sourceLineNo">114</span>        pwmDriveBase.stop();<a name="line.114"></a>
-<span class="sourceLineNo">115</span>    }<a name="line.115"></a>
-<span class="sourceLineNo">116</span><a name="line.116"></a>
-<span class="sourceLineNo">117</span>    /**<a name="line.117"></a>
-<span class="sourceLineNo">118</span>     * This function is called when the command is interrupted.<a name="line.118"></a>
-<span class="sourceLineNo">119</span>     * It stops the robot.<a name="line.119"></a>
-<span class="sourceLineNo">120</span>     * <a name="line.120"></a>
-<span class="sourceLineNo">121</span>     * @param<a name="line.121"></a>
-<span class="sourceLineNo">122</span>     * @return <a name="line.122"></a>
-<span class="sourceLineNo">123</span>     */<a name="line.123"></a>
-<span class="sourceLineNo">124</span>    protected void interrupted() {<a name="line.124"></a>
-<span class="sourceLineNo">125</span>        pwmDriveBase.stop();<a name="line.125"></a>
-<span class="sourceLineNo">126</span>    }<a name="line.126"></a>
-<span class="sourceLineNo">127</span><a name="line.127"></a>
-<span class="sourceLineNo">128</span>    /*<a name="line.128"></a>
-<span class="sourceLineNo">129</span>     *Function is useless and had a use at one point<a name="line.129"></a>
-<span class="sourceLineNo">130</span>     * but I'm too lazy to take it out...<a name="line.130"></a>
-<span class="sourceLineNo">131</span>     * <a name="line.131"></a>
-<span class="sourceLineNo">132</span>    private void getSpeeds() {<a name="line.132"></a>
-<span class="sourceLineNo">133</span>        speedLeftFront = controller.GetLeftY();<a name="line.133"></a>
-<span class="sourceLineNo">134</span>        speedLeftBack = controller.GetLeftY();<a name="line.134"></a>
-<span class="sourceLineNo">135</span>        speedRightFront = -controller.GetRightY();<a name="line.135"></a>
-<span class="sourceLineNo">136</span>        speedRightBack = -controller.GetRightY();<a name="line.136"></a>
-<span class="sourceLineNo">137</span>    }*/<a name="line.137"></a>
-<span class="sourceLineNo">138</span>    <a name="line.138"></a>
-<span class="sourceLineNo">139</span>}<a name="line.139"></a>
+<span class="sourceLineNo">095</span>        if(controller.GetAValue()){pwmDriveBase.driveMecanum(speedRightBack, speedLeftBack, -speedRightFront, -speedLeftFront);} <a name="line.95"></a>
+<span class="sourceLineNo">096</span>        else {pwmDriveBase.driveMecanum(-speedLeftFront, -speedRightFront, speedLeftBack, speedRightBack);}<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        <a name="line.97"></a>
+<span class="sourceLineNo">098</span>        <a name="line.98"></a>
+<span class="sourceLineNo">099</span>    }<a name="line.99"></a>
+<span class="sourceLineNo">100</span><a name="line.100"></a>
+<span class="sourceLineNo">101</span>    protected boolean isFinished() {<a name="line.101"></a>
+<span class="sourceLineNo">102</span>        return false;<a name="line.102"></a>
+<span class="sourceLineNo">103</span>    }<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    <a name="line.104"></a>
+<span class="sourceLineNo">105</span>    /**<a name="line.105"></a>
+<span class="sourceLineNo">106</span>     * This function is called when the command ends.<a name="line.106"></a>
+<span class="sourceLineNo">107</span>     * It stops the robot.<a name="line.107"></a>
+<span class="sourceLineNo">108</span>     * <a name="line.108"></a>
+<span class="sourceLineNo">109</span>     * @param<a name="line.109"></a>
+<span class="sourceLineNo">110</span>     * @return <a name="line.110"></a>
+<span class="sourceLineNo">111</span>     */<a name="line.111"></a>
+<span class="sourceLineNo">112</span>    protected void end() {<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        pwmDriveBase.stop();<a name="line.113"></a>
+<span class="sourceLineNo">114</span>    }<a name="line.114"></a>
+<span class="sourceLineNo">115</span><a name="line.115"></a>
+<span class="sourceLineNo">116</span>    /**<a name="line.116"></a>
+<span class="sourceLineNo">117</span>     * This function is called when the command is interrupted.<a name="line.117"></a>
+<span class="sourceLineNo">118</span>     * It stops the robot.<a name="line.118"></a>
+<span class="sourceLineNo">119</span>     * <a name="line.119"></a>
+<span class="sourceLineNo">120</span>     * @param<a name="line.120"></a>
+<span class="sourceLineNo">121</span>     * @return <a name="line.121"></a>
+<span class="sourceLineNo">122</span>     */<a name="line.122"></a>
+<span class="sourceLineNo">123</span>    protected void interrupted() {<a name="line.123"></a>
+<span class="sourceLineNo">124</span>        pwmDriveBase.stop();<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    }<a name="line.125"></a>
+<span class="sourceLineNo">126</span><a name="line.126"></a>
+<span class="sourceLineNo">127</span>    /*<a name="line.127"></a>
+<span class="sourceLineNo">128</span>     *Function is useless and had a use at one point<a name="line.128"></a>
+<span class="sourceLineNo">129</span>     * but I'm too lazy to take it out...<a name="line.129"></a>
+<span class="sourceLineNo">130</span>     * <a name="line.130"></a>
+<span class="sourceLineNo">131</span>    private void getSpeeds() {<a name="line.131"></a>
+<span class="sourceLineNo">132</span>        speedLeftFront = controller.GetLeftY();<a name="line.132"></a>
+<span class="sourceLineNo">133</span>        speedLeftBack = controller.GetLeftY();<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        speedRightFront = -controller.GetRightY();<a name="line.134"></a>
+<span class="sourceLineNo">135</span>        speedRightBack = -controller.GetRightY();<a name="line.135"></a>
+<span class="sourceLineNo">136</span>    }*/<a name="line.136"></a>
+<span class="sourceLineNo">137</span>    <a name="line.137"></a>
+<span class="sourceLineNo">138</span>}<a name="line.138"></a>
 
 
 

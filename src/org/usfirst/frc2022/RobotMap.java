@@ -30,6 +30,7 @@ public class RobotMap {
 	public static final int pitchServo = 6;
         public static final int rotate_motor = 7;
         public static final int pitch_motor = 8;
+
         public static final int shooterJaguar = 9;
         // analog sensor ports
         public static final int cherry_rotate = 1;
@@ -40,9 +41,9 @@ public class RobotMap {
         // Solenoid ports
         public static int  shooterSolenoid = 1;
         public static int handlingSolenoid = 2;
-        
-        
-        
+        // digital relay ports
+        public static int pickupPortNum = 2;
+ 
         
         
 }
