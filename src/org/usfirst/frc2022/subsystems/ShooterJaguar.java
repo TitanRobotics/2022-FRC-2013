@@ -17,7 +17,7 @@ import org.usfirst.frc2022.Utils;
  * picking up Frisbees by taking input as the rotation speed of the encoder
  * And for output giving ability to modify speed.
  * Note: names with "_" are from the program, no "_" are from RobotMap
- * @author Malachi
+ * @author Malachi Loviska
  */
 public class ShooterJaguar extends PIDSubsystem {  
    
@@ -25,7 +25,7 @@ public class ShooterJaguar extends PIDSubsystem {
     Jaguar shooter_Jaguar;
     Solenoid shooter_Solenoid;
      /*
-     * Initialize Jaguar and Encoder
+     * Initialize Jaguar, Encoder and Solenoid
      */
     private static final double Kp = 0.1;
     private static final double Ki = 0.0;
@@ -41,7 +41,7 @@ public class ShooterJaguar extends PIDSubsystem {
         shooter_Endcoder.start(); 
        
        /*
-       * Constructs the Jaguar and Encoder and assigns ports from
+       * Constructs the Jaguar, Encoder, and Solenoid and assigns ports from
        * robot map. It also starts the Encoder
        */
     }

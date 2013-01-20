@@ -34,6 +34,8 @@ public class RobotMap {
         public static final int shooterJaguar = 11;
         public static int[] shooterEndcoder = {12,13};       
         public static int  shooterSolenoid = 14;
+        public static int handlingSolenoid = 15;
+        
         
         
         
