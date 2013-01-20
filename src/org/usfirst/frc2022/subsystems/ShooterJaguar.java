@@ -1,7 +1,8 @@
 
 package org.usfirst.frc2022.subsystems;
 
-
+import edu.wpi.first.wpilibj.SolenoidBase;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
@@ -22,6 +23,7 @@ public class ShooterJaguar extends PIDSubsystem {
    
     Encoder shooter_Endcoder;
     Jaguar shooter_Jaguar;
+    Solenoid shooter_Solenoid;
      /*
      * Initialize Jaguar and Encoder
      */
@@ -32,18 +34,39 @@ public class ShooterJaguar extends PIDSubsystem {
     public ShooterJaguar () {
         super("ShooterJaguar", Kp, Ki, Kd);
         
-     
+        shooter_Solenoid = new Solenoid(RobotMap.shooterSolenoid );
         shooter_Jaguar = new Jaguar(RobotMap.shooterJaguar);
-       shooter_Endcoder = new Encoder(RobotMap.shooterEndcoder[0],
+        shooter_Endcoder = new Encoder(RobotMap.shooterEndcoder[0],
                RobotMap.shooterEndcoder[1]);
-       shooter_Endcoder.start(); 
+        shooter_Endcoder.start(); 
+       
        /*
        * Constructs the Jaguar and Encoder and assigns ports from
        * robot map. It also starts the Encoder
        */
     }
-   
+  
     
+ /*
+  * Activate Solenoid if the Jaguar is on
+  * 
+  */  
+    public void activate(){
+    
+   if  (shooter_Jaguar.get()!= 0);{
+        shooter_Solenoid.set(true);
+    }
+
+}
+    
+    /*
+     * Deactivate Solenoid if Jaguar is off.
+     * 
+     */
+    public void deactivate(){
+       shooter_Solenoid.set(false); 
+    }
+   
     
     public void initDefaultCommand() {
         
@@ -57,18 +80,15 @@ public class ShooterJaguar extends PIDSubsystem {
     }
     protected void usePIDOutput(double output) {
        
-        double shoot = Utils.clamp(shooter_Jaguar.getSpeed(),1,-1);
+        double shoot = Utils.clamp(shooter_Jaguar.get(),1,-1);
       shooter_Jaguar.set(output+shoot);
- 
+  
         /**
          * 
           * Using the output from encoder to give to change 
           * the acceleration of the Jaguar
           *  @retun encoder values to jaguar  between 1 and -1
           */
-        shooter_Jaguar.set(output);
-         /*
-          * Sets output for Jaguar movement
-          */
+      
     }
 }
