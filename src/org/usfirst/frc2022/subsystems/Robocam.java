@@ -292,12 +292,14 @@ public class Robocam extends Subsystem {
             data[0] = 0.0;
             data[1] = 0.0;
             data[2] = 0.0;
+            data[3] = -1.0;
             SmartDashboard.putString("ERROR: ", "Camera malfunction!");
         } 
         catch (NIVisionException ex) {
             data[0] = 0.0;
             data[1] = 0.0;
             data[2] = 0.0;
+            data[3] = -1.0;
             SmartDashboard.putString("ERROR: ", "NIVision Exception!");
         }
 
