@@ -1,37 +1,40 @@
 package org.usfirst.frc2022.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.image.*;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVision.Rect;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.usfirst.frc2022.commands.TargetTrackerCommand;
 
 /**
- * Image processor using NIVision to find "shining" rectangles once an image is
- * filtered with low light. The CriteriaCollection contains the "rules" used to
- * analyze the maximum width of the received rectangles.
+ * Image processor using NIVision to find the most rectangular of objects in a
+ * scene. Analysis is performed using a CriteriaCollection, among other 
+ * techniques. The distance from the target (and which target is being aimed at)
+ * is computed.
  *
  * Modified from original post on
  * http://www.chiefdelphi.com/forums/showthread.php?t=109657
  *
- * @author FRC Team #3381 (original), FRC Team #2022 (modified)
- * @param ip - String of the camera's IP address
+ * @author FRC, FRC Team #2022
+ * @param ip String of the camera's IP address
+ * @return
  *
  */
 public class Robocam extends Subsystem {
 
-    private AxisCamera camera; 				//camera instance
-    private CriteriaCollection collection;	//criteria for analyzing image
-    private final int X_IMAGE_RES = 640;          //X Image resolution in pixels, should be 160, 320 or 640
-    private final double VIEW_ANGLE = 43.5;       //Axis 206 camera
-    final int XMAXSIZE = 24;
-    final int XMINSIZE = 24;
-    final int YMAXSIZE = 24;
-    final int YMINSIZE = 48;
-    final double xMax[] = {1, 1, 1, 1, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, 1, 1, 1, 1};
-    final double xMin[] = {.4, .6, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, 0.6, 0};
+    private AxisCamera camera;                                                                      //camera instance
+    private CriteriaCollection collection;                                                          //criteria for analyzing image
+    private final int X_IMAGE_RES = 640;                                                            //X Image resolution in pixels, should be 160, 320 or 640
+    private final double VIEW_ANGLE = TargetTrackerCommand.camServos.getRotateAngle();              //Axis 206 camera
+    final int XMAXSIZE = 24;                                                                        
+    final int XMINSIZE = 24;                                                                        
+    final int YMAXSIZE = 24;                                                                        
+    final int YMINSIZE = 48;                                                                        
+    final double xMax[] = {1, 1, 1, 1, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, 1, 1, 1, 1};        
+    final double xMin[] = {.4, .6, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, .1, 0.6, 0}; 
     final double yMax[] = {1, 1, 1, 1, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, .5, 1, 1, 1, 1};
     final double yMin[] = {.4, .6, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05,
 								.05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05, .05,
@@ -43,11 +46,9 @@ public class Robocam extends Subsystem {
     final int Y_EDGE_LIMIT = 60;
     
     /**
-     * Creates a new Robocam instance with a minimum width of 30 px and a
-     * maximum width of 400 px as well as a minimum height of 40 px and maximum
-     * height of 400 px.
+     * Creates a new Robocam instance
      *
-     * @param ip - String of the camera's IP address
+     * @param ip String of the camera's IP address
      * @return
      */
     public Robocam(String ip) {
@@ -83,13 +84,13 @@ public class Robocam extends Subsystem {
     }
     
     /**
-     * Computes the distance away from the target 
+     * Computes the distance away from the target
      * 
-     * @param image
-     * @param report
-     * @param particleNumber
-     * @param outer
-     * @return
+     * @param image The image containing the particle to score
+     * @param report    The Particle Analysis Report for the particle
+     * @param particleNumber    Particle number in the analysis
+     * @param outer Indicates whether the particle aspect ratio should be compared to the ratio for the inner target or the outer
+     * @return  Approximate distance from the target
      * @throws NIVisionException 
      */
     double computeDistance (BinaryImage image, ParticleAnalysisReport report, int particleNumber, boolean outer) throws NIVisionException {
@@ -111,7 +112,7 @@ public class Robocam extends Subsystem {
      * to the left or right. The equivalent rectangle is the rectangle with sides x and y where particle area= x*y
      * and particle perimeter= 2x+2y
      * 
-     * @param image The image containing the particle to score, needed to performa additional measurements
+     * @param image The image containing the particle to score, needed to perform additional measurements
      * @param report The Particle Analysis Report for the particle, used for the width, height, and particle number
      * @param outer	Indicates whether the particle aspect ratio should be compared to the ratio for the inner target or the outer
      * @return The aspect ratio score (0-100)
@@ -218,66 +219,89 @@ public class Robocam extends Subsystem {
         
 
     /**
-     * Analyzes an image taken by a robot's camera, using BinaryImage objects to
-     * refine the image, resulting in the center of each rectangle found, if any
+     * Analyzes an image taken by the Axis Camera, performing various functions
+     * to determine where the goal is and at what goal the robot is facing
      *
      * @param
-     * @return
+     * @return  Array of doubles where the first value is the type of goal 
+     * (2.0 high, 1.0 middle, 0.0 no goal), the x-centered-normalized value,
+     * the y-centered-normalized value and the distance. If the distance is negative,
+     * no goal was found.
      *
      */
-    public ParticleAnalysisReport[] analyze() {
-        ParticleAnalysisReport[] finalReport = null;
+    public double[] analyze() {
+        double[] data = new double[3];
+        //[goal type, x-centered, y-centered, distance]
 
         try {
-            ColorImage image = camera.getImage();
+            ColorImage image = camera.getImage();                                       //Get image from camera
             BinaryImage thresholdImage;
-            thresholdImage = image.thresholdHSV(120, 120, 44, 80, 98, 100);
-            BinaryImage convexHullImage = thresholdImage.convexHull(false);          	// fill in occluded rectangles
-            BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // find filled in rectangles
+            thresholdImage = image.thresholdHSV(120, 120, 44, 80, 98, 100);             //"Look" for objects in this HSV range
+            BinaryImage convexHullImage = thresholdImage.convexHull(false);          	// Fill in occluded rectangles
+            BinaryImage filteredImage = convexHullImage.particleFilter(collection);     // Find filled in rectangles
 
             Scores scores[] = new Scores[filteredImage.getNumberParticles()];
             
-            for (int i = 0; i < scores.length; i++) {                                	// print results
-                ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
+            for (int i = 0; i < scores.length; i++) {                                	
+                ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i); //Get the report for each particle found
                 scores[i] = new Scores();
                 
                 scores[i].rectangularity = scoreRectangularity(report);
                 scores[i].aspectRatioOuter = scoreAspectRatio(filteredImage, report, i, true);
                 scores[i].aspectRatioInner = scoreAspectRatio(filteredImage, report, i, false);
-                    scores[i].xEdge = scoreXEdge(thresholdImage, report);
-                    scores[i].yEdge = scoreYEdge(thresholdImage, report);
+                scores[i].xEdge = scoreXEdge(thresholdImage, report);
+                scores[i].yEdge = scoreYEdge(thresholdImage, report);
                     
-                    if (scoreCompare(scores[i], false)){
-                        System.out.println("particle: " + i + "is a High Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
-                        System.out.println("Distance: " + computeDistance(thresholdImage, report, i, false));
-                    }
-                    else if (scoreCompare(scores[i], true)){
-                        System.out.println("particle: " + i + "is a Middle Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
-			System.out.println("Distance: " + computeDistance(thresholdImage, report, i, true));
-                    } 
-                    else {
-                        System.out.println("particle: " + i + "is not a goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
-                    }
-			System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
-			System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);
-                    }
+                if (scoreCompare(scores[i], false)){
+                    double dist = computeDistance(thresholdImage, report, i, false);
+                    System.out.println("particle: " + i + "is a High Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    System.out.println("Distance: " + dist);
+                    data[0] = 2.0;
+                    data[1] = report.center_mass_x_normalized;
+                    data[2] = report.center_mass_y_normalized;
+                    data[3] = dist;
+                }
+                else if (scoreCompare(scores[i], true)){
+                    double dist = computeDistance(thresholdImage, report, i, false);
+                    System.out.println("particle: " + i + "is a Middle Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    System.out.println("Distance: " + dist);
+                    data[0] = 1.0;
+                    data[1] = report.center_mass_x_normalized;
+                    data[2] = report.center_mass_y_normalized;
+                    data[3] = dist;
+                } 
+                else {
+                    System.out.println("particle: " + i + "is not a goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    data[0] = 0.0;
+                    data[1] = report.center_mass_x_normalized;
+                    data[2] = report.center_mass_y_normalized;
+                    data[3] = -1.0;
+                }
+                    System.out.println("rect: " + scores[i].rectangularity + "ARinner: " + scores[i].aspectRatioInner);
+                    System.out.println("ARouter: " + scores[i].aspectRatioOuter + "xEdge: " + scores[i].xEdge + "yEdge: " + scores[i].yEdge);
+                }
 
-            /* MUST USE FREE FUNCTION: all images are currently allocated in C structures */
-            filteredImage.free();
-            convexHullImage.free();
-            thresholdImage.free();
-            image.free();
+                /* MUST USE FREE FUNCTION: all images are currently allocated in C structures */
+                filteredImage.free();
+                convexHullImage.free();
+                thresholdImage.free();
+                image.free();
         } //end analyze()
+        
         catch (AxisCameraException e) {
-            finalReport = null;
-            e.printStackTrace();
+            data[0] = 0.0;
+            data[1] = 0.0;
+            data[2] = 0.0;
+            SmartDashboard.putString("ERROR: ", "Camera malfunction!");
         } 
         catch (NIVisionException ex) {
-            finalReport = null;
-            ex.printStackTrace();
+            data[0] = 0.0;
+            data[1] = 0.0;
+            data[2] = 0.0;
+            SmartDashboard.putString("ERROR: ", "NIVision Exception!");
         }
 
-        return finalReport;
+        return data;
     }
     
     protected void initDefaultCommand() {

@@ -20,6 +20,7 @@ public class RobotMap {
     // public static final int rangefinderModule = 1;
 	
         //public static final LiveWindow liveWindow = new LiveWindow();
+    //PWM ports
         private static int jagUpperLeft = 1;
         private static int jagUpperRight = 4;
         private static int jagLowerLeft = 3;
@@ -29,6 +30,20 @@ public class RobotMap {
 	public static final int pitchServo = 6;
         public static final int rotate_motor = 7;
         public static final int pitch_motor = 8;
-        public static final int cherry_rotate = 9;
-        public static final int cherry_pitch = 10;
+
+        public static final int shooterJaguar = 9;
+        // analog sensor ports
+        public static final int cherry_rotate = 1;
+        public static final int cherry_pitch = 2;
+        // digital Encoder ports
+        public static int[] shooterEndcoder = {3,4};  
+        public static int[] myEncoder = {9,10};
+        // Solenoid ports
+        public static int  shooterSolenoid = 1;
+        public static int handlingSolenoid = 2;
+        // digital relay ports
+        public static int pickupPortNum = 2;
+ 
+        
+        
 }
