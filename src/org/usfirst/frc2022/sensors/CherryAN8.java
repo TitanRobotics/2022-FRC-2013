@@ -1,10 +1,8 @@
 package org.usfirst.frc2022.sensors;
 
+import com.sun.squawk.util.MathUtils;
 import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.PIDSource;
-
-import com.sun.squawk.util.MathUtils;
-import java.lang.Math;
 
 /**
  * Functions for interfacing with the Cherry AN8 Magnetic Position sensors. All
