@@ -36,7 +36,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no twist axis
      */
-    float GetTwist() {
+    public float GetTwist() {
 
         return (0);	//Return 0 since there is no twist axis
 
@@ -49,7 +49,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no Z axis
      */
-    float GetZ() {
+    public float GetZ() {
 
         return (0);	//Return 0 since there is no Z axis
 
@@ -61,7 +61,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current X value of the joystick between -1 and 1
      */
-    float GetX() {
+    public float GetX() {
 
         return (float) (this.getX());
 
@@ -74,7 +74,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current Y value of the joystick between -1 and 1
      */
-    float GetY() {
+    public float GetY() {
 
         return (float) (this.getY());
 
@@ -87,7 +87,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current Throttle value of the joystick between -1 and 1
      */
-    float GetThrottle() {
+    public float GetThrottle() {
 
         return (float) (this.getThrottle());
 
@@ -99,7 +99,7 @@ public class Attack3 extends Joystick {
      * @param button The button as an integer
      * @return JoystickButton
      */
-    JoystickButton GetButton(int button) {
+    public JoystickButton GetButton(int button) {
 
         return (new JoystickButton(this, button));
 
