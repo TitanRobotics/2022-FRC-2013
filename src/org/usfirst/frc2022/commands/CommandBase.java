@@ -13,36 +13,39 @@ import org.usfirst.frc2022.subsystems.Robocam;
  * CommandBase stores creates and stores each control system. To access a
  * subsystem elsewhere in your code in your code use
  * CommandBase.exampleSubsystem
- * 
+ *
  * @author Titan Robotics (2022)
  */
 public abstract class CommandBase extends Command {
+
+    // Static instance of Operator Interface
+    public static OI oi;
     
-	public static OI oi;
-	// Create a single static instance of all of your subsystems
-	//public static ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-	public static Robocam cam = new Robocam("10.20.22.11");
-	public static CameraServos camServos = new CameraServos();
-        public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
-	public static void init() {
-		// This MUST be here. If the OI creates Commands (which it very likely
-		// will), constructing it during the construction of CommandBase (from
-		// which commands extend), subsystems are not guaranteed to be
-		// yet. Thus, their requires() statements may grab null pointers. Bad
-		// news. Don't move it.
-		oi = new OI();
-		// Show what command your subsystem is running on the SmartDashboard
-		//SmartDashboard.putData(exampleSubsystem);
-		SmartDashboard.putData(cam);
-		SmartDashboard.putData(camServos);
-                SmartDashboard.putData(pwmDriveBase);
-	}
+    
+    // Create a single static instance of all of your subsystems here
+    public static Robocam cam = new Robocam("10.20.22.11");
+    public static CameraServos camServos = new CameraServos();
+    public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
 
-	public CommandBase(String name) {
-		super(name);
-	}
+    public static void init() {
+        // This MUST be here. If the OI creates Commands (which it very likely
+        // will), constructing it during the construction of CommandBase (from
+        // which commands extend), subsystems are not guaranteed to be
+        // yet. Thus, their requires() statements may grab null pointers. Bad
+        // news. Don't move it.
+        oi = new OI();
+        
+        // Show what command your subsystem is running on the SmartDashboard
+        SmartDashboard.putData(cam);
+        SmartDashboard.putData(camServos);
+        SmartDashboard.putData(pwmDriveBase);
+    }
 
-	public CommandBase() {
-		super();
-	}
+    public CommandBase(String name) {
+        super(name);
+    }
+
+    public CommandBase() {
+        super();
+    }
 }

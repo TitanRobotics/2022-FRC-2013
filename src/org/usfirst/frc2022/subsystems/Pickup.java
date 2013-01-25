@@ -32,10 +32,10 @@ public class Pickup extends Subsystem{
      * the assigned ports if they match the number defined in
      * RobotMap.java
      */
-    public Pickup(int[] ports){
-        if (ports.length == RobotMap.pickupPortNum){
+    public Pickup(){
+        if (RobotMap.pickupPorts.length == RobotMap.pickupPortNum){
             for(int i=0; i<RobotMap.pickupPortNum;i++){
-                spikes[i] = new Relay(ports[i]);
+                spikes[i] = new Relay(RobotMap.pickupPorts[i]);
             }
             SmartDashboard.putString("Pickup: ", "Working Fine");
         } else {

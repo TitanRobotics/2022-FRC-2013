@@ -3,41 +3,45 @@
  * and open the template in the editor.
  */
 package org.usfirst.frc2022.commands;
+
 import org.usfirst.frc2022.Joysticks.Xbox360;
+
 /**
  *
- * @author Student
+ * @author Andrew Kazenas
  */
-public class TankCommand extends CommandBase{
+public class TankCommand extends CommandBase {
+
     Xbox360 xbox;
-    public TankCommand(){
+
+    public TankCommand() {
         //initializes command system, system has no dependencies
         requires(pwmDriveBase);
     }
-    
-    protected void initialize(){
+
+    protected void initialize() {
         pwmDriveBase.stop(); //stops the motors when the robot starts up
     }
-    
-    protected void execute(){
-        xbox=oi.getXbawks();
+
+    protected void execute() {
+        xbox = oi.getXbawks();
         double leftSpeed, rightSpeed;
         leftSpeed = xbox.GetLeftY();
         rightSpeed = xbox.GetRightY();
-        if(Math.abs(leftSpeed)<0.2) {
+        if (Math.abs(leftSpeed) < 0.2) {
             leftSpeed = 0;
         }
-        if(Math.abs(rightSpeed)<0.2) {
+        if (Math.abs(rightSpeed) < 0.2) {
             rightSpeed = 0;
         }
         pwmDriveBase.drive(leftSpeed, rightSpeed); //the robot will move!
-        if (xbox.GetAValue()){
-        pwmDriveBase.flipJags(); //flips if the flip button is pushed
+        if (xbox.GetAValue()) {
+            pwmDriveBase.flipJags(); //flips if the flip button is pushed
         }
     }
 
     protected boolean isFinished() {
-        return(false); //It's not over until it's over!
+        return (false); //It's not over until it's over!
     }
 
     protected void end() {
