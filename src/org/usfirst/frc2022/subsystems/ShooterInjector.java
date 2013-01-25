@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
+import org.usfirst.frc2022.commands.InjectionCommand;
+
 
 /**
  * This code is used to control the speed of Jaguars controlling the shooter for
@@ -41,7 +43,11 @@ public class ShooterInjector extends PIDSubsystem {
         
         shooter_Endcoder.start();
     }
-
+    
+    public double getJagSpeed(){
+        return shooter_Jaguar.get(); 
+   }
+    
     ///////////////////// Injection Functions /////////////////////////
     /*
      * Activate Solenoid if the Jaguar is on
@@ -119,5 +125,7 @@ public class ShooterInjector extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {
-    }
+        setDefaultCommand(new InjectionCommand());
+    }   
+
 }
