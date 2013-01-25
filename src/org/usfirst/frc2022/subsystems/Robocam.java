@@ -28,7 +28,7 @@ public class Robocam extends Subsystem {
     private AxisCamera camera;                                                                      //camera instance
     private CriteriaCollection collection;                                                          //criteria for analyzing image
     private final int X_IMAGE_RES = 640;                                                            //X Image resolution in pixels, should be 160, 320 or 640
-    private final double VIEW_ANGLE = TargetTrackerCommand.camServos.getRotateAngle();              //Axis 206 camera
+    private final double VIEW_ANGLE = TargetTrackerCommand.camServos.getRotateAngle();              //Axis camera
     final int XMAXSIZE = 24;                                                                        
     final int XMINSIZE = 24;                                                                        
     final int YMAXSIZE = 24;                                                                        
