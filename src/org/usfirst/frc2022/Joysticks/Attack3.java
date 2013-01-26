@@ -14,15 +14,22 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * Note: Port of Attack3.ccp
  */
 public class Attack3 extends Joystick {
-
+    public static int Button6 = 6;
+    public static int Button7 = 7;
     /**
      * Construct an instance of a Logitech Attack3 joystick (The kind in the
      * KoP).
-     *
+     *Intialize Button6 and Button 7 for controling the pickup relays
      * @param port The port on the driver station that the joystick is plugged
      * into.
      * @return
      */
+    
+   
+    
+    
+    
+    
     public Attack3(int port) {
 
         super(port);
@@ -36,7 +43,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no twist axis
      */
-    public float GetTwist() {
+    float GetTwist() {
 
         return (0);	//Return 0 since there is no twist axis
 
@@ -49,7 +56,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no Z axis
      */
-    public float GetZ() {
+    float GetZ() {
 
         return (0);	//Return 0 since there is no Z axis
 
@@ -61,7 +68,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current X value of the joystick between -1 and 1
      */
-    public float GetX() {
+    float GetX() {
 
         return (float) (this.getX());
 
@@ -74,7 +81,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current Y value of the joystick between -1 and 1
      */
-    public float GetY() {
+    float GetY() {
 
         return (float) (this.getY());
 
@@ -87,7 +94,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current Throttle value of the joystick between -1 and 1
      */
-    public float GetThrottle() {
+    float GetThrottle() {
 
         return (float) (this.getThrottle());
 
@@ -99,9 +106,27 @@ public class Attack3 extends Joystick {
      * @param button The button as an integer
      * @return JoystickButton
      */
-    public JoystickButton GetButton(int button) {
+    
+       public static boolean GetButton6Value() {
+        return (Attack3.GetButton6Value());
+    }
+
+    /**
+     * Get the current state of the Back button.
+     *
+     * @param
+     * @return The current state of the button
+     */
+    public static boolean GetButton7Value() {
+        return (Attack3.GetButton7Value());
+    }
+    
+    
+    
+    JoystickButton GetButton(int button) {
 
         return (new JoystickButton(this, button));
 
     } //End float GetButton(int Button)
+  
 }

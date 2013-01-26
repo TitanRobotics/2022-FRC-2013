@@ -1,12 +1,16 @@
 package org.usfirst.frc2022.commands;
 
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
+import org.usfirst.frc2022.subsystems.Pickup;
 import org.usfirst.frc2022.subsystems.Robocam;
+import org.usfirst.frc2022.subsystems.ShooterInjector;
+
 
 /**
  * The base for all commands. All atomic commands should subclass CommandBase.
@@ -26,6 +30,8 @@ public abstract class CommandBase extends Command {
     public static Robocam cam = new Robocam("10.20.22.11");
     public static CameraServos camServos = new CameraServos();
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
+    public static Pickup spike = new Pickup();
+  
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely

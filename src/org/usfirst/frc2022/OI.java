@@ -16,7 +16,7 @@ public class OI {
     // Joystick Button Declarations
     // Map these buttons to commands
     private JoystickButton targetTrackerButton;
-
+    
     public OI() {
         
         // Initialize Joysticks with port numbers
@@ -25,6 +25,7 @@ public class OI {
         
         // Initialize all Joystick Buttons
         targetTrackerButton = xbawks.GetXButton();
+ 
         
         /**
          * Map buttons to commands.
@@ -35,6 +36,10 @@ public class OI {
          * released
          */
         targetTrackerButton.whileHeld(new TargetTrackerCommand());
+       
+        targetTrackerButton.whileHeld(new TargetTrackerCommand());
+     
+        
     }
 
     // Getter functions for all Joysticks
