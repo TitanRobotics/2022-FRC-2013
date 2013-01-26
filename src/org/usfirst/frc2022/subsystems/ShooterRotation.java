@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
+import org.usfirst.frc2022.commands.RotationPitchCommand;
 import org.usfirst.frc2022.sensors.CherryAN8;
 
 /**
@@ -50,6 +51,7 @@ public class ShooterRotation extends PIDSubsystem {
      * Set the default command for subsystem
      */
     public void initDefaultCommand() {
+        setDefaultCommand(new RotationPitchCommand());
     }
 
     ///////////////////// PID Functions /////////////////////////
