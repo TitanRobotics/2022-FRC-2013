@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
-import org.usfirst.frc2022.commands.InjectionCommand;
+import org.usfirst.frc2022.commands.ShooterCommand;
 
 
 /**
@@ -125,7 +125,7 @@ public class ShooterInjector extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new InjectionCommand());
+        setDefaultCommand(new ShooterCommand());
     }   
 
 }

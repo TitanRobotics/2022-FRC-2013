@@ -5,7 +5,6 @@
 package org.usfirst.frc2022.commands;
 
 import org.usfirst.frc2022.Joysticks.Attack3;
-import org.usfirst.frc2022.subsystems.ShooterInjector;
 
 /**
  *
@@ -13,7 +12,6 @@ import org.usfirst.frc2022.subsystems.ShooterInjector;
  */
 public class InjectionCommand extends CommandBase {
     
-    ShooterInjector shooterInjector;
     Attack3 attack3;
     
     public InjectionCommand() {

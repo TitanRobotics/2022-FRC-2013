@@ -5,7 +5,6 @@
 package org.usfirst.frc2022.commands;
 
 import org.usfirst.frc2022.Joysticks.Attack3;
-import org.usfirst.frc2022.subsystems.ShooterInjector;
 
 /**
  *
@@ -13,7 +12,6 @@ import org.usfirst.frc2022.subsystems.ShooterInjector;
  */
 public class ShooterCommand extends CommandBase {
     
-    ShooterInjector shooterInjector;
     Attack3 attack3;
     
     public ShooterCommand() {
@@ -44,5 +42,6 @@ public class ShooterCommand extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        shooterInjector.setShooter(0);
     }
 }
