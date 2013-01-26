@@ -19,7 +19,7 @@ public class Attack3 extends Joystick {
     /**
      * Construct an instance of a Logitech Attack3 joystick (The kind in the
      * KoP).
-     *Intialize Button6 and Button 7 for controling the pickup relays
+     *Initialize Button6 and Button 7 for controlling  the pickup relays
      * @param port The port on the driver station that the joystick is plugged
      * into.
      * @return
@@ -43,7 +43,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no twist axis
      */
-    float GetTwist() {
+    public float GetTwist() {
 
         return (0);	//Return 0 since there is no twist axis
 
@@ -56,7 +56,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no Z axis
      */
-    float GetZ() {
+   public float GetZ() {
 
         return (0);	//Return 0 since there is no Z axis
 
@@ -68,7 +68,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current X value of the joystick between -1 and 1
      */
-    float GetX() {
+    public float GetX() {
 
         return (float) (this.getX());
 
@@ -81,7 +81,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current Y value of the joystick between -1 and 1
      */
-    float GetY() {
+    public float GetY() {
 
         return (float) (this.getY());
 
@@ -94,7 +94,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return The current Throttle value of the joystick between -1 and 1
      */
-    float GetThrottle() {
+    public float GetThrottle() {
 
         return (float) (this.getThrottle());
 

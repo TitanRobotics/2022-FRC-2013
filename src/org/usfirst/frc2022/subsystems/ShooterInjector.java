@@ -15,7 +15,7 @@ import org.usfirst.frc2022.Utils;
  */
 public class ShooterInjector extends PIDSubsystem {
 
-   public Encoder shooter_Endcoder;
+    Encoder shooter_Endcoder;
     Jaguar shooter_Jaguar;
     Solenoid shooter_Solenoid;
     /*

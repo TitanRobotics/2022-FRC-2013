@@ -1,6 +1,5 @@
 package org.usfirst.frc2022.commands;
 
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
@@ -9,7 +8,7 @@ import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Pickup;
 import org.usfirst.frc2022.subsystems.Robocam;
-import org.usfirst.frc2022.subsystems.ShooterInjector;
+
 
 
 /**

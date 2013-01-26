@@ -36,9 +36,7 @@ public class OI {
          * released
          */
         targetTrackerButton.whileHeld(new TargetTrackerCommand());
-       
         targetTrackerButton.whileHeld(new TargetTrackerCommand());
-     
         
     }
 
