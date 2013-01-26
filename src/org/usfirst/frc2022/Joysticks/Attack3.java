@@ -112,7 +112,7 @@ public class Attack3 extends Joystick {
     }
 
     /**
-     * Get the current state of the Back button.
+     * Get the current state of the  button6.
      *
      * @param
      * @return The current state of the button
@@ -120,7 +120,12 @@ public class Attack3 extends Joystick {
     public static boolean GetButton7Value() {
         return (Attack3.GetButton7Value());
     }
-    
+    /**
+     * Get the current state of the  button7.
+     *
+     * @param
+     * @return The current state of the button
+     */
     
     
     JoystickButton GetButton(int button) {
