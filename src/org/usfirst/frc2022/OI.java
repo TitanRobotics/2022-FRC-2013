@@ -5,6 +5,7 @@ import org.usfirst.frc2022.commands.TargetTrackerCommand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc2022.Joysticks.Attack3;
 import org.usfirst.frc2022.Joysticks.Xbox360;
+import org.usfirst.frc2022.commands.InjectionCommand;
 
 public class OI {
 
@@ -16,7 +17,8 @@ public class OI {
     // Joystick Button Declarations
     // Map these buttons to commands
     private JoystickButton targetTrackerButton;
-
+    private JoystickButton injectorButton;
+    
     public OI() {
         
         // Initialize Joysticks with port numbers
@@ -25,6 +27,7 @@ public class OI {
         
         // Initialize all Joystick Buttons
         targetTrackerButton = xbawks.GetXButton();
+        injectorButton = attack.GetButton(1);
         
         /**
          * Map buttons to commands.
@@ -35,6 +38,7 @@ public class OI {
          * released
          */
         targetTrackerButton.whileHeld(new TargetTrackerCommand());
+        injectorButton.whileHeld(new InjectionCommand());
     }
 
     // Getter functions for all Joysticks
