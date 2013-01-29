@@ -115,7 +115,7 @@ public class Attack3 extends Joystick {
      */
     
     
-    JoystickButton GetButton(int button) {
+    public JoystickButton GetButton(int button) {
 
         return (new JoystickButton(this, button));
 

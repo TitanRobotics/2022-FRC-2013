@@ -45,14 +45,13 @@ public class RobotMap {
     // Digital I/O Ports (Encoders and Limit Switches)
     public static final int[] shooterEndcoder = {3, 4};
     public static final int[] myEncoder = {9, 10};
+   
     
-    
-    // Solenoid Breakout Ports (Self-explanatory)
-    public static final int handlingSolenoid = 2;
     
     
     // Digital Relay Ports (Spike Relays)
     public static final int pickupPortNum = 2;
     public static final int[] pickupPorts = {1,2};
     public static final int shooterSpike = 3;
+    public static final int handlingSpike = 4;
 }
