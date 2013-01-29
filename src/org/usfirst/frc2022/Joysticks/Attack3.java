@@ -14,15 +14,21 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * Note: Port of Attack3.ccp
  */
 public class Attack3 extends Joystick {
-
+   
     /**
      * Construct an instance of a Logitech Attack3 joystick (The kind in the
      * KoP).
-     *
+     *Initialize Button6 and Button 7 for controlling  the pickup relays
      * @param port The port on the driver station that the joystick is plugged
      * into.
      * @return
      */
+    
+   
+    
+    
+    
+    
     public Attack3(int port) {
 
         super(port);
@@ -49,7 +55,7 @@ public class Attack3 extends Joystick {
      * @param
      * @return 0 since there is no Z axis
      */
-    public float GetZ() {
+   public float GetZ() {
 
         return (0);	//Return 0 since there is no Z axis
 
@@ -99,9 +105,20 @@ public class Attack3 extends Joystick {
      * @param button The button as an integer
      * @return JoystickButton
      */
-    public JoystickButton GetButton(int button) {
+    
+    
+    /**
+     * Get the current state of the  button7.
+     *
+     * @param
+     * @return The current state of the button
+     */
+    
+    
+    JoystickButton GetButton(int button) {
 
         return (new JoystickButton(this, button));
 
     } //End float GetButton(int Button)
+  
 }
