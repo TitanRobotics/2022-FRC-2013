@@ -27,7 +27,7 @@ public class InjectionCommand extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (shooterInjector.getJagSpeed()>=0.01 | shooterInjector.getJagSpeed()<-0.01){
+        if (shooterInjector.getJagSpeed()>=0.01 || shooterInjector.getJagSpeed()<-0.01){
                 shooterInjector.activate();
         }
     }
@@ -39,6 +39,7 @@ public class InjectionCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        shooterInjector.deactivate();
     }
 
     // Called when another command which requires one or more of the same

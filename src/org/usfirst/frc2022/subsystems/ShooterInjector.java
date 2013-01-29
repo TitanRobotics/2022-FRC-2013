@@ -19,7 +19,7 @@ public class ShooterInjector extends PIDSubsystem {
 
     Encoder shooter_Endcoder;
     Jaguar shooter_Jaguar;
-    Solenoid shooter_Solenoid;
+    Relay shooter_Spikezor;
     /*
      * Initialize Jaguar, Encoder and Solenoid
      */
@@ -34,7 +34,7 @@ public class ShooterInjector extends PIDSubsystem {
     public ShooterInjector() {
         super("ShooterJaguar", Kp, Ki, Kd);
 
-        shooter_Solenoid = new Solenoid(RobotMap.shooterSolenoid);
+        shooter_Spikezor = new Relay(RobotMap.shooterSpike);
         shooter_Jaguar = new Jaguar(RobotMap.shooterJaguar);
         shooter_Endcoder = new Encoder(RobotMap.shooterEndcoder[0],
                 RobotMap.shooterEndcoder[1]);
@@ -56,7 +56,7 @@ public class ShooterInjector extends PIDSubsystem {
     public void activate() {
         if (shooter_Jaguar.get() != 0);
         {
-            shooter_Solenoid.set(true);
+            shooter_Spikezor.set(Relay.Value.kForward);
         }
     }
 
@@ -65,7 +65,7 @@ public class ShooterInjector extends PIDSubsystem {
      * 
      */
     public void deactivate() {
-        shooter_Solenoid.set(false);
+        shooter_Spikezor.set(Relay.Value.kOff);
     }
 
     ///////////////////// PID Functions /////////////////////////
