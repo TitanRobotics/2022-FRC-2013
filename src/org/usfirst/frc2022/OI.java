@@ -18,8 +18,10 @@ public class OI {
     // Joystick Button Declarations
     // Map these buttons to commands
     private JoystickButton targetTrackerButton;
+
     private JoystickButton injectorButton;
     private JoystickButton specialSweetSpotButton;
+
     
     public OI() {
         
@@ -29,9 +31,7 @@ public class OI {
         
         // Initialize all Joystick Buttons
         targetTrackerButton = xbawks.GetXButton();
-        injectorButton = attack.GetButton(1);
-        specialSweetSpotButton = attack.GetButton(2);
-        
+
         
         /**
          * Map buttons to commands.
@@ -42,8 +42,10 @@ public class OI {
          * released
          */
         targetTrackerButton.whileHeld(new TargetTrackerCommand());
+
         injectorButton.whileHeld(new InjectionCommand());
         specialSweetSpotButton.whileHeld(new SweetSpotCommand());
+
     }
 
     // Getter functions for all Joysticks
