@@ -1,6 +1,6 @@
 package org.usfirst.frc2022.subsystems;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc2022.RobotMap;
 
@@ -10,18 +10,18 @@ import org.usfirst.frc2022.RobotMap;
  *
  * @author Malachi Loviska
  */
-public class HandlingSolenoid extends Subsystem {
+public class HandlingSpike extends Subsystem {
 
-    Solenoid handling_Solenoid;
+    Relay handling_Spike;
     /*
      * Initialize Solenoid
      */
 
-    public HandlingSolenoid() {
+    public HandlingSpike() {
         super("HandlingSolenoid");
 
 
-        handling_Solenoid = new Solenoid(RobotMap.handlingSolenoid);
+        handling_Spike = new Relay(RobotMap.handlingSpike);
         /*
          * Constructs Solenoid
          */
@@ -35,7 +35,7 @@ public class HandlingSolenoid extends Subsystem {
 
     public void activate() {
 
-        handling_Solenoid.set(true);
+        handling_Spike.set(Relay.Value.kForward);
 
     }
 
@@ -44,6 +44,6 @@ public class HandlingSolenoid extends Subsystem {
      * 
      */
     public void deactivate() {
-        handling_Solenoid.set(false);
+        handling_Spike.set(Relay.Value.kOff);
     }
 }
