@@ -17,12 +17,12 @@ import org.usfirst.frc2022.subsystems.ShooterInjector;
  */
 public class PickupDumbCommand extends CommandBase {
     
-    Attack3 gandalfTheGrey;
+    Attack3 gandalfTheAttack3;
    
     
     public PickupDumbCommand() {
 
-        requires(spike);
+        requires(pickup);
        
     }
        /**
@@ -30,7 +30,7 @@ public class PickupDumbCommand extends CommandBase {
          */
 
     protected void initialize() {
-        gandalfTheGrey = oi.getAttack3();
+        gandalfTheAttack3 = oi.getAttack3();
         
     }
 
@@ -39,13 +39,13 @@ public class PickupDumbCommand extends CommandBase {
      * detects if the Button is being held down 
      */
     protected void execute() {
-        if (gandalfTheGrey.GetButton6Value()) {
-              spike.roll();
+        if (gandalfTheAttack3.getRawButton(6)) {
+              pickup.roll();
         } 
-        else if (gandalfTheGrey.GetButton7Value()){
-            spike.drop();
+        else if (gandalfTheAttack3.getRawButton(7)){
+            pickup.drop();
         }
-        else {spike.stop();}
+        else {pickup.stop();}
 
     }
     
@@ -60,7 +60,7 @@ public class PickupDumbCommand extends CommandBase {
      * @return
      */
     protected void end() {
-        spike.stop();
+        pickup.stop();
     }
 
     /**
@@ -71,6 +71,6 @@ public class PickupDumbCommand extends CommandBase {
      * @return
      */
     protected void interrupted() {
-        spike.stop();
+        pickup.stop();
     }
 }

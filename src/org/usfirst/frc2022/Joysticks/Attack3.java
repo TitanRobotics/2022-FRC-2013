@@ -14,8 +14,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * Note: Port of Attack3.ccp
  */
 public class Attack3 extends Joystick {
-    public static int Button6 = 6;
-    public static int Button7 = 7;
+   
     /**
      * Construct an instance of a Logitech Attack3 joystick (The kind in the
      * KoP).
@@ -107,19 +106,7 @@ public class Attack3 extends Joystick {
      * @return JoystickButton
      */
     
-       public static boolean GetButton6Value() {
-        return (Attack3.GetButton6Value());
-    }
-
-    /**
-     * Get the current state of the  button6.
-     *
-     * @param
-     * @return The current state of the button
-     */
-    public static boolean GetButton7Value() {
-        return (Attack3.GetButton7Value());
-    }
+    
     /**
      * Get the current state of the  button7.
      *

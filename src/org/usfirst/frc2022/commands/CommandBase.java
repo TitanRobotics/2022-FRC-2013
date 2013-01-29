@@ -29,7 +29,7 @@ public abstract class CommandBase extends Command {
     public static Robocam cam = new Robocam("10.20.22.11");
     public static CameraServos camServos = new CameraServos();
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
-    public static Pickup spike = new Pickup();
+    public static Pickup pickup = new Pickup();
   
 
     public static void init() {
