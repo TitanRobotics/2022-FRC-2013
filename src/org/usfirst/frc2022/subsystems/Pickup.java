@@ -6,9 +6,11 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.RobotMap;
+import org.usfirst.frc2022.commands.PickupDumbCommand;
 
 /**
  *
@@ -25,6 +27,7 @@ public class Pickup extends Subsystem{
             
             
     protected void initDefaultCommand() {
+        this.setDefaultCommand(new PickupDumbCommand());
     }
     
     /*
@@ -95,5 +98,7 @@ public class Pickup extends Subsystem{
         else if (dir == Backward) {return Relay.Direction.kReverse;}
         else {return Relay.Direction.kBoth;}
     }
+
+    
     
 }
