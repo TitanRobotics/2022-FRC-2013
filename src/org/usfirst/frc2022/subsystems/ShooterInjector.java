@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
+import org.usfirst.frc2022.commands.ShooterCommand;
+
 
 /**
  * This code is used to control the speed of Jaguars controlling the shooter for
@@ -17,7 +19,7 @@ public class ShooterInjector extends PIDSubsystem {
 
     Encoder shooter_Endcoder;
     Jaguar shooter_Jaguar;
-    Solenoid shooter_Solenoid;
+    Relay shooter_Spikezor;
     /*
      * Initialize Jaguar, Encoder and Solenoid
      */
@@ -32,7 +34,7 @@ public class ShooterInjector extends PIDSubsystem {
     public ShooterInjector() {
         super("ShooterJaguar", Kp, Ki, Kd);
 
-        shooter_Solenoid = new Solenoid(RobotMap.shooterSolenoid);
+        shooter_Spikezor = new Relay(RobotMap.shooterSpike);
         shooter_Jaguar = new Jaguar(RobotMap.shooterJaguar);
         shooter_Endcoder = new Encoder(RobotMap.shooterEndcoder[0],
                 RobotMap.shooterEndcoder[1]);
@@ -41,7 +43,11 @@ public class ShooterInjector extends PIDSubsystem {
         
         shooter_Endcoder.start();
     }
-
+    
+    public double getJagSpeed(){
+        return shooter_Jaguar.get(); 
+   }
+    
     ///////////////////// Injection Functions /////////////////////////
     /*
      * Activate Solenoid if the Jaguar is on
@@ -50,7 +56,7 @@ public class ShooterInjector extends PIDSubsystem {
     public void activate() {
         if (shooter_Jaguar.get() != 0);
         {
-            shooter_Solenoid.set(true);
+            shooter_Spikezor.set(Relay.Value.kForward);
         }
     }
 
@@ -59,7 +65,7 @@ public class ShooterInjector extends PIDSubsystem {
      * 
      */
     public void deactivate() {
-        shooter_Solenoid.set(false);
+        shooter_Spikezor.set(Relay.Value.kOff);
     }
 
     ///////////////////// PID Functions /////////////////////////
@@ -119,5 +125,7 @@ public class ShooterInjector extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {
-    }
+        setDefaultCommand(new ShooterCommand());
+    }   
+
 }

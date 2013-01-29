@@ -5,6 +5,8 @@ import org.usfirst.frc2022.commands.TargetTrackerCommand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc2022.Joysticks.Attack3;
 import org.usfirst.frc2022.Joysticks.Xbox360;
+import org.usfirst.frc2022.commands.InjectionCommand;
+import org.usfirst.frc2022.commands.SweetSpotCommand;
 
 public class OI {
 
@@ -16,6 +18,10 @@ public class OI {
     // Joystick Button Declarations
     // Map these buttons to commands
     private JoystickButton targetTrackerButton;
+
+    private JoystickButton injectorButton;
+    private JoystickButton specialSweetSpotButton;
+
     
     public OI() {
         
@@ -25,7 +31,7 @@ public class OI {
         
         // Initialize all Joystick Buttons
         targetTrackerButton = xbawks.GetXButton();
- 
+
         
         /**
          * Map buttons to commands.
@@ -36,8 +42,10 @@ public class OI {
          * released
          */
         targetTrackerButton.whileHeld(new TargetTrackerCommand());
-        targetTrackerButton.whileHeld(new TargetTrackerCommand());
-        
+
+        injectorButton.whileHeld(new InjectionCommand());
+        specialSweetSpotButton.whileHeld(new SweetSpotCommand());
+
     }
 
     // Getter functions for all Joysticks

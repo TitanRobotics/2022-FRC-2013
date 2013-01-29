@@ -48,11 +48,11 @@ public class RobotMap {
     
     
     // Solenoid Breakout Ports (Self-explanatory)
-    public static final int shooterSolenoid = 1;
     public static final int handlingSolenoid = 2;
     
     
     // Digital Relay Ports (Spike Relays)
     public static final int pickupPortNum = 2;
     public static final int[] pickupPorts = {1,2};
+    public static final int shooterSpike = 3;
 }
