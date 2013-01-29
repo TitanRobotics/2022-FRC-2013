@@ -1,12 +1,11 @@
 package org.usfirst.frc2022.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.commands.Servo45;
-import org.usfirst.frc2022.commands.TargetTrackerCommand;
 
 /**
  * This subsystem is for use with the camera on Clifford. It uses two servos,
@@ -101,7 +100,7 @@ public class CameraServos extends Subsystem {
      *
      */
     public double getPitchAngle() {
-        return pitchServo.get()*90;
+        return pitchServo.get() * 90;
     }
 
     /**
@@ -111,7 +110,7 @@ public class CameraServos extends Subsystem {
      *
      */
     public double getRotateAngle() {
-        return rotateServo.get()*90;
+        return rotateServo.get() * 90;
     }
 
     public void updateSD() {
