@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.RobotMap;
-import org.usfirst.frc2022.commands.Servo45;
+import org.usfirst.frc2022.commands.XboxServoCommand;
 
 /**
  * This subsystem is for use with the camera on Clifford. It uses two servos,
@@ -127,7 +127,7 @@ public class CameraServos extends Subsystem {
      * Default command for the CameraServos subsystem
      */
     protected void initDefaultCommand() {
-        //setDefaultCommand(new Servo45());
-        setDefaultCommand(new Servo45());
+        //setDefaultCommand(new XboxServoCommand());
+        setDefaultCommand(new XboxServoCommand());
     }
 }

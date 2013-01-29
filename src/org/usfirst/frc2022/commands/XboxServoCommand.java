@@ -1,11 +1,10 @@
 package org.usfirst.frc2022.commands;
 
-import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.Joysticks.Xbox360;
 
-public class Servo45 extends CommandBase {
+public class XboxServoCommand extends CommandBase {
 
-    public Servo45() {
+    public XboxServoCommand() {
         requires(camServos);
     }
 
