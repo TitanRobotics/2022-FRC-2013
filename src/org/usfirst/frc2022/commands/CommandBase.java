@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
-import org.usfirst.frc2022.subsystems.HandlingSpike;
+import org.usfirst.frc2022.subsystems.Handling;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Pickup;
 import org.usfirst.frc2022.subsystems.Robocam;
@@ -40,7 +40,7 @@ public abstract class CommandBase extends Command {
     public static ShooterInjector shooterInjector = new ShooterInjector();
     public static ShooterPitch shooterPitch = new ShooterPitch();
     public static ShooterRotation shooterRotation = new ShooterRotation();
-    public static HandlingSpike handlingSpike = new HandlingSpike();
+    public static Handling handlingSpike = new Handling();
 
 
     public static void init() {
