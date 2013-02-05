@@ -45,6 +45,8 @@ public class RobotMap {
     // Digital I/O Ports (Encoders and Limit Switches)
     public static final int[] shooterEndcoder = {3, 4};
     public static final int[] myEncoder = {9, 10};
+    public static final int[] DriveEncoder1 = {5,6};
+    public static final int[] DriveEncoder2 = {7,8};
    
     
     
