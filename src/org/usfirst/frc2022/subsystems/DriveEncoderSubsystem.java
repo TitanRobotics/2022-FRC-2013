@@ -6,11 +6,7 @@ import org.usfirst.frc2022.RobotMap;
 
 
 /**
- * This code is used to control the speed of Jaguars controlling the shooter for
- * picking up Frisbees by taking input as the rotation speed of the encoder And
- * for output giving ability to modify speed. Note: names with "_" are from the
- * program, no "_" are from RobotMap
- *
+ *Subsystem created to get the distance and speed the wheels are moving in Autonomous
  * @author Malachi Loviska
  */
 public class DriveEncoderSubsystem extends Subsystem {
