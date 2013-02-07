@@ -1,23 +1,26 @@
 package org.usfirst.frc2022.subsystems;
 
-import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.can.CANTimeoutException;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc2022.Utils;
 import org.usfirst.frc2022.commands.MecanumCommand;
+import org.usfirst.frc2022.RobotMap;
 
 /**
  *
- * Generic PWM subsystem used for the drivebase.
+ * Generic CAN subsystem used for the drivebase.
  *
  * @author Titan Robotics (2022)
- * @author Michael Hrcek
+ * @author Emma Sloan
  *
  */
-public class PWM_Generic extends Subsystem implements Drive_Generic {
+public class CAN_Generic extends Subsystem implements Drive_Generic {
 
-    Jaguar[] jags; 		//Array of a variable size that holds the jaguars
-    Jaguar[] jagsLeft;	//jaguars on the left side of the robot
-    Jaguar[] jagsRight; 	//jaguars on the right side of the robot
+    CANJaguar[] jags; 		//Array of a variable size that holds the jaguars
+    CANJaguar[] jagsLeft;	//jaguars on the left side of the robot
+    CANJaguar[] jagsRight; 	//jaguars on the right side of the robot
+    int[] ports;
 
     /**
      * Constructor for the subsystem. Check for an even number of jaguars. If
@@ -27,7 +30,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      * @param jags Array of jaguars used for controlling the drivebase
      * @return
      */
-    public PWM_Generic(Jaguar[] newJags) { //Check if there are an even number of jaguars
+    public CAN_Generic(CANJaguar[] newJags) { //Check if there are an even number of jaguars
 
         if (checkEven(newJags.length)) {
             this.jags = newJags;
@@ -47,12 +50,16 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      * @param ports Array of ints storing the ports used by the Jaguars
      * @return
      */
-    public PWM_Generic(int[] ports) { //Check if there are an even number of jaguars
-        Jaguar[] newJags = new Jaguar[ports.length];
+    public CAN_Generic() { //Check if there are an even number of jaguars
+        CANJaguar[] newJags = new CANJaguar[ports.length];
         if (checkEven(ports.length)) {
 
             for (int i = 0; i < ports.length; i++) {
-                newJags[i] = new Jaguar(ports[i]);
+                try {
+                    newJags[i] = new CANJaguar(ports[i]);
+                } catch (CANTimeoutException ex) {
+                    System.out.print("Could not connect to Jaguar");
+                }
             }
 
             this.jags = newJags;
@@ -81,7 +88,16 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      */
     public void setLeft(double speed) {
         for (int i = 0; jagsLeft.length > i; i++) {
-            jagsLeft[i].set(Utils.clamp(speed, 1, -1));
+            try {
+                jagsLeft[i].setX(Utils.clamp(speed, 1, -1),RobotMap.syncGroup);
+            } catch (CANTimeoutException ex) {
+                System.out.println("Could not set Jaguar");
+            }
+        }
+        try {
+            CANJaguar.updateSyncGroup(RobotMap.syncGroup);
+        } catch (CANTimeoutException ex) {
+                System.out.println("Could not set Jaguar");
         }
     }
 
@@ -93,7 +109,16 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      */
     public void setRight(double speed) {
         for (int i = 0; jagsRight.length > i; i++) {
-            jagsRight[i].set(Utils.clamp(-speed, 1, -1));
+            try {
+                jagsRight[i].setX(Utils.clamp(-speed, 1, -1),RobotMap.syncGroup);
+            } catch (CANTimeoutException ex) {
+                System.out.println("Could not set Jaguar");
+            }
+        }
+        try {  
+            CANJaguar.updateSyncGroup(RobotMap.syncGroup);
+        } catch (CANTimeoutException ex) {
+                System.out.println("Could not set Jaguar");
         }
     }
 
@@ -133,10 +158,19 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      * @return
      */
     public void driveMecanum(double speedLeftFront, double speedRightFront, double speedLeftBack, double speedRightBack) {
-        jagsLeft[0].set(speedLeftFront);
-        jagsLeft[1].set(speedLeftBack);
-        jagsRight[0].set(speedRightFront);
-        jagsRight[1].set(speedRightBack);
+        try {
+            jagsLeft[0].setX(speedLeftFront, RobotMap.syncGroup);
+            jagsLeft[1].setX(speedLeftBack, RobotMap.syncGroup);
+            jagsRight[0].setX(speedRightFront, RobotMap.syncGroup);
+            jagsRight[1].setX(speedRightBack, RobotMap.syncGroup);
+        } catch (CANTimeoutException ex) {
+                System.out.println("Could not set Jaguars");
+        }
+        try {
+            CANJaguar.updateSyncGroup(RobotMap.syncGroup);
+        } catch (CANTimeoutException ex) {
+                System.out.println("Could not set Jaguar");
+        }
     }
 
     /**
@@ -172,14 +206,14 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      * @param jags
      * @return
      */
-    public void separateJags(Jaguar[] jags) {
-        jagsLeft = new Jaguar[jags.length / 2];
-        jagsRight = new Jaguar[jags.length / 2];
+    public void separateJags(CANJaguar[] jags) {
+        jagsLeft = new CANJaguar[jags.length / 2];
+        jagsRight = new CANJaguar[jags.length / 2];
         for (int i = 0, j = 0, k = 0; i < jags.length; i++) {
-            if (checkEven(jags[i].getChannel())) {
+            if (checkEven(ports[i])) {
                 jagsRight[j] = jags[i];
                 j++;
-            } else if (!checkEven(jags[i].getChannel())) {
+            } else if (!checkEven(ports[i])) {
                 jagsLeft[k] = jags[i];
                 k++;
             }
@@ -196,16 +230,16 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
     public void flipJags() {
 
         int length = jagsLeft.length / 2;
-        Jaguar[] tempJags;
+        CANJaguar[] tempJags;
 
         for (int i = 0; i < length; i++) {
-            Jaguar temp = jagsLeft[i];
+            CANJaguar temp = jagsLeft[i];
             jagsLeft[i] = jagsLeft[length - 1 - i];
             jagsLeft[length - 1 - i] = temp;
         }
 
         for (int i = 0; i < length; i++) {
-            Jaguar temp = jagsRight[i];
+            CANJaguar temp = jagsRight[i];
             jagsRight[i] = jagsRight[length - 1 - i];
             jagsRight[length - 1 - i] = temp;
         }
@@ -217,12 +251,4 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
         //  Does not work
         //assignLiveWindow();
     }
-    //This function does not work due to LiveWindow not
-    //working with Java.
-        /*public void assignLiveWindow(){
-     for(int i=0; i<jagsLeft.length; i++){
-     RobotMap.liveWindow.addActuator("Generic PWM", "Left Jaguar #" + i + 1, jagsLeft[i]);
-     RobotMap.liveWindow.addActuator("Generic PWM", "Right Jaguar #" + i + 1, jagsRight[i]);
-     }
-     }*/
 }
