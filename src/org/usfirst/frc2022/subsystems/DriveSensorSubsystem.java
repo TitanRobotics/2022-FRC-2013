@@ -9,10 +9,11 @@ import org.usfirst.frc2022.RobotMap;
  *Subsystem created to get the distance and speed the wheels are moving in Autonomous
  * @author Malachi Loviska
  */
-public class DriveEncoderSubsystem extends Subsystem {
+public class DriveSensorSubsystem extends Subsystem {
 
     Encoder Drive_Encoder1;
     Encoder Drive_Encoder2;
+    Gyro Gyro_Sensor1;
 
     /*
      * Initialize  Encoders 
@@ -21,7 +22,7 @@ public class DriveEncoderSubsystem extends Subsystem {
      * Constructs the Jaguar, Encoder, and Solenoid and assigns ports from robot
      * map. It also starts the Encoder
      */
-    public DriveEncoderSubsystem() {
+    public DriveSensorSubsystem() {
 
 
 
@@ -29,6 +30,7 @@ public class DriveEncoderSubsystem extends Subsystem {
                 RobotMap.DriveEncoder1[6]);
         Drive_Encoder2 = new Encoder(RobotMap.DriveEncoder2[7],
                 RobotMap.DriveEncoder1[8]);
+        Gyro_Sensor1.reset();
 
 
 
@@ -36,6 +38,17 @@ public class DriveEncoderSubsystem extends Subsystem {
         this.init();
 
     }
+    
+    public void ResetGyro()
+    {
+        Gyro_Sensor1.reset();
+    }
+    
+    public double GetGyroAngle()
+    {
+        return Gyro_Sensor1.getAngle();
+    }
+    
     public void initDefaultCommand(){
         
     }
@@ -54,20 +67,20 @@ public class DriveEncoderSubsystem extends Subsystem {
         Drive_Encoder2.reset();
     }
 
-    public void getRightSpeed() {
-        Drive_Encoder1.getRate();
+    public double getRightSpeed() {
+        return Drive_Encoder1.getRate();
 
     }
 
-    public void getLeftSpeed() {
-        Drive_Encoder2.getRate();
+    public double getLeftSpeed() {
+        return Drive_Encoder2.getRate();
     }
 
-    public void GetRightDistance() {
-        Drive_Encoder1.getDistance();
+    public double GetRightDistance() {
+        return Drive_Encoder1.getDistance();
     }
 
-    public void GetLeftDistance() {
-        Drive_Encoder2.getDistance();
+    public double GetLeftDistance() {
+        return Drive_Encoder2.getDistance();
     }
 }
