@@ -51,10 +51,7 @@ public abstract class CommandBase extends Command {
         // news. Don't move it.
         oi = new OI();
         
-        // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(cam);
-        SmartDashboard.putData(camServos);
-        SmartDashboard.putData(pwmDriveBase);
+        //NEED TO PUT INFORMATION ON THE DRIVER STATION
     }
 
     public CommandBase(String name) {
