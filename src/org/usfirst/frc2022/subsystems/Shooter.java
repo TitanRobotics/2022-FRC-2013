@@ -19,7 +19,6 @@ public class Shooter extends PIDSubsystem {
 
     Encoder shooter_Endcoder;
     Jaguar shooter_Jaguar;
-    Relay shooter_Spikezor;
     /*
      * Initialize Jaguar, Encoder and Solenoid
      */
@@ -34,7 +33,6 @@ public class Shooter extends PIDSubsystem {
     public Shooter() {
         super("ShooterJaguar", Kp, Ki, Kd);
 
-        shooter_Spikezor = new Relay(RobotMap.shooterSpike);
         shooter_Jaguar = new Jaguar(RobotMap.shooterJaguar);
         shooter_Endcoder = new Encoder(RobotMap.shooterEndcoder[0],
                 RobotMap.shooterEndcoder[1]);
@@ -47,26 +45,6 @@ public class Shooter extends PIDSubsystem {
     public double getJagSpeed(){
         return shooter_Jaguar.get(); 
    }
-    
-    ///////////////////// Injection Functions /////////////////////////
-    /*
-     * Activate Solenoid if the Jaguar is on
-     * 
-     */
-    public void activate() {
-        if (shooter_Jaguar.get() != 0);
-        {
-            shooter_Spikezor.set(Relay.Value.kForward);
-        }
-    }
-
-    /*
-     * Deactivate Solenoid if Jaguar is off.
-     * 
-     */
-    public void deactivate() {
-        shooter_Spikezor.set(Relay.Value.kOff);
-    }
 
     ///////////////////// PID Functions /////////////////////////
     

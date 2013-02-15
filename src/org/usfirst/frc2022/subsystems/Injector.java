@@ -2,6 +2,7 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
 import org.usfirst.frc2022.commands.InjectionCommand;
@@ -16,38 +17,19 @@ import org.usfirst.frc2022.commands.ShooterCommand;
  *
  * @author Malachi Loviska
  */
-public class Injector extends PIDSubsystem {
+public class Injector extends Subsystem {
 
-    Encoder shooter_Endcoder;
-    Jaguar shooter_Jaguar;
     Relay shooter_Spikezor;
-    /*
-     * Initialize Jaguar, Encoder and Solenoid
-     */
-    private static final double Kp = 0.1;
-    private static final double Ki = 0.0;
-    private static final double Kd = 0.0;
-
+    
     /**
      * Constructs the Jaguar, Encoder, and Solenoid and assigns ports from robot
      * map. It also starts the Encoder
      */
     public Injector() {
-        super("ShooterJaguar", Kp, Ki, Kd);
-
         shooter_Spikezor = new Relay(RobotMap.shooterSpike);
-        shooter_Jaguar = new Jaguar(RobotMap.shooterJaguar);
-        shooter_Endcoder = new Encoder(RobotMap.shooterEndcoder[0],
-                RobotMap.shooterEndcoder[1]);
         
-        //TODO: Set DistancePerPulse() for the Encoder!!!
-        
-        shooter_Endcoder.start();
     }
     
-    public double getJagSpeed(){
-        return shooter_Jaguar.get(); 
-   }
     
     ///////////////////// Injection Functions /////////////////////////
     /*
@@ -55,10 +37,9 @@ public class Injector extends PIDSubsystem {
      * 
      */
     public void activate() {
-        if (shooter_Jaguar.get() != 0);
-        {
+        
             shooter_Spikezor.set(Relay.Value.kForward);
-        }
+        
     }
 
     /*
@@ -69,61 +50,6 @@ public class Injector extends PIDSubsystem {
         shooter_Spikezor.set(Relay.Value.kOff);
     }
 
-    ///////////////////// PID Functions /////////////////////////
-    
-    
-    /*
-     * Get the value to be used for the PID Input
-     * 
-     * @return the rotation speed of encoder for use of Jaguar
-     */
-    protected double returnPIDInput() {
-        return shooter_Endcoder.getRate();
-
-    }
-
-    /**
-     *
-     * Using the output from encoder to give to change the acceleration of the
-     * Jaguar
-     *
-     * @retun encoder values to jaguar between 1 and -1
-     */
-    protected void usePIDOutput(double output) {
-
-        double shoot = Utils.clamp(shooter_Jaguar.get(), 1, -1);
-        shooter_Jaguar.set(output + shoot);
-
-    }
-    
-    /**
-     * Set state of PID Loop
-     * 
-     * @param pid Whether to enable PID loop or not
-     */
-    
-    public void usePID(boolean pid) {
-        if(pid) {
-            this.enable();
-        }
-        else {
-            this.disable();
-        }
-    }
-    
-    ///////////////////// Manual Functions /////////////////////////
-    
-    /**
-     * 
-     * Used for Manual control of the shooter.
-     * Also turns of PID loop if running.
-     * 
-     * @param percent Value -1 to 1 for speed of the shooter.
-     */
-    public void setShooter(double percent) {
-        this.usePID(false);
-        shooter_Jaguar.set(Utils.clamp(percent, 1, -1));
-    }
 
     public void initDefaultCommand() {
         setDefaultCommand(new InjectionCommand());
