@@ -48,10 +48,7 @@ public class AutoAimCommand extends CommandBase {
      */
     protected void execute() {
         process(cam.analyze());
-        if(xboz.GetBValue()){
-            toggleState();
-        }
-        if(on){
+        
             if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
                 shooter.setSetpoint(30);
                 shooterPitch.setPitch(pitch);
@@ -59,11 +56,11 @@ public class AutoAimCommand extends CommandBase {
             } else{
                 shooter.setSetpoint(0);
             }
-        } else {}
     }
     
+    
     /**
-     * see every other damned command
+     * see every other command
      */
     protected void end() {
         shooter.disable();
@@ -72,7 +69,7 @@ public class AutoAimCommand extends CommandBase {
     }
 
     /**
-     * see every other damned command
+     * see every other command
      */
     protected void interrupted() {
         shooter.disable();
@@ -80,14 +77,6 @@ public class AutoAimCommand extends CommandBase {
         shooterRotation.disable();
     }
 
-    /**
-     * toggles the state of the command
-     */
-    protected void toggleState(){
-        if(on){on = false;}
-        if(!on){on = true;}
-    }
-    
     /**
      * Convert the data from an array into variables (rotation,pitch,goal.
      * @param analyze the array to be analyzed
