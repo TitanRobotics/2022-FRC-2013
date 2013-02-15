@@ -54,7 +54,7 @@ public class RobotMap {
     // Enumeration of Sweet Spots
     public static final int behindPyramid = 0;
     public static final int rightOfPyramid = 1;
-    public static final int feederSpot = 0;
+    public static final int feederSpot = 2;
     
     
     // Digital Relay Ports (Spike Relays)
