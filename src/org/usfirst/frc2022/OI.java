@@ -32,7 +32,7 @@ public class OI {
         attack = new Attack3(2);
         
         // Initialize all Joystick Buttons
-        targetTrackerButton = xbawks.GetXButton();
+        targetTrackerButton = attack.GetButton(3);
         injectorButton = attack.GetButton(1);
         specialSweetSpotButton = attack.GetButton(2);
         mrAttackTheesButton4Handling = attack.GetButton(10);
@@ -46,7 +46,7 @@ public class OI {
          * whenPressed() executes a command once after button is pressed and
          * released
          */
-        targetTrackerButton.whenPressed(new AutoAimCommand());
+        targetTrackerButton.whileHeld(new AutoAimCommand());
         injectorButton.whileHeld(new InjectionCommand());
         specialSweetSpotButton.whileHeld(new SweetSpotCommand());
         mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
