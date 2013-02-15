@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
+import org.usfirst.frc2022.commands.InjectionCommand;
 import org.usfirst.frc2022.commands.ShooterCommand;
 
 
@@ -15,7 +16,7 @@ import org.usfirst.frc2022.commands.ShooterCommand;
  *
  * @author Malachi Loviska
  */
-public class ShooterInjector extends PIDSubsystem {
+public class Injector extends PIDSubsystem {
 
     Encoder shooter_Endcoder;
     Jaguar shooter_Jaguar;
@@ -31,7 +32,7 @@ public class ShooterInjector extends PIDSubsystem {
      * Constructs the Jaguar, Encoder, and Solenoid and assigns ports from robot
      * map. It also starts the Encoder
      */
-    public ShooterInjector() {
+    public Injector() {
         super("ShooterJaguar", Kp, Ki, Kd);
 
         shooter_Spikezor = new Relay(RobotMap.shooterSpike);
@@ -125,7 +126,7 @@ public class ShooterInjector extends PIDSubsystem {
     }
 
     public void initDefaultCommand() {
-        setDefaultCommand(new ShooterCommand());
+        setDefaultCommand(new InjectionCommand());
     }   
 
 }

@@ -14,24 +14,24 @@ import org.usfirst.frc2022.Joysticks.Attack3;
 public class SweetSpotCommand extends CommandBase{
 
     public SweetSpotCommand(){
-        requires(shooterInjector);
+        requires(shooter);
         requires(shooterPitch);
         requires(shooterRotation);
     }
     
     protected void initialize() {
-        shooterInjector.enable();
+        shooter.enable();
         shooterPitch.enable();
         shooterRotation.enable();
         shooterRotation.setSetpoint(0);
         shooterPitch.setSetpoint(0);
-        shooterInjector.setSetpoint(0);
+        shooter.setSetpoint(0);
     }
 
     protected void execute() {
-        shooterInjector.setShooter(Math.E / 5.0);
+        shooter.setShooter(Math.E / 5.0);
         shooterPitch.setPitch(Math.floor(Math.E / 2.0));
-        shooterInjector.setShooter(Math.PI/5.0);
+        shooter.setShooter(Math.PI/5.0);
     }
 
     protected boolean isFinished() {
@@ -39,14 +39,14 @@ public class SweetSpotCommand extends CommandBase{
     }
 
     protected void end() {
-        shooterInjector.disable();
+        shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
         
     }
 
     protected void interrupted() {
-        shooterInjector.disable();
+        shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
         
