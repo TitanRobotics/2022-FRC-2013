@@ -51,7 +51,10 @@ public class RobotMap {
     public static final int[] DriveEncoder1 = {5,6};
     public static final int[] DriveEncoder2 = {7,8};
    
-    
+    // Enumeration of Sweet Spots
+    public static final int behindPyramid = 0;
+    public static final int rightOfPyramid = 1;
+    public static final int feederSpot = 2;
     
     
     // Digital Relay Ports (Spike Relays)

@@ -20,7 +20,9 @@ public class OI {
     // Map these buttons to commands
     private JoystickButton targetTrackerButton;
     private JoystickButton injectorButton;
-    private JoystickButton specialSweetSpotButton;
+    private JoystickButton behindPyramidSweetSpotButton;
+    private JoystickButton rightSweetSpotButton;
+    private JoystickButton feederSweetSpotButton;
     private JoystickButton mrAttackTheesButton4Handling;
     private boolean Pressed;
 
@@ -32,9 +34,11 @@ public class OI {
         attack = new Attack3(2);
         
         // Initialize all Joystick Buttons
-        targetTrackerButton = attack.GetButton(3);
         injectorButton = attack.GetButton(1);
-        specialSweetSpotButton = attack.GetButton(2);
+        behindPyramidSweetSpotButton = attack.GetButton(3);
+        rightSweetSpotButton = attack.GetButton(4);
+        feederSweetSpotButton = attack.GetButton(5);
+        targetTrackerButton = attack.GetButton(2);
         mrAttackTheesButton4Handling = attack.GetButton(10);
         Pressed = false;
         
@@ -48,7 +52,9 @@ public class OI {
          */
         targetTrackerButton.whileHeld(new AutoAimCommand());
         injectorButton.whileHeld(new InjectionCommand());
-        specialSweetSpotButton.whileHeld(new SweetSpotCommand());
+        behindPyramidSweetSpotButton.whileHeld(new SweetSpotCommand(0));
+        rightSweetSpotButton.whileHeld(new SweetSpotCommand(1));
+        feederSweetSpotButton.whileHeld(new SweetSpotCommand(2));
         mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
     }
 
