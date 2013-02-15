@@ -22,6 +22,7 @@ public class OI {
     private JoystickButton injectorButton;
     private JoystickButton specialSweetSpotButton;
     private JoystickButton mrAttackTheesButton4Handling;
+    private boolean Pressed;
 
     
     public OI() {
@@ -35,7 +36,7 @@ public class OI {
         injectorButton = attack.GetButton(1);
         specialSweetSpotButton = attack.GetButton(2);
         mrAttackTheesButton4Handling = attack.GetButton(10);
-        
+        Pressed = false;
         
         /**
          * Map buttons to commands.
@@ -45,8 +46,12 @@ public class OI {
          * whenPressed() executes a command once after button is pressed and
          * released
          */
-        targetTrackerButton.whileHeld(new AutoAimCommand());
-
+        if(!Pressed){
+            targetTrackerButton.whenPressed(new AutoAimCommand());
+            Pressed = true;
+        }else{
+            Pressed = false;
+        }
         injectorButton.whileHeld(new InjectionCommand());
         specialSweetSpotButton.whileHeld(new SweetSpotCommand());
         mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
@@ -59,5 +64,9 @@ public class OI {
     
     public Attack3 getAttack3() {
         return attack;
+    }
+    
+    public boolean getAutoAimState(){
+        return Pressed;
     }
 }
