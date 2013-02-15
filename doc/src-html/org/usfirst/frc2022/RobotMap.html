@@ -8,45 +8,63 @@
 <div class="sourceContainer">
 <pre><span class="sourceLineNo">001</span>package org.usfirst.frc2022;<a name="line.1"></a>
 <span class="sourceLineNo">002</span><a name="line.2"></a>
-<span class="sourceLineNo">003</span>import edu.wpi.first.wpilibj.livewindow.LiveWindow;<a name="line.3"></a>
-<span class="sourceLineNo">004</span><a name="line.4"></a>
-<span class="sourceLineNo">005</span>/**<a name="line.5"></a>
-<span class="sourceLineNo">006</span> * The RobotMap is a mapping from the ports sensors and actuators are wired into<a name="line.6"></a>
-<span class="sourceLineNo">007</span> * to a variable name. This provides flexibility changing wiring, makes checking<a name="line.7"></a>
-<span class="sourceLineNo">008</span> * the wiring easier and significantly reduces the number of magic numbers<a name="line.8"></a>
-<span class="sourceLineNo">009</span> * floating around.<a name="line.9"></a>
-<span class="sourceLineNo">010</span> */<a name="line.10"></a>
-<span class="sourceLineNo">011</span>public class RobotMap {<a name="line.11"></a>
-<span class="sourceLineNo">012</span>    // For example to map the left and right motors, you could define the<a name="line.12"></a>
-<span class="sourceLineNo">013</span>    // following variables to use with your drivetrain subsystem.<a name="line.13"></a>
-<span class="sourceLineNo">014</span>    // public static final int leftMotor = 1;<a name="line.14"></a>
-<span class="sourceLineNo">015</span>    // public static final int rightMotor = 2;<a name="line.15"></a>
-<span class="sourceLineNo">016</span>    <a name="line.16"></a>
-<span class="sourceLineNo">017</span>    // If you are using multiple modules, make sure to define both the port<a name="line.17"></a>
-<span class="sourceLineNo">018</span>    // number and the module. For example you with a rangefinder:<a name="line.18"></a>
-<span class="sourceLineNo">019</span>    // public static final int rangefinderPort = 1;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>    // public static final int rangefinderModule = 1;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>        <a name="line.21"></a>
-<span class="sourceLineNo">022</span>        //public static final LiveWindow liveWindow = new LiveWindow();<a name="line.22"></a>
-<span class="sourceLineNo">023</span>        private static int jagUpperLeft = 1;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>        private static int jagUpperRight = 4;<a name="line.24"></a>
-<span class="sourceLineNo">025</span>        private static int jagLowerLeft = 3;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>        private static int jagLowerRight = 2;<a name="line.26"></a>
-<span class="sourceLineNo">027</span>        public static int[] portsJaguar = {jagUpperLeft,jagUpperRight,jagLowerLeft,jagLowerRight};<a name="line.27"></a>
-<span class="sourceLineNo">028</span>        public static final int rotateServo = 5;<a name="line.28"></a>
-<span class="sourceLineNo">029</span>        public static final int pitchServo = 6;<a name="line.29"></a>
-<span class="sourceLineNo">030</span>        public static final int rotate_motor = 7;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>        public static final int pitch_motor = 8;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>        public static final int cherry_rotate = 9;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>        public static final int cherry_pitch = 10;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>        public static final int shooterJaguar = 11;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>        public static int[] shooterEndcoder = {12,13};       <a name="line.35"></a>
-<span class="sourceLineNo">036</span>        public static int  shooterSolenoid = 14;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>        public static int pickupPortNum = 2;<a name="line.37"></a>
-<span class="sourceLineNo">038</span>        <a name="line.38"></a>
-<span class="sourceLineNo">039</span>        <a name="line.39"></a>
-<span class="sourceLineNo">040</span>        <a name="line.40"></a>
-<span class="sourceLineNo">041</span>}<a name="line.41"></a>
+<span class="sourceLineNo">003</span>/**<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * The RobotMap is a mapping from the ports sensors and actuators are wired into<a name="line.4"></a>
+<span class="sourceLineNo">005</span> * to a variable name. This provides flexibility changing wiring, makes checking<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * the wiring easier and significantly reduces the number of magic numbers<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * floating around.<a name="line.7"></a>
+<span class="sourceLineNo">008</span> */<a name="line.8"></a>
+<span class="sourceLineNo">009</span>public class RobotMap {<a name="line.9"></a>
+<span class="sourceLineNo">010</span>    // For example to map the left and right motors, you could define the<a name="line.10"></a>
+<span class="sourceLineNo">011</span>    // following variables to use with your drivetrain subsystem.<a name="line.11"></a>
+<span class="sourceLineNo">012</span>    // public static final int leftMotor = 1;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>    // public static final int rightMotor = 2;<a name="line.13"></a>
+<span class="sourceLineNo">014</span><a name="line.14"></a>
+<span class="sourceLineNo">015</span>    // If you are using multiple modules, make sure to define both the port<a name="line.15"></a>
+<span class="sourceLineNo">016</span>    // number and the module. For example you with a rangefinder:<a name="line.16"></a>
+<span class="sourceLineNo">017</span>    // public static final int rangefinderPort = 1;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    // public static final int rangefinderModule = 1;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>    //public static final LiveWindow liveWindow = new LiveWindow();<a name="line.19"></a>
+<span class="sourceLineNo">020</span>    /**<a name="line.20"></a>
+<span class="sourceLineNo">021</span>     * PWM Port Numbers for the Digital Sidecar Used for Jaguars, Victors,<a name="line.21"></a>
+<span class="sourceLineNo">022</span>     * Talons, and Servos<a name="line.22"></a>
+<span class="sourceLineNo">023</span>     */<a name="line.23"></a>
+<span class="sourceLineNo">024</span>    // Jaguars<a name="line.24"></a>
+<span class="sourceLineNo">025</span>    private static final int jagUpperLeft = 1;<a name="line.25"></a>
+<span class="sourceLineNo">026</span>    private static final int jagUpperRight = 2;<a name="line.26"></a>
+<span class="sourceLineNo">027</span>    private static final int jagLowerLeft = 4;<a name="line.27"></a>
+<span class="sourceLineNo">028</span>    private static final int jagLowerRight = 3;<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};<a name="line.29"></a>
+<span class="sourceLineNo">030</span>    public static final int shooterJaguar = 9;<a name="line.30"></a>
+<span class="sourceLineNo">031</span>    public static final int handlingsolenoid = 5;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>    <a name="line.32"></a>
+<span class="sourceLineNo">033</span>    // Servos<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    public static final int rotateServo = 5;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>    public static final int pitchServo = 6;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>    public static final int rotate_motor = 7;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>    public static final int pitch_motor = 8;<a name="line.37"></a>
+<span class="sourceLineNo">038</span>    <a name="line.38"></a>
+<span class="sourceLineNo">039</span>    <a name="line.39"></a>
+<span class="sourceLineNo">040</span>    // Analog Sensors (Cherry, Ultrasound, etc.)<a name="line.40"></a>
+<span class="sourceLineNo">041</span>    public static final int cherry_rotate = 1;<a name="line.41"></a>
+<span class="sourceLineNo">042</span>    public static final int cherry_pitch = 2;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>    <a name="line.43"></a>
+<span class="sourceLineNo">044</span>    <a name="line.44"></a>
+<span class="sourceLineNo">045</span>    // Digital I/O Ports (Encoders and Limit Switches)<a name="line.45"></a>
+<span class="sourceLineNo">046</span>    public static final int[] shooterEndcoder = {3, 4};<a name="line.46"></a>
+<span class="sourceLineNo">047</span>    public static final int[] myEncoder = {9, 10};<a name="line.47"></a>
+<span class="sourceLineNo">048</span>    public static final int[] DriveEncoder1 = {5,6};<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    public static final int[] DriveEncoder2 = {7,8};<a name="line.49"></a>
+<span class="sourceLineNo">050</span>   <a name="line.50"></a>
+<span class="sourceLineNo">051</span>    <a name="line.51"></a>
+<span class="sourceLineNo">052</span>    <a name="line.52"></a>
+<span class="sourceLineNo">053</span>    <a name="line.53"></a>
+<span class="sourceLineNo">054</span>    // Digital Relay Ports (Spike Relays)<a name="line.54"></a>
+<span class="sourceLineNo">055</span>    public static final int pickupPortNum = 2;<a name="line.55"></a>
+<span class="sourceLineNo">056</span>    public static final int[] pickupPorts = {1,2};<a name="line.56"></a>
+<span class="sourceLineNo">057</span>    public static final int shooterSpike = 3;<a name="line.57"></a>
+<span class="sourceLineNo">058</span>    public static final int handlingSpike = 4;<a name="line.58"></a>
+<span class="sourceLineNo">059</span>}<a name="line.59"></a>
 
 
 

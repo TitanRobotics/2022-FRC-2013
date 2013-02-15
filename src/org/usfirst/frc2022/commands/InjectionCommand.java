@@ -1,50 +1,43 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc2022.commands;
 
 import org.usfirst.frc2022.Joysticks.Attack3;
 
+
 /**
- *
- * @author Emma Sloan
+ * Command to activate and deactivate the injector (does not use the
+ * shooter)
  */
 public class InjectionCommand extends CommandBase {
     
     Attack3 attack3;
     
     public InjectionCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-        requires(shooterInjector);
+        requires(injector);
     }
 
-    // Called just before this Command runs the first time
+    // Sets the spike value to zero
     protected void initialize() {
-       shooterInjector.deactivate();       
+       injector.deactivate();       
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    // Activates the spike
     protected void execute() {
-        if (shooterInjector.getJagSpeed()>=0.01 || shooterInjector.getJagSpeed()<-0.01){
-                shooterInjector.activate();
+        if (shooter.getJagSpeed()>=0.01 || shooter.getJagSpeed()<-0.01){
+                injector.activate();
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    // Sets the spike value to zero
     protected void end() {
-        shooterInjector.deactivate();
+        injector.deactivate();
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    // Sets the spike value to zero
     protected void interrupted() {
-        shooterInjector.deactivate();
+        injector.deactivate();
     }
 }

@@ -5,11 +5,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
-import org.usfirst.frc2022.subsystems.HandlingSpike;
+import org.usfirst.frc2022.subsystems.Handling;
+import org.usfirst.frc2022.subsystems.Injector;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Pickup;
 import org.usfirst.frc2022.subsystems.Robocam;
-import org.usfirst.frc2022.subsystems.ShooterInjector;
+import org.usfirst.frc2022.subsystems.Shooter;
 import org.usfirst.frc2022.subsystems.ShooterPitch;
 import org.usfirst.frc2022.subsystems.ShooterRotation;
 
@@ -35,12 +36,12 @@ public abstract class CommandBase extends Command {
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
 
     public static Pickup pickup = new Pickup();
-  
 
-    public static ShooterInjector shooterInjector = new ShooterInjector();
+    public static Shooter shooter = new Shooter();
+    public static Injector injector = new Injector();
     public static ShooterPitch shooterPitch = new ShooterPitch();
     public static ShooterRotation shooterRotation = new ShooterRotation();
-    public static HandlingSpike handlingSpike = new HandlingSpike();
+    public static Handling handlingSpike = new Handling();
 
 
     public static void init() {
@@ -51,10 +52,7 @@ public abstract class CommandBase extends Command {
         // news. Don't move it.
         oi = new OI();
         
-        // Show what command your subsystem is running on the SmartDashboard
-        SmartDashboard.putData(cam);
-        SmartDashboard.putData(camServos);
-        SmartDashboard.putData(pwmDriveBase);
+        //NEED TO PUT INFORMATION ON THE DRIVER STATION
     }
 
     public CommandBase(String name) {

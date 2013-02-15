@@ -6,7 +6,7 @@ package org.usfirst.frc2022.commands;
 import org.usfirst.frc2022.Joysticks.Attack3;
 import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.subsystems.Pickup;
-import org.usfirst.frc2022.subsystems.ShooterInjector;
+import org.usfirst.frc2022.subsystems.Shooter;
         
 
 

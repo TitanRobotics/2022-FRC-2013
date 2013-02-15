@@ -1,37 +1,35 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.usfirst.frc2022.commands;
 
 import org.usfirst.frc2022.Joysticks.Attack3;
 
-
-/**
- *
- * @author Michael
- */
 public class SweetSpotCommand extends CommandBase{
 
-    public SweetSpotCommand(){
-        requires(shooterInjector);
+    private int spot;
+    private double[] rotation = {1,1,1};
+    private double[] pitch = {1,1,1};
+    private double[] speed = {1,1,1};
+
+    //0 - spot 1, 1 - spot 2, 2 - spot 3
+    public SweetSpotCommand(int command){
+        requires(shooter);
         requires(shooterPitch);
         requires(shooterRotation);
+        spot = command;
     }
     
     protected void initialize() {
-        shooterInjector.enable();
+        shooter.enable();
         shooterPitch.enable();
         shooterRotation.enable();
         shooterRotation.setSetpoint(0);
         shooterPitch.setSetpoint(0);
-        shooterInjector.setSetpoint(0);
+        shooter.setSetpoint(0);
     }
 
     protected void execute() {
-        shooterInjector.setShooter(Math.E / 5.0);
-        shooterPitch.setPitch(Math.floor(Math.E / 2.0));
-        shooterInjector.setShooter(Math.PI/5.0);
+        shooter.setSetpoint(speed[spot]);
+        shooterPitch.setSetpoint(pitch[spot]);
+        shooterRotation.setSetpoint(rotation[spot]);
     }
 
     protected boolean isFinished() {
@@ -39,19 +37,18 @@ public class SweetSpotCommand extends CommandBase{
     }
 
     protected void end() {
-        shooterInjector.disable();
+        shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
         
     }
 
     protected void interrupted() {
-        shooterInjector.disable();
+        shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
         
     }
     
-    
-    
 }
+

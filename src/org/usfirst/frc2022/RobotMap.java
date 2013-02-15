@@ -23,12 +23,12 @@ public class RobotMap {
      */
     // Jaguars
     private static final int jagUpperLeft = 1;
-    private static final int jagUpperRight = 4;
-    private static final int jagLowerLeft = 3;
-    private static final int jagLowerRight = 2;
+    private static final int jagUpperRight = 2;
+    private static final int jagLowerLeft = 4;
+    private static final int jagLowerRight = 3;
     public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};
     public static final int shooterJaguar = 9;
-    
+    public static final int handlingsolenoid = 5;
     
     // Servos
     public static final int rotateServo = 5;
@@ -45,8 +45,13 @@ public class RobotMap {
     // Digital I/O Ports (Encoders and Limit Switches)
     public static final int[] shooterEndcoder = {3, 4};
     public static final int[] myEncoder = {9, 10};
+    public static final int[] DriveEncoder1 = {5,6};
+    public static final int[] DriveEncoder2 = {7,8};
    
-    
+    // Enumeration of Sweet Spots
+    public static final int behindPyramid = 0;
+    public static final int rightOfPyramid = 1;
+    public static final int feederSpot = 0;
     
     
     // Digital Relay Ports (Spike Relays)
