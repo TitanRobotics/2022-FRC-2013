@@ -36,7 +36,6 @@ public abstract class CommandBase extends Command {
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
 
     public static Pickup pickup = new Pickup();
-  
 
     public static Shooter shooter = new Shooter();
     public static Injector injector = new Injector();
