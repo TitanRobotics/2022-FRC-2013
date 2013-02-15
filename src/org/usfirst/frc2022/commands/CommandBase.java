@@ -6,10 +6,11 @@ import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.Handling;
+import org.usfirst.frc2022.subsystems.Injector;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Pickup;
 import org.usfirst.frc2022.subsystems.Robocam;
-import org.usfirst.frc2022.subsystems.ShooterInjector;
+import org.usfirst.frc2022.subsystems.Shooter;
 import org.usfirst.frc2022.subsystems.ShooterPitch;
 import org.usfirst.frc2022.subsystems.ShooterRotation;
 
@@ -37,7 +38,8 @@ public abstract class CommandBase extends Command {
     public static Pickup pickup = new Pickup();
   
 
-    public static ShooterInjector shooterInjector = new ShooterInjector();
+    public static Shooter shooter = new Shooter();
+    public static Injector injector = new Injector();
     public static ShooterPitch shooterPitch = new ShooterPitch();
     public static ShooterRotation shooterRotation = new ShooterRotation();
     public static Handling handlingSpike = new Handling();

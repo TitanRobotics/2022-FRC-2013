@@ -1,6 +1,8 @@
 package org.usfirst.frc2022.commands;
 
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc2022.Joysticks.Xbox360;
 
 public class AutoAimCommand extends CommandBase {
 
@@ -12,60 +14,64 @@ public class AutoAimCommand extends CommandBase {
     private double rotation;
     private double pitch;
     private double goal;
+    private boolean on;
+    private Xbox360 xboz;
 
     public AutoAimCommand() {
         requires(cam);
-        requires(shooterInjector);
+        requires(shooter);
         requires(shooterPitch);
         requires(shooterRotation);
     }
 
     protected void initialize() {
-        shooterInjector.enable();
-        shooterPitch.enable();
-        shooterRotation.enable();
-        shooterRotation.setSetpoint(0);
-        shooterPitch.setSetpoint(0);
-        shooterInjector.setSetpoint(0);
-        shooterInjector.usePID(true);
+        shooter.enable();
+        shooterPitch.disable();
+        shooterRotation.disable();
+        shooterPitch.setPitch(0);
+        shooterRotation.setRotation(0);
+        shooter.setSetpoint(0);
+        xboz = oi.getXbawks();
         
     }
 
     protected void execute() {
         process(cam.analyze());
-        if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
-            shooterInjector.setSetpoint(30);
-            shooterPitch.setPitch(pitch*60);
-            shooterRotation.setRotation(rotation*60);
-        } else{
-            shooterInjector.setShooter(0);
-        }
+        if(on){
+            if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
+                shooter.setSetpoint(30);
+                shooterPitch.setPitch(pitch);
+                shooterRotation.setRotation(rotation);
+            } else{
+                shooter.setSetpoint(0);
+            }
+        } else {}
     }
-
-    protected boolean isFinished() {
-        if(!oi.getAutoAimState()){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    
     protected void end() {
-        shooterInjector.disable();
+        shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
     }
 
     protected void interrupted() {
-        shooterInjector.disable();
+        shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
     }
 
+    protected void toggleState(){
+        if(on){on = false;}
+        if(!on){on = true;}
+    }
 
     private void process(double[] analyze) {
         rotation = analyze[1];
         pitch = analyze[2];
         goal = analyze[0];
+    }
+
+    protected boolean isFinished() {
+        return false;
     }
 }

@@ -46,12 +46,7 @@ public class OI {
          * whenPressed() executes a command once after button is pressed and
          * released
          */
-        if(!Pressed){
-            targetTrackerButton.whenPressed(new AutoAimCommand());
-            Pressed = true;
-        }else{
-            Pressed = false;
-        }
+        targetTrackerButton.whenPressed(new AutoAimCommand());
         injectorButton.whileHeld(new InjectionCommand());
         specialSweetSpotButton.whileHeld(new SweetSpotCommand());
         mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
@@ -67,6 +62,6 @@ public class OI {
     }
     
     public boolean getAutoAimState(){
-        return Pressed;
+        return targetTrackerButton.get();
     }
 }

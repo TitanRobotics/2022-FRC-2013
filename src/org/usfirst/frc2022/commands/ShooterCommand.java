@@ -16,18 +16,18 @@ public class ShooterCommand extends CommandBase {
     
     public ShooterCommand() {
         // Use requires() here to declare subsystem dependencies
-        requires(shooterInjector);
+        requires(shooter);
         attack3 = oi.getAttack3();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooterInjector.setShooter(0);//stops motor by setting PID loop to 0
+        shooter.setShooter(0);//stops motor by setting PID loop to 0
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        shooterInjector.setShooter(attack3.getThrottle());
+        shooter.setShooter(attack3.getThrottle());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -42,6 +42,6 @@ public class ShooterCommand extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        shooterInjector.setShooter(0);
+        shooter.setShooter(0);
     }
 }

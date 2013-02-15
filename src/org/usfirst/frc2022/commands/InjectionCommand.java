@@ -17,18 +17,18 @@ public class InjectionCommand extends CommandBase {
     public InjectionCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(shooterInjector);
+        requires(injector);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-       shooterInjector.deactivate();       
+       injector.deactivate();       
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        if (shooterInjector.getJagSpeed()>=0.01 || shooterInjector.getJagSpeed()<-0.01){
-                shooterInjector.activate();
+        if (shooter.getJagSpeed()>=0.01 || shooter.getJagSpeed()<-0.01){
+                injector.activate();
         }
     }
 
@@ -39,12 +39,12 @@ public class InjectionCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-        shooterInjector.deactivate();
+        injector.deactivate();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-        shooterInjector.deactivate();
+        injector.deactivate();
     }
 }
