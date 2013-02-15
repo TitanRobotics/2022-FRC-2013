@@ -27,22 +27,27 @@ public class AutoAimCommand extends CommandBase {
         shooterRotation.setSetpoint(0);
         shooterPitch.setSetpoint(0);
         shooterInjector.setSetpoint(0);
+        shooterInjector.usePID(true);
         
     }
 
     protected void execute() {
         process(cam.analyze());
         if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
-            shooterInjector.setShooter(1);
-            shooterPitch.setPitch(shooterPitch.getPosition() + pitch);
-            shooterRotation.setRotation(shooterRotation.getPosition() + rotation);
+            shooterInjector.setSetpoint(30);
+            shooterPitch.setPitch(pitch*60);
+            shooterRotation.setRotation(rotation*60);
         } else{
             shooterInjector.setShooter(0);
         }
     }
 
     protected boolean isFinished() {
-        return false;
+        if(oi.getAutoAimState()){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     protected void end() {
