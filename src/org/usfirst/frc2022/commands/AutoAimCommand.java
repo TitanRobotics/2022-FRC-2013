@@ -63,7 +63,7 @@ public class AutoAimCommand extends CommandBase {
     }
     
     /**
-     * see every other damned command
+     * see every other command
      */
     protected void end() {
         shooter.disable();
@@ -72,7 +72,7 @@ public class AutoAimCommand extends CommandBase {
     }
 
     /**
-     * see every other damned command
+     * see every other command
      */
     protected void interrupted() {
         shooter.disable();

@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>package org.usfirst.frc2022.commands;<a name="line.1"></a>
+<span class="sourceLineNo">002</span><a name="line.2"></a>
+<span class="sourceLineNo">003</span>import edu.wpi.first.wpilibj.buttons.JoystickButton;<a name="line.3"></a>
+<span class="sourceLineNo">004</span>import edu.wpi.first.wpilibj.command.Command;<a name="line.4"></a>
+<span class="sourceLineNo">005</span>import org.usfirst.frc2022.Joysticks.Xbox360;<a name="line.5"></a>
+<span class="sourceLineNo">006</span><a name="line.6"></a>
+<span class="sourceLineNo">007</span>public class AutoAimCommand extends CommandBase {<a name="line.7"></a>
+<span class="sourceLineNo">008</span><a name="line.8"></a>
+<span class="sourceLineNo">009</span>    /*<a name="line.9"></a>
+<span class="sourceLineNo">010</span>     * VARS<a name="line.10"></a>
+<span class="sourceLineNo">011</span>     */<a name="line.11"></a>
+<span class="sourceLineNo">012</span>    public final double middle = .01;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>    public final double flat = 0.0;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>    private double rotation;<a name="line.14"></a>
+<span class="sourceLineNo">015</span>    private double pitch;<a name="line.15"></a>
+<span class="sourceLineNo">016</span>    private double goal;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>    private boolean on;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>    private Xbox360 xboz;<a name="line.18"></a>
+<span class="sourceLineNo">019</span><a name="line.19"></a>
+<span class="sourceLineNo">020</span>    /**<a name="line.20"></a>
+<span class="sourceLineNo">021</span>     * requires cam, shooter, shooterPitch, and shooterRotation<a name="line.21"></a>
+<span class="sourceLineNo">022</span>     */<a name="line.22"></a>
+<span class="sourceLineNo">023</span>    public AutoAimCommand() {<a name="line.23"></a>
+<span class="sourceLineNo">024</span>        requires(cam);<a name="line.24"></a>
+<span class="sourceLineNo">025</span>        requires(shooter);<a name="line.25"></a>
+<span class="sourceLineNo">026</span>        requires(shooterPitch);<a name="line.26"></a>
+<span class="sourceLineNo">027</span>        requires(shooterRotation);<a name="line.27"></a>
+<span class="sourceLineNo">028</span>    }<a name="line.28"></a>
+<span class="sourceLineNo">029</span><a name="line.29"></a>
+<span class="sourceLineNo">030</span>    /**<a name="line.30"></a>
+<span class="sourceLineNo">031</span>     * enables pid for shooter; disables pid for shooterpitch and shooterrotation; <a name="line.31"></a>
+<span class="sourceLineNo">032</span>     * sets everything to default location. Also, get the controller.<a name="line.32"></a>
+<span class="sourceLineNo">033</span>     */<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    protected void initialize() {<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        shooter.enable();<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        shooterPitch.disable();<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        shooterRotation.disable();<a name="line.37"></a>
+<span class="sourceLineNo">038</span>        shooterPitch.setPitch(0);<a name="line.38"></a>
+<span class="sourceLineNo">039</span>        shooterRotation.setRotation(0);<a name="line.39"></a>
+<span class="sourceLineNo">040</span>        shooter.setSetpoint(0);<a name="line.40"></a>
+<span class="sourceLineNo">041</span>        xboz = oi.getXbawks();<a name="line.41"></a>
+<span class="sourceLineNo">042</span>        <a name="line.42"></a>
+<span class="sourceLineNo">043</span>    }<a name="line.43"></a>
+<span class="sourceLineNo">044</span>    <a name="line.44"></a>
+<span class="sourceLineNo">045</span>    /**<a name="line.45"></a>
+<span class="sourceLineNo">046</span>     * change the rotation, pitch, and speed using the autoaim when it is on; check if the<a name="line.46"></a>
+<span class="sourceLineNo">047</span>     * B button has been pressed and if so toggle the state of the autoaim<a name="line.47"></a>
+<span class="sourceLineNo">048</span>     */<a name="line.48"></a>
+<span class="sourceLineNo">049</span>    protected void execute() {<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        process(cam.analyze());<a name="line.50"></a>
+<span class="sourceLineNo">051</span>        if(xboz.GetBValue()){<a name="line.51"></a>
+<span class="sourceLineNo">052</span>            toggleState();<a name="line.52"></a>
+<span class="sourceLineNo">053</span>        }<a name="line.53"></a>
+<span class="sourceLineNo">054</span>        if(on){<a name="line.54"></a>
+<span class="sourceLineNo">055</span>            if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){<a name="line.55"></a>
+<span class="sourceLineNo">056</span>                shooter.setSetpoint(30);<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                shooterPitch.setPitch(pitch);<a name="line.57"></a>
+<span class="sourceLineNo">058</span>                shooterRotation.setRotation(rotation);<a name="line.58"></a>
+<span class="sourceLineNo">059</span>            } else{<a name="line.59"></a>
+<span class="sourceLineNo">060</span>                shooter.setSetpoint(0);<a name="line.60"></a>
+<span class="sourceLineNo">061</span>            }<a name="line.61"></a>
+<span class="sourceLineNo">062</span>        } else {}<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    }<a name="line.63"></a>
+<span class="sourceLineNo">064</span>    <a name="line.64"></a>
+<span class="sourceLineNo">065</span>    /**<a name="line.65"></a>
+<span class="sourceLineNo">066</span>     * see every other command<a name="line.66"></a>
+<span class="sourceLineNo">067</span>     */<a name="line.67"></a>
+<span class="sourceLineNo">068</span>    protected void end() {<a name="line.68"></a>
+<span class="sourceLineNo">069</span>        shooter.disable();<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        shooterPitch.disable();<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        shooterRotation.disable();<a name="line.71"></a>
+<span class="sourceLineNo">072</span>    }<a name="line.72"></a>
+<span class="sourceLineNo">073</span><a name="line.73"></a>
+<span class="sourceLineNo">074</span>    /**<a name="line.74"></a>
+<span class="sourceLineNo">075</span>     * see every other command<a name="line.75"></a>
+<span class="sourceLineNo">076</span>     */<a name="line.76"></a>
+<span class="sourceLineNo">077</span>    protected void interrupted() {<a name="line.77"></a>
+<span class="sourceLineNo">078</span>        shooter.disable();<a name="line.78"></a>
+<span class="sourceLineNo">079</span>        shooterPitch.disable();<a name="line.79"></a>
+<span class="sourceLineNo">080</span>        shooterRotation.disable();<a name="line.80"></a>
+<span class="sourceLineNo">081</span>    }<a name="line.81"></a>
+<span class="sourceLineNo">082</span><a name="line.82"></a>
+<span class="sourceLineNo">083</span>    /**<a name="line.83"></a>
+<span class="sourceLineNo">084</span>     * toggles the state of the command<a name="line.84"></a>
+<span class="sourceLineNo">085</span>     */<a name="line.85"></a>
+<span class="sourceLineNo">086</span>    protected void toggleState(){<a name="line.86"></a>
+<span class="sourceLineNo">087</span>        if(on){on = false;}<a name="line.87"></a>
+<span class="sourceLineNo">088</span>        if(!on){on = true;}<a name="line.88"></a>
+<span class="sourceLineNo">089</span>    }<a name="line.89"></a>
+<span class="sourceLineNo">090</span>    <a name="line.90"></a>
+<span class="sourceLineNo">091</span>    /**<a name="line.91"></a>
+<span class="sourceLineNo">092</span>     * Convert the data from an array into variables (rotation,pitch,goal.<a name="line.92"></a>
+<span class="sourceLineNo">093</span>     * @param analyze the array to be analyzed<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     */<a name="line.94"></a>
+<span class="sourceLineNo">095</span>    private void process(double[] analyze) {<a name="line.95"></a>
+<span class="sourceLineNo">096</span>        rotation = analyze[1];<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        pitch = analyze[2];<a name="line.97"></a>
+<span class="sourceLineNo">098</span>        goal = analyze[0];<a name="line.98"></a>
+<span class="sourceLineNo">099</span>    }<a name="line.99"></a>
+<span class="sourceLineNo">100</span>    <a name="line.100"></a>
+<span class="sourceLineNo">101</span>    /**<a name="line.101"></a>
+<span class="sourceLineNo">102</span>     * Is the thing finished?<a name="line.102"></a>
+<span class="sourceLineNo">103</span>     * @return NO!<a name="line.103"></a>
+<span class="sourceLineNo">104</span>     */<a name="line.104"></a>
+<span class="sourceLineNo">105</span>    protected boolean isFinished() {<a name="line.105"></a>
+<span class="sourceLineNo">106</span>        return false;<a name="line.106"></a>
+<span class="sourceLineNo">107</span>    }<a name="line.107"></a>
+<span class="sourceLineNo">108</span>}<a name="line.108"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
