@@ -43,7 +43,7 @@ public class AutoAimCommand extends CommandBase {
     }
 
     protected boolean isFinished() {
-        if(oi.getAutoAimState()){
+        if(!oi.getAutoAimState()){
             return true;
         } else {
             return false;
