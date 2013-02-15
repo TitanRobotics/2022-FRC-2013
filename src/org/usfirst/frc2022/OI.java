@@ -48,7 +48,7 @@ public class OI {
          */
         targetTrackerButton.whenPressed(new AutoAimCommand());
         injectorButton.whileHeld(new InjectionCommand());
-        specialSweetSpotButton.whileHeld(new SweetSpotCommand());
+        specialSweetSpotButton.whileHeld(new SweetSpotCommand(0));
         mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
     }
 
