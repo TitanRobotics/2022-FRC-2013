@@ -2,6 +2,7 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.camera.AxisCamera;
 import edu.wpi.first.wpilibj.camera.AxisCameraException;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.image.*;
 import edu.wpi.first.wpilibj.image.NIVision.MeasurementType;
 import edu.wpi.first.wpilibj.image.NIVision.Rect;
@@ -22,7 +23,7 @@ import org.usfirst.frc2022.commands.CommandBase;
  * @return
  *
  */
-public class Robocam {
+public class Robocam extends Subsystem{
 
     private AxisCamera camera;                                                                      //camera instance
     private CriteriaCollection collection;                                                          //criteria for analyzing image
@@ -54,6 +55,9 @@ public class Robocam {
         camera = AxisCamera.getInstance(ip);
         collection = new CriteriaCollection();
         collection.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
+    }
+
+    protected void initDefaultCommand() {
     }
     
     /**

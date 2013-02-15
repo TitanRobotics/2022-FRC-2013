@@ -14,7 +14,7 @@ public class AutoAimCommand extends CommandBase {
     private double goal;
 
     public AutoAimCommand() {
-        requires(camServos);
+        requires(cam);
         requires(shooterInjector);
         requires(shooterPitch);
         requires(shooterRotation);
