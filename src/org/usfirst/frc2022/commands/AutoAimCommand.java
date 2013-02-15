@@ -26,12 +26,11 @@ public class AutoAimCommand extends CommandBase {
 
     protected void initialize() {
         shooter.enable();
-        shooterPitch.enable();
-        shooterRotation.enable();
-        shooterRotation.setSetpoint(0);
-        shooterPitch.setSetpoint(0);
+        shooterPitch.disable();
+        shooterRotation.disable();
+        shooterPitch.setPitch(0);
+        shooterRotation.setRotation(0);
         shooter.setSetpoint(0);
-        shooter.usePID(true);
         xboz = oi.getXbawks();
         
     }
@@ -41,10 +40,10 @@ public class AutoAimCommand extends CommandBase {
         if(on){
             if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
                 shooter.setSetpoint(30);
-                shooterPitch.setPitch(pitch*60);
-                shooterRotation.setRotation(rotation*60);
+                shooterPitch.setPitch(pitch);
+                shooterRotation.setRotation(rotation);
             } else{
-                shooter.setShooter(0);
+                shooter.setSetpoint(0);
             }
         } else {}
     }
