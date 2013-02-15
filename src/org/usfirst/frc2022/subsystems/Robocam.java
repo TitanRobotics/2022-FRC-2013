@@ -15,9 +15,6 @@ import org.usfirst.frc2022.commands.CommandBase;
  * techniques. The distance from the target (and which target is being aimed at)
  * is computed.
  *
- * Modified from original post on
- * http://www.chiefdelphi.com/forums/showthread.php?t=109657
- *
  * @author FRC, FRC Team #2022
  * @param ip String of the camera's IP address
  * @return
@@ -257,7 +254,7 @@ public class Robocam extends Subsystem{
                     
                 if (scoreCompare(scores[i], false)){
                     double dist = computeDistance(thresholdImage, report, i, false);
-                    System.out.println("particle: " + i + "is a High Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    System.out.println("particle: " + i + " is a High Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
                     System.out.println("Distance: " + dist);
                     data[0] = 2.0;
                     data[1] = report.center_mass_x_normalized;
@@ -266,7 +263,7 @@ public class Robocam extends Subsystem{
                 }
                 else if (scoreCompare(scores[i], true)){
                     double dist = computeDistance(thresholdImage, report, i, false);
-                    System.out.println("particle: " + i + "is a Middle Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    System.out.println("particle: " + i + " is a Middle Goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
                     System.out.println("Distance: " + dist);
                     data[0] = 1.0;
                     data[1] = report.center_mass_x_normalized;
@@ -274,7 +271,7 @@ public class Robocam extends Subsystem{
                     data[3] = dist;
                 } 
                 else {
-                    System.out.println("particle: " + i + "is not a goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
+                    System.out.println("particle: " + i + " is not a goal  centerX: " + report.center_mass_x_normalized + "centerY: " + report.center_mass_y_normalized);
                     data[0] = 0.0;
                     data[1] = report.center_mass_x_normalized;
                     data[2] = report.center_mass_y_normalized;
