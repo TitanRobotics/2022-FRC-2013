@@ -61,13 +61,6 @@ public interface Drive_Generic {
      * @param jags
      * @return
      */
-    void seperateJags(Jaguar[] jags);
 
-    /**
-     * Flips the jaguars on each side; then switches the sides
-     *
-     * @param
-     * @return
-     */
     void flipJags();
 }

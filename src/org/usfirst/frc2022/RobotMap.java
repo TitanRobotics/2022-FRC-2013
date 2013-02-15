@@ -30,6 +30,9 @@ public class RobotMap {
     public static final int shooterJaguar = 9;
     public static final int handlingsolenoid = 5;
     
+    //Sync group for CAN Jaguars
+    public static final byte syncGroup = 0;
+    
     // Servos
     public static final int rotateServo = 5;
     public static final int pitchServo = 6;
