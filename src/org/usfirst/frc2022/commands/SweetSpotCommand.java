@@ -29,9 +29,9 @@ public class SweetSpotCommand extends CommandBase{
     }
 
     protected void execute() {
-        shooter.setShooter(Math.E / 5.0);
-        shooterPitch.setPitch(Math.floor(Math.E / 2.0));
-        shooter.setShooter(Math.PI/5.0);
+        shooter.setSetpoint(Math.E / 5.0);
+        shooterPitch.setSetpoint(Math.floor(Math.E / 2.0));
+        shooterRotation.setSetpoint(Math.PI/5.0);
     }
 
     protected boolean isFinished() {
