@@ -1,6 +1,6 @@
 package org.usfirst.frc2022;
 
-import org.usfirst.frc2022.commands.TargetTrackerCommand;
+import org.usfirst.frc2022.commands.AutoAimCommand;
 
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc2022.Joysticks.Attack3;
@@ -45,7 +45,7 @@ public class OI {
          * whenPressed() executes a command once after button is pressed and
          * released
          */
-        targetTrackerButton.whileHeld(new TargetTrackerCommand());
+        targetTrackerButton.whileHeld(new AutoAimCommand());
 
         injectorButton.whileHeld(new InjectionCommand());
         specialSweetSpotButton.whileHeld(new SweetSpotCommand());
