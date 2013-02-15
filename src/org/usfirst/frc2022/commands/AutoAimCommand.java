@@ -7,7 +7,7 @@ import org.usfirst.frc2022.Joysticks.Xbox360;
 public class AutoAimCommand extends CommandBase {
 
     /*
-     * The portion of the image that the box can be in
+     * VARS
      */
     public final double middle = .01;
     public final double flat = 0.0;
@@ -17,6 +17,9 @@ public class AutoAimCommand extends CommandBase {
     private boolean on;
     private Xbox360 xboz;
 
+    /**
+     * requires cam, shooter, shooterPitch, and shooterRotation
+     */
     public AutoAimCommand() {
         requires(cam);
         requires(shooter);
@@ -24,6 +27,10 @@ public class AutoAimCommand extends CommandBase {
         requires(shooterRotation);
     }
 
+    /**
+     * enables pid for shooter; disables pid for shooterpitch and shooterrotation; 
+     * sets everything to default location. Also, get the controller.
+     */
     protected void initialize() {
         shooter.enable();
         shooterPitch.disable();
@@ -34,9 +41,16 @@ public class AutoAimCommand extends CommandBase {
         xboz = oi.getXbawks();
         
     }
-
+    
+    /**
+     * change the rotation, pitch, and speed using the autoaim when it is on; check if the
+     * B button has been pressed and if so toggle the state of the autoaim
+     */
     protected void execute() {
         process(cam.analyze());
+        if(xboz.GetBValue()){
+            toggleState();
+        }
         if(on){
             if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
                 shooter.setSetpoint(30);
@@ -48,29 +62,46 @@ public class AutoAimCommand extends CommandBase {
         } else {}
     }
     
+    /**
+     * see every other damned command
+     */
     protected void end() {
         shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
     }
 
+    /**
+     * see every other damned command
+     */
     protected void interrupted() {
         shooter.disable();
         shooterPitch.disable();
         shooterRotation.disable();
     }
 
+    /**
+     * toggles the state of the command
+     */
     protected void toggleState(){
         if(on){on = false;}
         if(!on){on = true;}
     }
-
+    
+    /**
+     * Convert the data from an array into variables (rotation,pitch,goal.
+     * @param analyze the array to be analyzed
+     */
     private void process(double[] analyze) {
         rotation = analyze[1];
         pitch = analyze[2];
         goal = analyze[0];
     }
-
+    
+    /**
+     * Is the thing finished?
+     * @return NO!
+     */
     protected boolean isFinished() {
         return false;
     }
