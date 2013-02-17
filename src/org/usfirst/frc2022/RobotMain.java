@@ -7,7 +7,6 @@
 package org.usfirst.frc2022;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import org.usfirst.frc2022.commands.CommandBase;
 
@@ -20,7 +19,7 @@ import org.usfirst.frc2022.commands.CommandBase;
  */
 public class RobotMain extends IterativeRobot {
 
-    Command autonomousCommand;
+    //Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -31,6 +30,7 @@ public class RobotMain extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
 
         // Initialize all subsystems
+        System.out.println("HELLO WORLD FROM TITAN 2022!");
         CommandBase.init();
     }
 

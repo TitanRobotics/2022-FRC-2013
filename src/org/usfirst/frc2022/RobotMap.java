@@ -34,10 +34,10 @@ public class RobotMap {
     public static final byte syncGroup = 0;
     
     // Servos
-    public static final int rotateServo = 5;
-    public static final int pitchServo = 6;
-    public static final int rotate_motor = 7;
-    public static final int pitch_motor = 8;
+    //public static final int rotateServo = 6;
+    //public static final int pitchServo = 7;
+    public static final int rotate_motor = 6;
+    public static final int pitch_motor = 7;
     
     
     // Analog Sensors (Cherry, Ultrasound, etc.)

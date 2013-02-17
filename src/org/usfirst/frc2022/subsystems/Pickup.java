@@ -6,7 +6,6 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Direction;
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.RobotMap;
@@ -36,6 +35,7 @@ public class Pickup extends Subsystem{
      * RobotMap.java
      */
     public Pickup(){
+        spikes = new Relay[RobotMap.pickupPortNum];
         if (RobotMap.pickupPorts.length == RobotMap.pickupPortNum){
             for(int i=0; i<RobotMap.pickupPortNum;i++){
                 spikes[i] = new Relay(RobotMap.pickupPorts[i]);

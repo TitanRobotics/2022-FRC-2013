@@ -25,7 +25,7 @@ public class Robocam extends Subsystem{
     private AxisCamera camera;                                                                      //camera instance
     private CriteriaCollection collection;                                                          //criteria for analyzing image
     private final int X_IMAGE_RES = 640;                                                            //X Image resolution in pixels, should be 160, 320 or 640
-    private double angle = CommandBase.camServos.getRotateAngle(); 
+    private double angle; 
     final int XMAXSIZE = 24;                                                                        
     final int XMINSIZE = 24;                                                                        
     final int YMAXSIZE = 24;                                                                        
@@ -49,7 +49,7 @@ public class Robocam extends Subsystem{
      * @return
      */
     public Robocam(String ip) {
-        camera = AxisCamera.getInstance(ip);
+        //camera = AxisCamera.getInstance(ip);
         collection = new CriteriaCollection();
         collection.addCriteria(MeasurementType.IMAQ_MT_AREA, 500, 65535, false);
     }
@@ -96,6 +96,7 @@ public class Robocam extends Subsystem{
     double computeDistance (BinaryImage image, ParticleAnalysisReport report, int particleNumber, boolean outer) throws NIVisionException {
             double rectShort, height;
             int targetHeight;
+            angle = CommandBase.shooterPitch.getPosition();
 
             rectShort = NIVision.MeasureParticle(image.image, particleNumber, false, MeasurementType.IMAQ_MT_EQUIVALENT_RECT_SHORT_SIDE);
             //using the smaller of the estimated rectangle short side and the bounding rectangle height results in better performance

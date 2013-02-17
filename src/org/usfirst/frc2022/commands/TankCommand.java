@@ -25,16 +25,26 @@ public class TankCommand extends CommandBase {
 
     protected void execute() {
         xbox = oi.getXbawks();
+        double xboxTriggers = xbox.GetTriggers();
         double leftSpeed, rightSpeed;
-        leftSpeed = xbox.GetLeftY();
-        rightSpeed = xbox.GetRightY();
+        leftSpeed = xbox.GetLeftY()/2.0;
+        rightSpeed = xbox.GetRightY()/2.0;
+        
+        if (xboxTriggers > 0.5) {
+            leftSpeed /= 2.0;
+            rightSpeed /= 2.0;
+        } else if (xboxTriggers < -0.5) {
+            leftSpeed *= 2.0;
+            rightSpeed *= 2.0;
+        }
+        
         if (Math.abs(leftSpeed) < 0.2) {
             leftSpeed = 0;
         }
         if (Math.abs(rightSpeed) < 0.2) {
             rightSpeed = 0;
         }
-        pwmDriveBase.drive(leftSpeed, rightSpeed); //the robot will move!
+        pwmDriveBase.drive(-leftSpeed, rightSpeed); //the robot will move!
         if (xbox.GetAValue()) {
             pwmDriveBase.flipJags(); //flips if the flip button is pushed
         }

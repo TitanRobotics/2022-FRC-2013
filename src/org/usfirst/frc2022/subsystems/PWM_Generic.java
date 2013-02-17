@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.usfirst.frc2022.Utils;
 import org.usfirst.frc2022.commands.MecanumCommand;
+import org.usfirst.frc2022.commands.TankCommand;
 
 /**
  *
@@ -70,7 +71,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      * @returns
      */
     protected void initDefaultCommand() {
-        setDefaultCommand(new MecanumCommand());
+        setDefaultCommand(new TankCommand());
     }
 
     /**
@@ -93,7 +94,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      */
     public void setRight(double speed) {
         for (int i = 0; jagsRight.length > i; i++) {
-            jagsRight[i].set(Utils.clamp(-speed, 1, -1));
+            jagsRight[i].set(Utils.clamp(speed, 1, -1));
         }
     }
 
@@ -106,7 +107,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
      */
     public void drive(double speed) {
         setRight(speed);
-        setLeft(-speed);
+        setLeft(speed);
     }
 
     /**

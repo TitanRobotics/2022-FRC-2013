@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
-import org.usfirst.frc2022.subsystems.CameraServos;
 import org.usfirst.frc2022.subsystems.Handling;
 import org.usfirst.frc2022.subsystems.Injector;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
@@ -32,7 +31,6 @@ public abstract class CommandBase extends Command {
     
     // Create a single static instance of all of your subsystems here
     public static Robocam cam = new Robocam("10.20.22.11");
-    public static CameraServos camServos = new CameraServos();
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
 
     public static Pickup pickup = new Pickup();
@@ -53,6 +51,7 @@ public abstract class CommandBase extends Command {
         oi = new OI();
         
         //NEED TO PUT INFORMATION ON THE DRIVER STATION
+        SmartDashboard.putData(pwmDriveBase);
     }
 
     public CommandBase(String name) {
