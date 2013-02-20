@@ -57,6 +57,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
             }
 
             this.jags = newJags;
+            // hello world!
             separateJags(this.jags);
             //assignLiveWindow();
         } else {
@@ -177,10 +178,10 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
         jagsLeft = new Jaguar[jags.length / 2];
         jagsRight = new Jaguar[jags.length / 2];
         for (int i = 0, j = 0, k = 0; i < jags.length; i++) {
-            if (checkEven(jags[i].getChannel())) {
+            if (checkEven(i)) {
                 jagsRight[j] = jags[i];
                 j++;
-            } else if (!checkEven(jags[i].getChannel())) {
+            } else if (!checkEven(i)) {
                 jagsLeft[k] = jags[i];
                 k++;
             }

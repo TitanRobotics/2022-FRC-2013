@@ -23,9 +23,9 @@ public class RobotMap {
      */
     // Jaguars
     private static final int jagUpperLeft = 1;
-    private static final int jagUpperRight = 2;
-    private static final int jagLowerLeft = 4;
-    private static final int jagLowerRight = 3;
+    private static final int jagUpperRight = 3;
+    private static final int jagLowerLeft = 2;
+    private static final int jagLowerRight = 4;
     public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};
     public static final int shooterJaguar = 9;
     public static final int handlingsolenoid = 5;
