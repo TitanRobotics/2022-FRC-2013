@@ -60,6 +60,6 @@ public class RobotMap {
     // Digital Relay Ports (Spike Relays)
     public static final int pickupPortNum = 2;
     public static final int[] pickupPorts = {1,2};
-    public static final int shooterSpike = 3;
+    public static final int shooterSolenoid = 1; //the number here could be wrong
     public static final int handlingSpike = 4;
 }
