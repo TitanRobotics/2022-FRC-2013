@@ -55,7 +55,7 @@ public class OI {
         behindPyramidSweetSpotButton.whileHeld(new SweetSpotCommand(0));
         rightSweetSpotButton.whileHeld(new SweetSpotCommand(1));
         feederSweetSpotButton.whileHeld(new SweetSpotCommand(2));
-        mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
+        //mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
     }
 
     // Getter functions for all Joysticks
