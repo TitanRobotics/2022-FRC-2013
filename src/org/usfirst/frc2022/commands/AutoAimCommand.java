@@ -1,7 +1,5 @@
 package org.usfirst.frc2022.commands;
 
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc2022.Joysticks.Xbox360;
 
 public class AutoAimCommand extends CommandBase {
@@ -32,12 +30,11 @@ public class AutoAimCommand extends CommandBase {
      * sets everything to default location. Also, get the controller.
      */
     protected void initialize() {
-        shooter.enable();
         shooterPitch.disable();
         shooterRotation.disable();
         shooterPitch.setPitch(0);
         shooterRotation.setRotation(0);
-        shooter.setSetpoint(0);
+        shooter.stop();
         xboz = oi.getXbawks();
         
     }
@@ -50,11 +47,11 @@ public class AutoAimCommand extends CommandBase {
         process(cam.analyze());
         
             if((goal == 0.0) || (goal == 1.0) || (goal == 2.0)){
-                shooter.setSetpoint(30);
+                shooter.setShooter(1); //Was originally 30 (ft/sec). Is this right?
                 shooterPitch.setPitch(pitch);
                 shooterRotation.setRotation(rotation);
             } else{
-                shooter.setSetpoint(0);
+                shooter.stop();
             }
     }
     
@@ -63,7 +60,7 @@ public class AutoAimCommand extends CommandBase {
      * see every other command
      */
     protected void end() {
-        shooter.disable();
+        shooter.stop();
         shooterPitch.disable();
         shooterRotation.disable();
     }
@@ -72,7 +69,7 @@ public class AutoAimCommand extends CommandBase {
      * see every other command
      */
     protected void interrupted() {
-        shooter.disable();
+        shooter.stop();
         shooterPitch.disable();
         shooterRotation.disable();
     }

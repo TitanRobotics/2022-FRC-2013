@@ -1,7 +1,5 @@
 package org.usfirst.frc2022.commands;
 
-import org.usfirst.frc2022.Joysticks.Attack3;
-
 public class SweetSpotCommand extends CommandBase{
 
     private int spot;
@@ -18,16 +16,15 @@ public class SweetSpotCommand extends CommandBase{
     }
     
     protected void initialize() {
-        shooter.enable();
         shooterPitch.enable();
         shooterRotation.enable();
         shooterRotation.setSetpoint(0);
         shooterPitch.setSetpoint(0);
-        shooter.setSetpoint(0);
+        shooter.stop();
     }
 
     protected void execute() {
-        shooter.setSetpoint(speed[spot]);
+        shooter.setShooter(speed[spot]);
         shooterPitch.setSetpoint(pitch[spot]);
         shooterRotation.setSetpoint(rotation[spot]);
     }
@@ -37,14 +34,14 @@ public class SweetSpotCommand extends CommandBase{
     }
 
     protected void end() {
-        shooter.disable();
+        shooter.stop();
         shooterPitch.disable();
         shooterRotation.disable();
         
     }
 
     protected void interrupted() {
-        shooter.disable();
+        shooter.stop();
         shooterPitch.disable();
         shooterRotation.disable();
         
