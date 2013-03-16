@@ -27,7 +27,8 @@ public class RobotMap {
     private static final int jagLowerLeft = 2;
     private static final int jagLowerRight = 4;
     public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};
-    public static final int shooterJaguar = 9;
+    public static final int shooterJaguarfast = 9;
+    public static final int shooterJaguarslow = 8; //I just made up this channel number
     public static final int handlingsolenoid = 5;
     
     //Sync group for CAN Jaguars
@@ -46,7 +47,7 @@ public class RobotMap {
     
     
     // Digital I/O Ports (Encoders and Limit Switches)
-    public static final int[] shooterEndcoder = {3, 4};
+    //public static final int[] shooterEndcoder = {3, 4}; I think we aren't using this?
     public static final int[] myEncoder = {9, 10};
     public static final int[] DriveEncoder1 = {5,6};
     public static final int[] DriveEncoder2 = {7,8};
