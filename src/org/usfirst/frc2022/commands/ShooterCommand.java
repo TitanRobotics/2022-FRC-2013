@@ -8,7 +8,7 @@ import org.usfirst.frc2022.Joysticks.Attack3;
 
 /**
  *
- * @author Emma
+ * @author Emma Sloan
  */
 public class ShooterCommand extends CommandBase {
     
@@ -22,7 +22,7 @@ public class ShooterCommand extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        shooter.setShooter(0);//stops motor by setting PID loop to 0
+        shooter.setShooter(0);//stops motor by setting the speed to 0
     }
 
     // Called repeatedly when this Command is scheduled to run

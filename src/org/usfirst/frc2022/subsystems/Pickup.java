@@ -26,7 +26,7 @@ public class Pickup extends Subsystem{
             
             
     protected void initDefaultCommand() {
-        this.setDefaultCommand(new PickupDumbCommand());
+        //this.setDefaultCommand(new PickupDumbCommand());
     }
     
     /*
