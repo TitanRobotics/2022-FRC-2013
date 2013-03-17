@@ -22,23 +22,23 @@ public class RobotMap {
      * Talons, and Servos
      */
     // Jaguars
+    // IN USE
     private static final int jagUpperLeft = 1;
     private static final int jagUpperRight = 3;
     private static final int jagLowerLeft = 2;
     private static final int jagLowerRight = 4;
     public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};
-    public static final int shooterJaguarfast = 9;
-    public static final int shooterJaguarslow = 8; //I just made up this channel number
-    public static final int handlingsolenoid = 5;
+    public static final int shooterJaguarfast = 5;
+    public static final int shooterJaguarslow = 6;
+    public static final int rotate_motor = 7;
+    public static final int pitch_motor = 8;
+    
+    // NOT IN USE
+    public static final int handlingsolenoid = 9;
     
     //Sync group for CAN Jaguars
     public static final byte syncGroup = 0;
     
-    // Servos
-    //public static final int rotateServo = 6;
-    //public static final int pitchServo = 7;
-    public static final int rotate_motor = 6;
-    public static final int pitch_motor = 7;
     
     
     // Analog Sensors (Cherry, Ultrasound, etc.)
@@ -47,10 +47,17 @@ public class RobotMap {
     
     
     // Digital I/O Ports (Encoders and Limit Switches)
-    //public static final int[] shooterEndcoder = {3, 4}; I think we aren't using this?
+    // IN USE
+    public static final int compPressureSwitch = 1;
+    public static final int compValve1 = 2;
+    public static final int compValve2 = 3;
+    public static final int shooterSolenoid = 4;
+    
+    // NOT IN USE
     public static final int[] myEncoder = {9, 10};
     public static final int[] DriveEncoder1 = {5,6};
     public static final int[] DriveEncoder2 = {7,8};
+    
    
     // Enumeration of Sweet Spots
     public static final int behindPyramid = 0;
@@ -59,14 +66,12 @@ public class RobotMap {
     
     
     // Digital Relay Ports (Spike Relays)
-    public static final int pickupPortNum = 2;
-    public static final int[] pickupPorts = {1,2};
-    public static final int shooterSolenoid = 1; //the number here could be wrong
-    public static final int handlingSpike = 4;
     
-    // Compressor Ports
-    public static final int portCompressor1 = 1;
-    public static final int portCompressor2 = 2;
-    public static final int portCompressor3 = 3;
-    public static final int portCompressor4 = 4;
+    // IN USE
+    public static final int compRelay = 1;
+    
+    // NOT IN USE
+    public static final int handlingSpike = 3;
+    public static final int pickupPortNum = 2;
+    public static final int[] pickupPorts = {5,6};
 }

@@ -36,7 +36,7 @@ public abstract class CommandBase extends Command {
 
     public static Pickup pickup = new Pickup();
     
-    public static Pneumatics pneumatics = new Pneumatics(RobotMap.portCompressor1,RobotMap.portCompressor2,RobotMap.portCompressor3,RobotMap.portCompressor4);
+    public static Pneumatics pneumatics = new Pneumatics(RobotMap.compPressureSwitch,RobotMap.compRelay,RobotMap.compValve1,RobotMap.compValve2);
 
     public static Shooter shooter = new Shooter();
     public static Injector injector = new Injector();
@@ -55,6 +55,7 @@ public abstract class CommandBase extends Command {
         
         //NEED TO PUT INFORMATION ON THE DRIVER STATION
         SmartDashboard.putData(pwmDriveBase);
+        SmartDashboard.putData(shooter);
     }
 
     public CommandBase(String name) {

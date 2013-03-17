@@ -2,6 +2,7 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.RobotMap;
 import org.usfirst.frc2022.Utils;
 import org.usfirst.frc2022.commands.ShooterCommand;
@@ -94,8 +95,15 @@ public class Shooter extends Subsystem {
      * @param percent Value -1 to 1 for speed of the shooter.
      */
     public void setShooter(double percent) {
-        shooter_Jaguar_fast.set(Utils.clamp(percent, 1, 0));
-        shooter_Jaguar_slow.set(Utils.clamp(percent-0.1, 0.9, 0));
+        double slowSpeed = percent;
+        double fastSpeed = 0;
+        if(percent > 0) {
+            fastSpeed = 1;
+        }
+        SmartDashboard.putNumber("Slow Shoter", slowSpeed);
+        SmartDashboard.putNumber("Fast Shooter", fastSpeed);
+        shooter_Jaguar_fast.set(-fastSpeed);
+        shooter_Jaguar_slow.set(-Utils.clamp(slowSpeed, 0.9, 0));
     }
     
     public void stop(){
