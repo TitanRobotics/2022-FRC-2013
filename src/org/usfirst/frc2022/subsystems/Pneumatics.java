@@ -6,7 +6,7 @@ package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 /**
  *
@@ -15,19 +15,11 @@ import edu.wpi.first.wpilibj.Solenoid;
 public class Pneumatics extends Subsystem{
 
     private Compressor compressor;
-    private Solenoid openValve;
-    private Solenoid closeValve;
-    
-    public Pneumatics(int pressureSwitchSlot, int pressureSwitchChannel, int compresssorRelaySlot, int compressorRelayChannel, int solenoidChannelOpenValve, int solenoidChannelCloseValve){
-        compressor = new Compressor(pressureSwitchSlot,pressureSwitchChannel,compresssorRelaySlot,compressorRelayChannel);
-        openValve = new Solenoid(solenoidChannelOpenValve);
-        closeValve = new Solenoid(solenoidChannelCloseValve);
-    }
-    
-    public Pneumatics(int pressureSwitchChannel, int compressorRelayChannel, int solenoidChannelOpenValve, int solenoidChannelCloseValve){
+    private DoubleSolenoid valve;
+        
+    public Pneumatics(int pressureSwitchChannel, int compressorRelayChannel, int valveChannel1, int valveChannel2){
         compressor = new Compressor(pressureSwitchChannel,compressorRelayChannel);
-        openValve = new Solenoid(solenoidChannelOpenValve);
-        closeValve = new Solenoid(solenoidChannelCloseValve);
+        valve = new DoubleSolenoid(valveChannel1,valveChannel2);
     }
     
     protected void initDefaultCommand() {
@@ -43,18 +35,15 @@ public class Pneumatics extends Subsystem{
     }
     
     public void valveOpen(){
-        openValve.set(true);
-        closeValve.set(false);
+        valve.set(DoubleSolenoid.Value.kForward);
     }
     
     public void valveClose(){
-        closeValve.set(true);
-        openValve.set(false);
+        valve.set(DoubleSolenoid.Value.kReverse);
     }
     
     public void disableValvesOperation(){
-        openValve.set(false);
-        closeValve.set(false);
+        valve.set(DoubleSolenoid.Value.kOff);
     }
     
 }

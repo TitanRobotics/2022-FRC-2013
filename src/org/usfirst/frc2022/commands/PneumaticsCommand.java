@@ -25,9 +25,11 @@ public class PneumaticsCommand extends CommandBase{
 
     protected void execute() {
     
-        /*
-         * if statements to control the compressor's release of air
-         */
+        if(Xbocks.GetRawButton(6)){
+            pneumatics.valveOpen();
+        } else if(Xbocks.GetRawButton(7)){
+            pneumatics.valveClose();
+        }
         
     }
 
@@ -37,11 +39,13 @@ public class PneumaticsCommand extends CommandBase{
 
     protected void end() {
         pneumatics.stop();
+        pneumatics.valveClose();
         pneumatics.disableValvesOperation();
     }
 
     protected void interrupted() {
         pneumatics.stop();
+        pneumatics.valveClose();
         pneumatics.disableValvesOperation();
     }
     
