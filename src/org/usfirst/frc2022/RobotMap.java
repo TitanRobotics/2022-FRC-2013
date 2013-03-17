@@ -63,4 +63,10 @@ public class RobotMap {
     public static final int[] pickupPorts = {1,2};
     public static final int shooterSolenoid = 1; //the number here could be wrong
     public static final int handlingSpike = 4;
+    
+    // Compressor Ports
+    public static final int portCompressor1 = 1;
+    public static final int portCompressor2 = 2;
+    public static final int portCompressor3 = 3;
+    public static final int portCompressor4 = 4;
 }
