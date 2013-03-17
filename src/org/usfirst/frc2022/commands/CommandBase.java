@@ -36,7 +36,7 @@ public abstract class CommandBase extends Command {
 
     public static Pickup pickup = new Pickup();
     
-    public static Pneumatics pneumatics;// = new Pneumatics();
+    public static Pneumatics pneumatics = new Pneumatics(RobotMap.portCompressor1,RobotMap.portCompressor2,RobotMap.portCompressor3,RobotMap.portCompressor4);
 
     public static Shooter shooter = new Shooter();
     public static Injector injector = new Injector();
