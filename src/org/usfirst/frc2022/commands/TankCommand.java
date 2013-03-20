@@ -38,16 +38,14 @@ public class TankCommand extends CommandBase {
             rightSpeed *= 2.0;
         }
         
-        if (Math.abs(leftSpeed) < 0.2) {
+        if (Math.abs(leftSpeed) < 0.1) {
             leftSpeed = 0;
         }
-        if (Math.abs(rightSpeed) < 0.2) {
+        if (Math.abs(rightSpeed) < 0.1) {
             rightSpeed = 0;
         }
         pwmDriveBase.drive(-leftSpeed, rightSpeed); //the robot will move!
-        if (xbox.GetAValue()) {
-            pwmDriveBase.flipJags(); //flips if the flip button is pushed
-        }
+        
     }
 
     protected boolean isFinished() {
