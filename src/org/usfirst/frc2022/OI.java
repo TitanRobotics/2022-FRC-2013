@@ -8,6 +8,8 @@ import org.usfirst.frc2022.Joysticks.Xbox360;
 import org.usfirst.frc2022.commands.HandlingCommand;
 import org.usfirst.frc2022.commands.InjectionCommand;
 import org.usfirst.frc2022.commands.SweetSpotCommand;
+import org.usfirst.frc2022.commands.FlipDrive;
+
 
 public class OI {
 
@@ -24,6 +26,7 @@ public class OI {
     private JoystickButton rightSweetSpotButton;
     private JoystickButton feederSweetSpotButton;
     private JoystickButton mrAttackTheesButton4Handling;
+    private JoystickButton flipDriveButton;
     private boolean Pressed;
 
     
@@ -40,6 +43,7 @@ public class OI {
         feederSweetSpotButton = attack.GetButton(5);
         targetTrackerButton = attack.GetButton(2);
         mrAttackTheesButton4Handling = attack.GetButton(10);
+        flipDriveButton = xbawks.GetXButton();
         Pressed = false;
         
         /**
@@ -55,6 +59,7 @@ public class OI {
         behindPyramidSweetSpotButton.whileHeld(new SweetSpotCommand(0));
         rightSweetSpotButton.whileHeld(new SweetSpotCommand(1));
         feederSweetSpotButton.whileHeld(new SweetSpotCommand(2));
+        flipDriveButton.whileHeld(new FlipDrive());
         //mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
     }
 
