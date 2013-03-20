@@ -28,13 +28,13 @@ public class RobotMap {
     private static final int jagLowerLeft = 2;
     private static final int jagLowerRight = 4;
     public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};
-    public static final int shooterJaguarfast = 5;
-    public static final int shooterJaguarslow = 6;
-    public static final int rotate_motor = 7;
-    public static final int pitch_motor = 8;
+    public static final int shooterJaguarfast = 9;
+    public static final int shooterJaguarslow = 8;
+    public static final int rotate_motor = 6;
+    public static final int pitch_motor = 5;
     
     // NOT IN USE
-    public static final int handlingsolenoid = 9;
+    public static final int handlingsolenoid = 10;
     
     //Sync group for CAN Jaguars
     public static final byte syncGroup = 0;
