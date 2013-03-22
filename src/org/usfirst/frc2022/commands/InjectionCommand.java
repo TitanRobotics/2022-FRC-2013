@@ -15,15 +15,16 @@ public class InjectionCommand extends CommandBase {
         requires(injector);
     }
 
-    // Sets the spike value to zero
+    // Sets the solenoid value to zero
     protected void initialize() {
        injector.deactivate();       
     }
 
-    // Activates the spike
+    // Activates the solenoid
     protected void execute() {
-        if (shooter.getJagSpeed()>=0.01 || shooter.getJagSpeed()<-0.01){
-                injector.activate();
+        if (shooter.getJagSpeed()>=0.01 || shooter.getJagSpeed()<-0.01)
+        {
+                injector.activate(0.5);
         }
     }
 
@@ -31,12 +32,12 @@ public class InjectionCommand extends CommandBase {
         return false;
     }
 
-    // Sets the spike value to zero
+    // Sets the solenoid value to zero
     protected void end() {
         injector.deactivate();
     }
 
-    // Sets the spike value to zero
+    // Sets the solenoid value to zero
     protected void interrupted() {
         injector.deactivate();
     }

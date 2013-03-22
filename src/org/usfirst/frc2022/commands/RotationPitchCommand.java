@@ -4,6 +4,7 @@
  */
 package org.usfirst.frc2022.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.Joysticks.Attack3;
 import org.usfirst.frc2022.Utils;
 
@@ -12,8 +13,9 @@ import org.usfirst.frc2022.Utils;
  * @author Emma Sloan
  */
 public class RotationPitchCommand extends CommandBase {
+
     Attack3 attack3;
-    
+
     public RotationPitchCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -33,10 +35,20 @@ public class RotationPitchCommand extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         //manual command to set the pitch to the attack 3 y axis value        
-        shooterPitch.setPitch(Utils.clamp(attack3.GetY(), 0.75, -0.75));
+        double ps, pd, rs, rd;
+
+        ps = SmartDashboard.getNumber("Pitch Sensitivity", 0.9);
+        pd = SmartDashboard.getNumber("Pitch Deadzone", 0.1);
+
+        rs = SmartDashboard.getNumber("Rotation Sensitivity", 0.9);
+        rd = SmartDashboard.getNumber("Rotation Deadzone", 0.1);
+
+        shooterPitch.setPitch(Utils.controllerMath(attack3.GetY(), 0.75, pd, ps));
+        SmartDashboard.putNumber("Pitch", attack3.GetY());
+
         //manual command to set the rotation to the attack 3 x axis value
-        shooterRotation.setRotation(Utils.clamp(attack3.GetX(), 0.75, -0.75));
-        
+        shooterRotation.setRotation(Utils.controllerMath(-attack3.GetX(), 0.75, rd, rs));
+
     }
 
     // Make this return true when this Command no longer needs to run execute()

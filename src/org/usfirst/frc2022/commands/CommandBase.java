@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.OI;
 import org.usfirst.frc2022.RobotMap;
+import org.usfirst.frc2022.subsystems.CompressorSubsystem;
+import org.usfirst.frc2022.subsystems.ClimberSubsystem;
 import org.usfirst.frc2022.subsystems.Handling;
 import org.usfirst.frc2022.subsystems.Injector;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
@@ -34,7 +36,10 @@ public abstract class CommandBase extends Command {
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
 
     public static Pickup pickup = new Pickup();
-
+    
+    //public static Pneumatics pneumatics = new Pneumatics(RobotMap.compPressureSwitch,RobotMap.compRelay,RobotMap.compValve1,RobotMap.compValve2);
+    public static CompressorSubsystem compressor = new CompressorSubsystem(RobotMap.compPressureSwitch,RobotMap.compRelay);
+    public static ClimberSubsystem climber = new ClimberSubsystem(RobotMap.compValve1,RobotMap.compValve2);
     public static Shooter shooter = new Shooter();
     public static Injector injector = new Injector();
     public static ShooterPitch shooterPitch = new ShooterPitch();
@@ -52,6 +57,7 @@ public abstract class CommandBase extends Command {
         
         //NEED TO PUT INFORMATION ON THE DRIVER STATION
         SmartDashboard.putData(pwmDriveBase);
+        SmartDashboard.putData(shooter);
     }
 
     public CommandBase(String name) {

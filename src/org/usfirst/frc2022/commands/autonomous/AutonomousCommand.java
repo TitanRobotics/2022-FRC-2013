@@ -1,11 +1,23 @@
 package org.usfirst.frc2022.commands.autonomous;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.usfirst.frc2022.commands.InjectionCommand;
+import org.usfirst.frc2022.commands.ShooterCommand;
+import org.usfirst.frc2022.commands.SweetSpotCommand;
+import org.usfirst.frc2022.subsystems.BSTimeWasterCommand;
 
 public class AutonomousCommand extends CommandGroup {
-    
+
     public AutonomousCommand() {
-        
+
+
+        //SweetSpot for middleshot
+        addSequential(new SweetSpotCommand(2), 1);
+        for (int i = 0; i < 3; i++) {
+            addSequential(new BSTimeWasterCommand(2),2);
+            addSequential(new InjectionCommand());
+        }
+
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

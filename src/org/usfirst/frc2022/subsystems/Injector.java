@@ -19,15 +19,14 @@ import org.usfirst.frc2022.commands.ShooterCommand;
  */
 public class Injector extends Subsystem {
 
-    Relay shooter_Spikezor;
+    Servo shooter_servo;
     
     /**
      * Constructs the Jaguar, Encoder, and Solenoid and assigns ports from robot
      * map. It also starts the Encoder
      */
     public Injector() {
-        shooter_Spikezor = new Relay(RobotMap.shooterSpike);
-        
+        shooter_servo = new Servo(RobotMap.shooterServo);
     }
     
     
@@ -36,9 +35,9 @@ public class Injector extends Subsystem {
      * Activate Solenoid if the Jaguar is on
      * 
      */
-    public void activate() {
+    public void activate(double value) {
         
-            shooter_Spikezor.set(Relay.Value.kForward);
+            shooter_servo.set(Utils.clamp(value, 1.0, -1.0));
         
     }
 
@@ -47,7 +46,7 @@ public class Injector extends Subsystem {
      * 
      */
     public void deactivate() {
-        shooter_Spikezor.set(Relay.Value.kOff);
+        shooter_servo.set(0.0);
     }
 
 
