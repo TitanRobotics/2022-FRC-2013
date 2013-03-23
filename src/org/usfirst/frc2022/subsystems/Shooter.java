@@ -20,6 +20,7 @@ public class Shooter extends Subsystem {
 
     Jaguar shooter_Jaguar_fast;
     Jaguar shooter_Jaguar_slow;
+    boolean on;
 
     /**
      * Constructs the Jaguars and assigns ports from robot
@@ -29,7 +30,8 @@ public class Shooter extends Subsystem {
 
         shooter_Jaguar_fast = new Jaguar(RobotMap.shooterJaguarfast);
         shooter_Jaguar_slow = new Jaguar(RobotMap.shooterJaguarslow);
-
+        on = false;
+        SmartDashboard.putNumber("Speed",5);
         //TODO: Set DistancePerPulse() for the Encoder!!!
         
         //shooter_Endcoder.start();
@@ -102,13 +104,21 @@ public class Shooter extends Subsystem {
         }
         SmartDashboard.putNumber("Slow Shoter", slowSpeed);
         SmartDashboard.putNumber("Fast Shooter", fastSpeed);
+        double tmp= SmartDashboard.getNumber("Speed");
+        SmartDashboard.putNumber("Tmp", tmp);
         shooter_Jaguar_fast.set(-fastSpeed);
         shooter_Jaguar_slow.set(-Utils.clamp(slowSpeed, 0.9, 0));
+        on = true;
+    }
+    
+    public boolean isOn(){
+        return on;
     }
     
     public void stop(){
         shooter_Jaguar_fast.set(0);
         shooter_Jaguar_slow.set(0);
+        on = false;
     }
 
     public void initDefaultCommand() {

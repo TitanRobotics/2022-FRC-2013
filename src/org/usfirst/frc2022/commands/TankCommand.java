@@ -17,6 +17,7 @@ public class TankCommand extends CommandBase {
     public TankCommand() {
         //initializes command system, system has no dependencies
         requires(pwmDriveBase);
+        pwmDriveBase.flipJags();
     }
 
     protected void initialize() {

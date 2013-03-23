@@ -4,7 +4,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.usfirst.frc2022.commands.InjectionCommand;
 import org.usfirst.frc2022.commands.ShooterCommand;
 import org.usfirst.frc2022.commands.SweetSpotCommand;
-import org.usfirst.frc2022.subsystems.BSTimeWasterCommand;
+import org.usfirst.frc2022.commands.BSTimeWasterCommand;
+import org.usfirst.frc2022.commands.InjectionCommandAuto;
 
 public class AutonomousCommand extends CommandGroup {
 
@@ -12,10 +13,10 @@ public class AutonomousCommand extends CommandGroup {
 
 
         //SweetSpot for middleshot
-        addSequential(new SweetSpotCommand(2), 1);
+        //addSequential(new SweetSpotCommand(2), 1);
         for (int i = 0; i < 3; i++) {
-            addSequential(new BSTimeWasterCommand(2),2);
-            addSequential(new InjectionCommand());
+            addSequential(new BSTimeWasterCommand(),2);
+            addSequential(new InjectionCommandAuto());
         }
 
         // Add Commands here:

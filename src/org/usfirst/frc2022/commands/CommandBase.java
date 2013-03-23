@@ -30,23 +30,24 @@ public abstract class CommandBase extends Command {
     // Static instance of Operator Interface
     public static OI oi;
     
+    //Depricated
+    //public static Pneumatics pneumatics = new Pneumatics(RobotMap.compPressureSwitch,RobotMap.compRelay,RobotMap.compValve1,RobotMap.compValve2);
+      
+    //Needs physical system
+    public static Pickup pickup = new Pickup();
+    
     
     // Create a single static instance of all of your subsystems here
     public static Robocam cam = new Robocam("10.20.22.11");
     public static PWM_Generic pwmDriveBase = new PWM_Generic(RobotMap.portsJaguar);
-
-    public static Pickup pickup = new Pickup();
-    
-    //public static Pneumatics pneumatics = new Pneumatics(RobotMap.compPressureSwitch,RobotMap.compRelay,RobotMap.compValve1,RobotMap.compValve2);
-    public static CompressorSubsystem compressor = new CompressorSubsystem(RobotMap.compPressureSwitch,RobotMap.compRelay);
     public static ClimberSubsystem climber = new ClimberSubsystem(RobotMap.compValve1,RobotMap.compValve2);
     public static Shooter shooter = new Shooter();
     public static Injector injector = new Injector();
     public static ShooterPitch shooterPitch = new ShooterPitch();
     public static ShooterRotation shooterRotation = new ShooterRotation();
     public static Handling handlingSpike = new Handling();
-
-
+    public static CompressorSubsystem compressor = new CompressorSubsystem(RobotMap.compPressureSwitch,RobotMap.compRelay);
+    
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
         // will), constructing it during the construction of CommandBase (from

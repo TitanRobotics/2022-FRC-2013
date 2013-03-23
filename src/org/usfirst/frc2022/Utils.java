@@ -30,7 +30,7 @@ public class Utils {
      * @return newly mapped value
      */
     public static double controllerMath(double value, double max, double deadzone, double sensitiviy) {
-        if (value * sign(value) < deadzone) {
+        if (abs(value) < deadzone) {
             return 0;
         }
         return clamp(value * sensitiviy, max, -max);

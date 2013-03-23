@@ -5,7 +5,7 @@ import org.usfirst.frc2022.commands.AutoAimCommand;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc2022.Joysticks.Attack3;
 import org.usfirst.frc2022.Joysticks.Xbox360;
-import org.usfirst.frc2022.commands.Climb;
+import org.usfirst.frc2022.commands.ClimbCommand;
 //import org.usfirst.frc2022.commands.CompressAirManualCommand;
 import org.usfirst.frc2022.commands.InjectionCommand;
 import org.usfirst.frc2022.commands.SweetSpotCommand;
@@ -42,8 +42,8 @@ public class OI {
         // Initialize all Joystick Buttons
         injectorButton = attack.GetButton(1);
         behindPyramidSweetSpotButton = attack.GetButton(3);
-        rightSweetSpotButton = attack.GetButton(4);
-        feederSweetSpotButton = attack.GetButton(5);
+        rightSweetSpotButton = attack.GetButton(10);
+        feederSweetSpotButton = attack.GetButton(10);
         targetTrackerButton = attack.GetButton(2);
         mrAttackTheesButton4Handling = attack.GetButton(10);
         flipDriveButton = xbawks.GetXButton();
@@ -64,7 +64,7 @@ public class OI {
         rightSweetSpotButton.whileHeld(new SweetSpotCommand(1));
         feederSweetSpotButton.whileHeld(new SweetSpotCommand(2));
         flipDriveButton.whileHeld(new FlipDrive());
-        climbButton.whileHeld(new Climb());
+        climbButton.whileHeld(new ClimbCommand());
         
         //mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
     }

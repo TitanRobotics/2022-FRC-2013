@@ -30,25 +30,31 @@ public class RotationPitchCommand extends CommandBase {
         shooterRotation.disable(); //Disables the PID loop for the rotation
         shooterPitch.setPitch(0);
         shooterRotation.setRotation(0);
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
         //manual command to set the pitch to the attack 3 y axis value        
-        double ps, pd, rs, rd;
+        //TODO Comment code. Ask prosa.
+        double ps, pd, pf, rs, rd, rf;
 
-        ps = SmartDashboard.getNumber("Pitch Sensitivity", 0.9);
-        pd = SmartDashboard.getNumber("Pitch Deadzone", 0.1);
+        ps = 0.5;
+        pd = 0.1;
+        pf = Utils.controllerMath(attack3.GetY(), 1, pd, ps);
+        
+        rs = 0.5;
+        rd = .1;
+        rf = Utils.controllerMath(attack3.GetX(), 0.75, rd, rs);
 
-        rs = SmartDashboard.getNumber("Rotation Sensitivity", 0.9);
-        rd = SmartDashboard.getNumber("Rotation Deadzone", 0.1);
-
-        shooterPitch.setPitch(Utils.controllerMath(attack3.GetY(), 0.75, pd, ps));
+        shooterPitch.setPitch(pf);
         SmartDashboard.putNumber("Pitch", attack3.GetY());
+        SmartDashboard.putNumber("Pitch Findal", pf);
 
         //manual command to set the rotation to the attack 3 x axis value
-        shooterRotation.setRotation(Utils.controllerMath(-attack3.GetX(), 0.75, rd, rs));
-
+        shooterRotation.setRotation(rf);
+        SmartDashboard.putNumber("Pitch", attack3.GetX());
+        SmartDashboard.putNumber("Pitch Findal", rf);
     }
 
     // Make this return true when this Command no longer needs to run execute()
