@@ -33,10 +33,12 @@ public class RobotMap {
     
     //PWM
     public static final int rotate_motor = 5;
-    public static final int pitch_motor = 6;
-    public static final int shooterJaguarslow = 7; //Should be run at 100
-    public static final int shooterJaguarfast = 8;
-    public static final int shooterVictorPort = 9;
+    public static final int pitch_motor = 9;
+    public static final int shooterJaguarslowLeft = 7; //Should be run at 100
+    public static final int shooterJaguarfastLeft = 8;
+    public static final int shooterJaguarslowRight = 5; //Should be run at 100
+    public static final int shooterJaguarfastRight = 9;
+    public static final int shooterVictorPort = 6;
     
     
     //*

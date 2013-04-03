@@ -18,8 +18,10 @@ import org.usfirst.frc2022.commands.ShooterCommand;
  */
 public class Shooter extends Subsystem {
 
-    Jaguar shooter_Jaguar_fast;
-    Jaguar shooter_Jaguar_slow;
+    Jaguar shooter_Jaguar_fast_left;
+    Jaguar shooter_Jaguar_slow_left;
+    Jaguar shooter_Jaguar_fast_right;
+    Jaguar shooter_Jaguar_slow_right;
     boolean on;
 
     /**
@@ -28,8 +30,10 @@ public class Shooter extends Subsystem {
      */
     public Shooter() {
 
-        shooter_Jaguar_fast = new Jaguar(RobotMap.shooterJaguarfast);
-        shooter_Jaguar_slow = new Jaguar(RobotMap.shooterJaguarslow);
+        shooter_Jaguar_fast_left = new Jaguar(RobotMap.shooterJaguarfastLeft);
+        shooter_Jaguar_slow_left = new Jaguar(RobotMap.shooterJaguarslowLeft);
+        shooter_Jaguar_fast_right = new Jaguar(RobotMap.shooterJaguarfastRight);
+        shooter_Jaguar_slow_right = new Jaguar(RobotMap.shooterJaguarslowRight);
         on = false;
         SmartDashboard.putNumber("Speed",5);
         //TODO: Set DistancePerPulse() for the Encoder!!!
@@ -37,8 +41,12 @@ public class Shooter extends Subsystem {
         //shooter_Endcoder.start();
     }
     
-    public double getJagSpeed(){ //Gives the speed of the FAST jaguar: the slow one is 0.1 less
-        return shooter_Jaguar_fast.get(); 
+    public double getJagSpeedLeft(){ //Gives the speed of the FAST jaguar: the slow one is 0.1 less
+        return shooter_Jaguar_slow_left.get(); 
+   }
+    
+    public double getJagSpeedRight(){ //Gives the speed of the FAST jaguar: the slow one is 0.1 less
+        return shooter_Jaguar_slow_right.get(); 
    }
 
           ///////////////////// PID Functions /////////////////////////
@@ -106,8 +114,35 @@ public class Shooter extends Subsystem {
         SmartDashboard.putNumber("Fast Shooter", fastSpeed);
         double tmp= SmartDashboard.getNumber("Speed");
         SmartDashboard.putNumber("Tmp", tmp);
-        shooter_Jaguar_fast.set(-fastSpeed);
-        shooter_Jaguar_slow.set(-Utils.clamp(slowSpeed, 0.9, 0));
+        shooter_Jaguar_fast_left.set(-fastSpeed);
+        shooter_Jaguar_slow_left.set(-Utils.clamp(slowSpeed, 0.9, 0));
+        shooter_Jaguar_fast_right.set(-fastSpeed);
+        shooter_Jaguar_slow_right.set(-Utils.clamp(slowSpeed, 0.9, 0));
+        on = true;
+    }
+    
+    /**
+     * 
+     * Used for Manual control of the shooter.
+     * We are using this now, not any of the PID stuff!
+     * 
+     * @param percent Value -1 to 1 for speed of the shooter.
+     */
+    public void setShooter(double percentLeft, double percentRight) {
+        double slowSpeedL = percentLeft;
+        double slowSpeedR = percentRight;
+        double fastSpeed = 0;
+        if((percentLeft > 0)&&(percentRight > 0)) {
+            fastSpeed = 1;
+        }
+        SmartDashboard.putNumber("Left Shoot", slowSpeedL);
+        SmartDashboard.putNumber("right Shoot", slowSpeedR);
+        double tmp= SmartDashboard.getNumber("Speed");
+        SmartDashboard.putNumber("Tmp", tmp);
+        shooter_Jaguar_fast_left.set(-fastSpeed);
+        shooter_Jaguar_slow_left.set(-Utils.clamp(slowSpeedL, 0.9, 0));
+        shooter_Jaguar_fast_right.set(-fastSpeed);
+        shooter_Jaguar_slow_right.set(-Utils.clamp(slowSpeedR, 0.9, 0));
         on = true;
     }
     
@@ -116,8 +151,10 @@ public class Shooter extends Subsystem {
     }
     
     public void stop(){
-        shooter_Jaguar_fast.set(0);
-        shooter_Jaguar_slow.set(0);
+        shooter_Jaguar_fast_left.set(0);
+        shooter_Jaguar_slow_left.set(0);
+        shooter_Jaguar_fast_right.set(0);
+        shooter_Jaguar_slow_right.set(0);
         on = false;
     }
 

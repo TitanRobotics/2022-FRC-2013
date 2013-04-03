@@ -41,13 +41,13 @@ public class OI {
         
         // Initialize all Joystick Buttons
         injectorButton = attack.GetButton(1);
-        behindPyramidSweetSpotButton = attack.GetButton(3);
+        behindPyramidSweetSpotButton = attack.GetButton(10);
         rightSweetSpotButton = attack.GetButton(10);
         feederSweetSpotButton = attack.GetButton(10);
         targetTrackerButton = attack.GetButton(2);
         mrAttackTheesButton4Handling = attack.GetButton(10);
         flipDriveButton = xbawks.GetXButton();
-        climbButton = xbawks.GetBButton();
+        climbButton = attack.GetButton(3);
         Pressed = false;
         
         /**

@@ -26,11 +26,11 @@ public class ClimberSubsystem extends Subsystem {
         
     }
     
-    public void climbUp(){
+    public void extend(){
         valve.set(DoubleSolenoid.Value.kForward);
     }
     
-    public void climbDown(){
+    public void pullUp(){
         valve.set(DoubleSolenoid.Value.kReverse);
     }
 }

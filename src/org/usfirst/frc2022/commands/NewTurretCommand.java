@@ -67,11 +67,11 @@ public class NewTurretCommand extends CommandBase {
 
         pitchScale = 0.5;
         pitchDeadzone = 0.1;
-        pitchChangeSpeed = Utils.controllerMath(attack3.GetY(), 1, pitchDeadzone, pitchScale);
+        pitchChangeSpeed = Utils.controllerMath(attack3.GetY()/*Pitch*/, 1, pitchDeadzone, pitchScale);
         
         rotationScale = -0.5;
         rotationDeadzone = .1;
-        rotationChangeSpeed = Utils.controllerMath(attack3.GetX(), 0.75, rotationDeadzone, rotationScale);
+        rotationChangeSpeed = Utils.controllerMath(attack3.GetX()/*Rotation*/, 0.75, rotationDeadzone, rotationScale);
 
         
         pitch+=pitchChangeSpeed*dTime;
@@ -97,10 +97,14 @@ public class NewTurretCommand extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+        shooterPitch.disable();
+        shooterRotation.disable();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+        shooterPitch.disable();
+        shooterRotation.disable();
     }
 }
