@@ -43,6 +43,7 @@ public class ShooterRotation extends PIDSubsystem {
          */
         rotate_motor = new Jaguar(RobotMap.rotate_motor);
         rotate_sensor = new CherryAN8(RobotMap.cherry_rotate);
+        
 
 
     }
@@ -117,6 +118,6 @@ public class ShooterRotation extends PIDSubsystem {
      */
     public void setRotation(double percent) {
         this.usePID(false);
-        rotate_motor.set(Utils.clamp(percent, 1, -1));
+        rotate_motor.set(Utils.clamp(percent, .9, -.9)*Math.abs(Utils.clamp(percent, .9, -.9)));
     }
 }

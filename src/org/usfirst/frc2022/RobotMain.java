@@ -30,7 +30,7 @@ public class RobotMain extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
 
         // Initialize all subsystems
-        System.out.println("HELLO WORLD FROM TITAN 2022!");
+        System.out.println("HELLO WORLD FROM TITAN 2022!\n(This means the robot code seems to be working!\nMake sure their are no errors!");
         CommandBase.init();
     }
 

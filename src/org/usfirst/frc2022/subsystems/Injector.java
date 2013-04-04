@@ -1,12 +1,10 @@
 package org.usfirst.frc2022.subsystems;
 
 import edu.wpi.first.wpilibj.*;
-import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc2022.RobotMap;
-import org.usfirst.frc2022.Utils;
 import org.usfirst.frc2022.commands.InjectionCommand;
-import org.usfirst.frc2022.commands.ShooterCommand;
 
 
 /**
@@ -19,26 +17,29 @@ import org.usfirst.frc2022.commands.ShooterCommand;
  */
 public class Injector extends Subsystem {
 
-    Solenoid shooter_solenoid;
-    
+    Victor injectionVictor;
+
     /**
      * Constructs the Jaguar, Encoder, and Solenoid and assigns ports from robot
      * map. It also starts the Encoder
      */
     public Injector() {
-        shooter_solenoid = new Solenoid(RobotMap.shooterSolenoid);
+        injectionVictor = new Victor(RobotMap.shooterVictorPort);
     }
-    
-    
+
+    boolean first = true;
     ///////////////////// Injection Functions /////////////////////////
     /*
      * Activate Solenoid if the Jaguar is on
      * 
      */
     public void activate() {
-        
-            shooter_solenoid.set(true);
-        
+        if(first){
+        SmartDashboard.putNumber("Servosuff", injectionVictor.getSpeed());
+        first=false;
+        }
+        injectionVictor.setPosition(90.0);
+        SmartDashboard.putString("Thing", "ON");
     }
 
     /*
@@ -46,12 +47,12 @@ public class Injector extends Subsystem {
      * 
      */
     public void deactivate() {
-        shooter_solenoid.set(false);
+        //servo.get() when the servo is off is 0. so i am going to just setRaw to 0. yolo.
+        injectionVictor.set(0);//Paul tested this. It works. YOLO.
+        SmartDashboard.putString("Thing", "OFF");
     }
 
-
     public void initDefaultCommand() {
-        setDefaultCommand(new InjectionCommand());
-    }   
-
+        // setDefaultCommand(new InjectionCommand());
+    }
 }

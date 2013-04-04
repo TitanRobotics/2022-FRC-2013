@@ -2,10 +2,14 @@ package org.usfirst.frc2022.commands;
 
 public class SweetSpotCommand extends CommandBase{
 
+    
+    //For rotation, pitch, and speed, the array consists
+    //of 3 elements, one for each spot.
+    
     private int spot;
-    private double[] rotation = {1,1,1};
+    private double[] rotation = {0.5,0.5,0.5};
     private double[] pitch = {1,1,1};
-    private double[] speed = {1,1,1};
+    private double[] speed = {0.5,0.5,0.5};
 
     //0 - spot 1, 1 - spot 2, 2 - spot 3
     public SweetSpotCommand(int command){

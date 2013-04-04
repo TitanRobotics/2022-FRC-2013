@@ -14,7 +14,7 @@ public class RobotMap {
 
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
-    // public static final int rangefinderPort = 1;
+    // public static final int rangefinderPort = 1;0
     // public static final int rangefinderModule = 1;
     //public static final LiveWindow liveWindow = new LiveWindow();
     /**
@@ -23,18 +23,27 @@ public class RobotMap {
      */
     // Jaguars
     // IN USE
+    //PWM
     private static final int jagUpperLeft = 1;
-    private static final int jagUpperRight = 3;
     private static final int jagLowerLeft = 2;
+    private static final int jagUpperRight = 3;
     private static final int jagLowerRight = 4;
     public static final int[] portsJaguar = {jagUpperLeft, jagUpperRight, jagLowerLeft, jagLowerRight};
-    public static final int shooterJaguarfast = 9;
-    public static final int shooterJaguarslow = 8;
-    public static final int rotate_motor = 6;
-    public static final int pitch_motor = 5;
     
-    // NOT IN USE
+    
+    //PWM
+    public static final int rotate_motor = 5;
+    public static final int pitch_motor = 9;
+    public static final int shooterJaguarslowLeft = 7; //Should be run at 100
+    public static final int shooterJaguarfastLeft = 8;
+    public static final int shooterJaguarslowRight = 5; //Should be run at 100
+    public static final int shooterJaguarfastRight = 9;
+    public static final int shooterVictorPort = 6;
+    
+    
+    //*
     public static final int handlingsolenoid = 10;
+    //*/
     
     //Sync group for CAN Jaguars
     public static final byte syncGroup = 0;
@@ -45,19 +54,31 @@ public class RobotMap {
     public static final int cherry_rotate = 1;
     public static final int cherry_pitch = 2;
     
+    //Cherry Rotation Calibration
+    public static final int cherry_rotate_minVolt = 0;
+    public static final int cherry_rotate_maxVolt = 1;
+    public static final int cherry_rotate_minAng = 0;
+    public static final int cherry_rotate_maxAng = 1;
+    
+    //Cherry Pitch Calibration
+    public static final int cherry_pitch_minVolt = 0;
+    public static final int cherry_pitch_maxVolt = 1;
+    public static final int cherry_pitch_minAng = 0;
+    public static final int cherry_pitch_maxAng = 1;
     
     // Digital I/O Ports (Encoders and Limit Switches)
     // IN USE
     public static final int compPressureSwitch = 1;
     public static final int compValve1 = 2;
     public static final int compValve2 = 3;
-    public static final int shooterSolenoid = 4;
     
     // NOT IN USE
+    
+    //*
     public static final int[] myEncoder = {9, 10};
     public static final int[] DriveEncoder1 = {5,6};
     public static final int[] DriveEncoder2 = {7,8};
-    
+    //*/
    
     // Enumeration of Sweet Spots
     public static final int behindPyramid = 0;
@@ -70,8 +91,12 @@ public class RobotMap {
     // IN USE
     public static final int compRelay = 1;
     
+
+    
     // NOT IN USE
     public static final int handlingSpike = 3;
     public static final int pickupPortNum = 2;
     public static final int[] pickupPorts = {5,6};
+    //
+
 }
