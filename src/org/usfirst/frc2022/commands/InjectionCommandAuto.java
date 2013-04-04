@@ -7,29 +7,29 @@ import org.usfirst.frc2022.Joysticks.Attack3;
  * Command to activate and deactivate the injector (does not use the
  * shooter)
  */
-public class InjectionCommand extends CommandBase {
+public class InjectionCommandAuto extends CommandBase {
     
     Attack3 attack3;
     
-    public InjectionCommand() {
+    public InjectionCommandAuto() {
         requires(injector);
     }
 
     // Sets the solenoid value to zero
     protected void initialize() {
-       injector.activate();
+       injector.deactivate();       
     }
 
     // Activates the solenoid
     protected void execute() {
-        //if (shooter.isOn())
-        //{
+        if (shooter.isOn())
+        {
                 injector.activate();
-        //}
+        }
     }
 
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Sets the solenoid value to zero
