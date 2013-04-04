@@ -91,10 +91,12 @@ public class RobotMap {
     // IN USE
     public static final int compRelay = 1;
     
-    //*
+
+    
     // NOT IN USE
     public static final int handlingSpike = 3;
     public static final int pickupPortNum = 2;
     public static final int[] pickupPorts = {5,6};
-    //*/
+    //
+
 }

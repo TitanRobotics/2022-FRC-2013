@@ -46,7 +46,7 @@ public class Shooter extends Subsystem {
    }
     
     public double getJagSpeedRight(){ //Gives the speed of the FAST jaguar: the slow one is 0.1 less
-        return shooter_Jaguar_slow_right.get(); 
+        return shooter_Jaguar_slow_right.get();
    }
 
           ///////////////////// PID Functions /////////////////////////

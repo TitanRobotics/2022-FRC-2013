@@ -65,7 +65,6 @@ public class OI {
         feederSweetSpotButton.whileHeld(new SweetSpotCommand(2));
         flipDriveButton.whileHeld(new FlipDrive());
         climbButton.whileHeld(new ClimbCommand());
-        
         //mrAttackTheesButton4Handling.whileHeld(new HandlingCommand());
     }
 

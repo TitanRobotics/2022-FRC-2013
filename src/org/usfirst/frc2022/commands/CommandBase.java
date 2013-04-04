@@ -10,6 +10,7 @@ import org.usfirst.frc2022.subsystems.Handling;
 import org.usfirst.frc2022.subsystems.Injector;
 import org.usfirst.frc2022.subsystems.PWM_Generic;
 import org.usfirst.frc2022.subsystems.Pickup;
+import org.usfirst.frc2022.subsystems.Pneumatics;
 import org.usfirst.frc2022.subsystems.Robocam;
 import org.usfirst.frc2022.subsystems.Shooter;
 import org.usfirst.frc2022.subsystems.ShooterPitch;
