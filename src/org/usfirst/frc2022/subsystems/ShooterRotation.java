@@ -12,6 +12,8 @@ import org.usfirst.frc2022.sensors.CherryAN8;
  * shooter to the proper angle of rotation towards target using the CherryAN8
  * sensor
  *
+ * we know what this is yaw, but yolo
+ *  word up de dah
  * @author Malachi Loviska
  *
  */
