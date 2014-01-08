@@ -35,7 +35,7 @@ public class PWM_Generic extends Subsystem implements Drive_Generic {
             separateJags(this.jags);
             //assignLiveWindow();
         } else {
-            System.out.println("Odd number of Jaguars");
+            System.out.println("Odd number of Jaguars :[");
         }
     }
 
